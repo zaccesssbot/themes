@@ -2523,6 +2523,36 @@ function wezterm(theme) {
   ].join("\n");
 }
 
+// btop draws every text slot straight on the terminal background, so each text slot is the
+// terminal text, the muted text or one of the 16 terminal colours, which already keep their
+// contrast on it. A slot a theme uses as a background shade gives way to the text colour. Box
+// outlines, meters and graphs are not text; each box keeps its own hue so the four boxes are told
+// apart by colour as well as by their titles
+function btop(theme) {
+  const t = terminalColours(theme);
+  const u = theme.ui;
+  const slot = (i) => (theme.terminal.backgroundRole.includes(i) ? t.foreground : t.ansi[i]);
+  const [red, green, yellow, blue, magenta, cyan] = [1, 2, 3, 4, 5, 6].map(slot);
+  const [brightRed, brightGreen, brightBlue, brightMagenta, brightCyan] = [9, 10, 12, 13, 14].map(slot);
+  const values = [
+    ["main_bg", t.background], ["main_fg", t.foreground], ["title", t.foreground],
+    ["hi_fg", cyan], ["selected_bg", t.selection], ["selected_fg", t.selectionText],
+    ["inactive_fg", u.muted], ["graph_text", t.foreground], ["meter_bg", u.lineHighlight],
+    ["proc_misc", cyan], ["cpu_box", green], ["mem_box", yellow], ["net_box", magenta], ["proc_box", blue],
+    ["div_line", u.muted],
+    ["temp_start", green], ["temp_mid", yellow], ["temp_end", red],
+    ["cpu_start", green], ["cpu_mid", yellow], ["cpu_end", red],
+    ["free_start", green], ["free_mid", green], ["free_end", brightGreen],
+    ["cached_start", blue], ["cached_mid", blue], ["cached_end", brightBlue],
+    ["available_start", cyan], ["available_mid", cyan], ["available_end", brightCyan],
+    ["used_start", red], ["used_mid", red], ["used_end", brightRed],
+    ["download_start", magenta], ["download_mid", magenta], ["download_end", brightMagenta],
+    ["upload_start", green], ["upload_mid", green], ["upload_end", brightGreen],
+    ["process_start", cyan], ["process_mid", blue], ["process_end", magenta],
+  ];
+  return [`# ${theme.name}`, `# ${HEADER}`, "", ...values.map(([key, value]) => `theme[${key}]="${value}"`), ""].join("\n");
+}
+
 function buildTerminals() {
   for (const theme of palette.themes) {
     const name = slug(theme);
@@ -2533,6 +2563,7 @@ function buildTerminals() {
     write(`editors/terminals/terminal-app/${theme.name}.terminal`, terminalApp(theme));
     write(`editors/terminals/warp/${name}.yaml`, warp(theme));
     write(`editors/terminals/wezterm/${theme.name}.toml`, wezterm(theme));
+    write(`editors/terminals/btop/${name}.theme`, btop(theme));
   }
   write("editors/terminals/windows-terminal/zacess.json", windowsTerminal());
 }

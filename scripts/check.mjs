@@ -192,6 +192,8 @@ function shippedSelections(theme) {
   pairs.push(["kitty", hexOf(kitty, /^selection_foreground (#\w+)$/m, "kitty"), hexOf(kitty, /^selection_background (#\w+)$/m, "kitty")]);
   const ghostty = read(`editors/terminals/ghostty/zacess-${id}`);
   pairs.push(["Ghostty", hexOf(ghostty, /^selection-foreground = (#\w+)$/m, "Ghostty"), hexOf(ghostty, /^selection-background = (#\w+)$/m, "Ghostty")]);
+  const btop = read(`editors/terminals/btop/zacess-${id}.theme`);
+  pairs.push(["btop", hexOf(btop, /^theme\[selected_fg\]="(#\w+)"$/m, "btop"), hexOf(btop, /^theme\[selected_bg\]="(#\w+)"$/m, "btop")]);
   const alacritty = parseToml(read(`editors/terminals/alacritty/zacess-${id}.toml`)).colors.selection;
   pairs.push(["Alacritty", alacritty.text, alacritty.background]);
   const iterm = read(`editors/terminals/iterm2/${theme.name}.itermcolors`);

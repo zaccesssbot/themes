@@ -41,7 +41,7 @@ The checks need Node.js 24 and nothing else: the scripts have no dependencies.
 | `editors/emacs/` | The Emacs themes |
 | `editors/eclipse/` | The Eclipse preference files, the Eclipse plugin and its Maven and Tycho build |
 | `editors/xcode/` | The Xcode themes |
-| `editors/terminals/` | Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal themes |
+| `editors/terminals/` | Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal themes, plus btop |
 | `install.sh`, `install.ps1` | The terminal installers |
 | `previews/` | The preview images and the data for the website |
 | `assets/` | The Zacess mark the icons are made from |

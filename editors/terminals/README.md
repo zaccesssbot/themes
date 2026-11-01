@@ -34,7 +34,13 @@ curl -fsSL https://raw.githubusercontent.com/zacesshq/themes/main/install.sh | b
 | WezTerm | [`wezterm/`](wezterm/) | Copy the files to `~/.config/wezterm/colors/` and set `config.color_scheme = "Zacess Dark"` in `wezterm.lua` |
 | Warp | [`warp/`](warp/) | Copy the files to `~/.warp/themes/` on macOS or `~/.local/share/warp-terminal/themes/` on Linux, then choose one under **Settings**, **Appearance**, **Themes** |
 | Ghostty | [`ghostty/`](ghostty/) | Copy the files to `~/.config/ghostty/themes/` and add `theme = light:zacess-light,dark:zacess-dark` to the config to follow the system appearance |
+| btop | [`btop/`](btop/) | Run the installer with `bash -s -- btop`, which copies the files to `~/.config/btop/themes/`. Then open btop, press `Esc`, choose **Options** and set **Color theme**. On Windows, btop4win reads a `themes` folder beside its own `btop4win.exe` |
 | Windows Terminal | [`windows-terminal/zacess.json`](windows-terminal/zacess.json) | Run `irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 \| iex` in PowerShell, which copies the file to the `Fragments\Zacess` folder Windows Terminal reads. You can also add the eight objects to the `schemes` list in the settings file yourself. Then choose **Color scheme** under a profile's **Appearance** |
+
+btop is a system monitor, not a terminal, but it draws in the terminal and takes the same
+colours. Every btop text colour is the terminal text, the muted text or one of the 16 terminal
+colours, so it keeps the contrast above. The CPU, memory, network and process boxes each keep their
+own colour as well as their title, so they are told apart by more than colour.
 
 Every port sets the cursor and, where the terminal allows it, the character under the cursor and
 the selected text colour from the palette. Terminal.app has no selected text colour, so its

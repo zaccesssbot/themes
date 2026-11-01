@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Added
+
+- btop themes: all eight Zacess themes for the btop system monitor (btop4win on Windows) in `editors/terminals/btop/`, written by `scripts/build.mjs` from the palette. Every text slot is the terminal text, the muted text or a terminal colour, so btop keeps the terminal contrast. The four boxes keep their own colours as well as their titles. `install.sh` copies them with `bash -s -- btop` and `npm run check` measures the selected row.
+
 ## [0.6.1] - 2026-10-29
 
 ### Changed

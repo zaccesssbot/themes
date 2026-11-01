@@ -7,7 +7,8 @@ every colour. A small generator writes the files for each editor and the checks 
 syntax colour below 7:1 contrast (WCAG AAA) on the background.
 
 Built for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse,
-Xcode, Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal.
+Xcode, Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal, plus the
+btop system monitor.
 
 > [!NOTE]
 > Zacess Themes is on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes),
@@ -92,7 +93,8 @@ switch with the system light and dark setting and keep terminal text readable.
 
 The terminal installer works out which terminal it runs in (Terminal.app, iTerm2, Ghostty, kitty,
 WezTerm, Warp, Alacritty or Windows Terminal), copies all eight themes to the folder that terminal
-reads and prints the one step that turns one on. It never edits a configuration file.
+reads and prints the one step that turns one on. It never edits a configuration file. For btop, add
+`-s -- btop` after `bash`.
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/zacesshq/themes/main/install.sh | bash

@@ -7,6 +7,7 @@
 #   curl -fsSL https://raw.githubusercontent.com/zacesshq/themes/main/install.sh | bash -s -- wezterm
 #
 # Terminals: terminal-app, iterm2, ghostty, kitty, wezterm, warp, alacritty, windows-terminal.
+# The btop system monitor is named the same way: bash -s -- btop
 # Set ZACESS_THEMES_REF to a tag such as v0.6.0 to install that release instead of main.
 
 set -euo pipefail
@@ -112,6 +113,11 @@ install_for() {
             say "To turn one on, add this under [general] in alacritty.toml:"
             say "  import = [\"${folder}/zacess-dark.toml\"]"
             ;;
+        btop)
+            folder="${CONFIG}/btop/themes"
+            fetch_all "$folder" id .theme btop
+            say "To turn one on, open btop, press Esc, choose Options and set Color theme to a Zacess theme."
+            ;;
         windows-terminal)
             if [[ -n "${LOCALAPPDATA:-}" ]]; then
                 # Windows Terminal reads colour schemes from a fragment folder, so its settings
@@ -133,6 +139,7 @@ install_for() {
             say "Could not tell which terminal this is. Name it, for example:"
             say "  curl -fsSL https://raw.githubusercontent.com/zacesshq/themes/main/install.sh | bash -s -- kitty"
             say "Terminals: terminal-app, iterm2, ghostty, kitty, wezterm, warp, alacritty, windows-terminal"
+            say "Apps: btop"
             exit 1
             ;;
     esac

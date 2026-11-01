@@ -70,7 +70,7 @@ Each theme has two selection colours, both from its own palette. Every editor an
 one it can draw well.
 
 - **The selection block** (`ui.selectionStrong` with `ui.selectionForeground`) is used wherever a
-  theme can set the colour of selected text: iTerm2, Ghostty, kitty, Alacritty, Windows Terminal,
+  theme can set the colour of selected text: iTerm2, Ghostty, kitty, Alacritty, btop, Windows Terminal,
   the VS Code terminal, the VS Code editor in the five high contrast themes, the JetBrains editor,
   console, terminal and text fields, the Eclipse editors and Terminal view, Sublime Text, Helix,
   Neovim (in every buffer, terminal buffers included) and Emacs. Every selected character takes that
