@@ -457,6 +457,8 @@ const ids = listed("IDS").split(" ");
 const names = [...listed("NAMES").matchAll(/"([^"]+)"/g)].map((m) => m[1]);
 if (ids.join() !== palette.themes.map((t) => t.id).join()) fail("install", "install.sh", `IDS lists ${ids.join(", ")}, not the palette's themes`);
 if (names.join() !== palette.themes.map((t) => t.name).join()) fail("install", "install.sh", `NAMES lists ${names.join(", ")}, not the palette's themes`);
+const psIds = [.../^\$ids = @\((.*)\)$/m.exec(readFileSync(join(ROOT, "install.ps1"), "utf8"))?.[1].matchAll(/'([^']+)'/g) ?? []].map((m) => m[1]);
+if (psIds.join() !== palette.themes.map((t) => t.id).join()) fail("install", "install.ps1", `$ids lists ${psIds.join(", ")}, not the palette's themes`);
 
 // every theme has its file in each editor that keeps one file per theme
 for (const theme of palette.themes) {

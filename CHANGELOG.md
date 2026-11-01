@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.8.0] - 2026-11-01
+
+### Added
+
+- `install.ps1` installs the btop themes on Windows: set `$env:ZACESS_THEMES_APP` to `btop` and it finds btop4win (winget installs included) and copies the eight themes into the `themes` folder beside it. Windows Terminal stays the default. `npm run check` now proves the PowerShell installer lists every theme too.
+
 ## [0.7.0] - 2026-11-01
 
 ### Added
@@ -182,7 +188,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 - SVG previews drawn as real text and the data for the themes page on the Zacess website.
 - CI that runs the checks, proves the committed files are current, packages the VS Code extension and builds the JetBrains plugin. A release workflow that attaches the `.vsix`, the JetBrains zip and an Obsidian zip to each GitHub release and publishes to each marketplace once its token is set.
 
-[Unreleased]: https://github.com/zacesshq/themes/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/zacesshq/themes/compare/v0.8.0...HEAD
+[0.8.0]: https://github.com/zacesshq/themes/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/zacesshq/themes/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/zacesshq/themes/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/zacesshq/themes/compare/v0.5.0...v0.6.0

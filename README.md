@@ -100,7 +100,7 @@ reads and prints the one step that turns one on. It never edits a configuration 
 curl -fsSL https://raw.githubusercontent.com/zacesshq/themes/main/install.sh | bash
 ```
 
-In Windows Terminal, run this in PowerShell instead:
+In Windows Terminal, run this in PowerShell instead. For btop4win, run `$env:ZACESS_THEMES_APP = 'btop'` first:
 
 ```powershell
 irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 | iex

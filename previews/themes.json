@@ -1,7 +1,7 @@
 {
   "generatedFrom": "palette/zacess.json",
   "repository": "https://github.com/zacesshq/themes",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "rules": {
     "textContrast": 7,
     "findMatchContrast": 4.5,

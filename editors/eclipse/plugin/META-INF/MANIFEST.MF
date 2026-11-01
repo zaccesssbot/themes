@@ -3,7 +3,7 @@ Bundle-ManifestVersion: 2
 Bundle-Name: Zacess Themes
 Bundle-Vendor: Zacess
 Bundle-SymbolicName: com.zacess.themes.eclipse;singleton:=true
-Bundle-Version: 0.7.0
+Bundle-Version: 0.8.0
 Bundle-License: MIT
 Bundle-DocURL: https://github.com/zacesshq/themes
 Automatic-Module-Name: com.zacess.themes.eclipse
