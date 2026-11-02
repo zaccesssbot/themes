@@ -116,3 +116,7 @@ GitHub release and updates the read-only copies, so every tag and release is sig
    annotated tag and a release in each. The Obsidian tag is the bare version, such as `0.2.1`, and
    its release carries `manifest.json` and `theme.css` because Obsidian installs from them. Running
    it again skips anything already done.
+
+## Using AI
+
+AI tools are welcome within the [AI policy](https://github.com/zacesshq/.github/blob/main/AI_POLICY.md). **Every pull request must say how AI was used, even when the answer is None.** Write your own issue and pull request titles and descriptions, understand everything you submit and test it before you open it.

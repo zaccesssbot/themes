@@ -59,3 +59,13 @@ body:
       label: Display and settings (optional)
       description: Anything that changes how colours look, such as a colour filter, night shift, inverted colours or a zoom level.
       placeholder: macOS colour filters on, 150% zoom
+  - type: dropdown
+    id: ai-use
+    attributes:
+      label: AI use
+      description: "Required. Did AI help you find, test or check this? Write the title and description yourself either way. See the [AI policy](https://github.com/zacesshq/.github/blob/main/AI_POLICY.md). Dictation, translation and spelling tools do not count."
+      options:
+        - No AI was used
+        - "Yes: AI helped me find, test or check it"
+    validations:
+      required: true

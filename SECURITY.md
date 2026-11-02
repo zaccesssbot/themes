@@ -31,5 +31,5 @@ Only the latest release and the latest commit on `main` receive security fixes.
 > [!IMPORTANT]
 > Report privately, never in a public issue or discussion. Use
 > [GitHub private vulnerability reporting](https://github.com/zacesshq/themes/security/advisories/new)
-> or email [contact@zacess.com](mailto:contact@zacess.com) with details and reproduction steps.
+> or email [security@zacess.com](mailto:security@zacess.com) with details and reproduction steps.
 > Expect an acknowledgement within a few days.
