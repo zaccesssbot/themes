@@ -31,9 +31,10 @@ The checks need Node.js 24 and nothing else: the scripts have no dependencies.
 | --- | --- |
 | `palette/` | The palette and its schema |
 | `scripts/` | The generator, the checks, the previews and their shared colour maths |
+| `scripts/screenshot/` | The Obsidian screenshots: a mock of an Obsidian window drawn from each theme's variables, rendered by Playwright with `npm ci` then `node render.mjs` in that folder |
 | `editors/vscode/` | The VS Code extension |
 | `editors/jetbrains/` | The JetBrains theme plugin and its Gradle build |
-| `editors/obsidian/` | The Obsidian theme |
+| `editors/obsidian/` | The four Obsidian themes, one folder each with its manifest, stylesheet and README |
 | `editors/neovim/` | The Neovim colour schemes |
 | `editors/zed/` | The Zed theme extension |
 | `editors/sublime/` | The Sublime Text colour schemes |

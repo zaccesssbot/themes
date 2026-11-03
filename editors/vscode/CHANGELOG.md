@@ -4,6 +4,12 @@ All notable changes to the Zacess Themes extension are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.9.0] - 2026-11-03
+
+### Changed
+
+- The repository's Obsidian theme is now four themes that cover every Obsidian surface. The VS Code themes are unchanged.
+
 ## [0.8.0] - 2026-11-01
 
 ### Added

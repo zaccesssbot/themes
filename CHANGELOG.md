@@ -6,9 +6,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.9.0] - 2026-11-03
+
 ### Changed
 
+- Obsidian ships as four community themes instead of one theme with a plugin option: Zacess (Light and Dark), Zacess Cream (Cream and Yellow on Black), Zacess High Contrast and Zacess Deep Contrast, each following Obsidian's own base colour scheme setting between its light and dark look. The Style Settings plugin is no longer needed. Each theme has its own folder under `editors/obsidian/` and its own read-only copy: zacesshq/obsidian-theme, obsidian-theme-cream, obsidian-theme-high-contrast and obsidian-theme-deep-contrast.
+- The Obsidian themes cover every surface Obsidian draws, where they covered tags, checkboxes, hover states and search before: headings, links, lists, quotes, rules, code in reading and editing view, tables, embeds, properties, footnotes, every callout type, the file explorer and every other tree, tabs, the ribbon, dividers, the status bar, the title bar, menus, the command palette and every other prompt, suggestions, modals, settings, notices, tooltips, inputs, toggles, sliders, pills, the graph view, canvas, Bases table, card and kanban views, the PDF viewer, Sync avatars and Mermaid diagrams. Every colour is a palette colour and the six named highlight colours are measured tints of one.
+- Colour is never the only signal in Obsidian: the active tab, the open file, a selected row and a selected suggestion carry a bar in the focus colour, a highlight is underlined in the find match outline colour, callouts keep their icon and a thicker start edge, inputs and buttons have a real border and every control shows a focus ring.
 - Community files follow the [AI policy](https://github.com/zacesshq/.github/blob/main/AI_POLICY.md): pull requests declare AI use and issue forms ask whether AI helped. Security reports go to security@zacess.com.
+- Routine tidy-up.
+
+### Added
+
+- `npm run check` reads every Obsidian theme's light and dark blocks back out of its stylesheet and measures every text colour at 7:1 on every fill it can sit on, secondary text at 4.5:1 over a selection or a hovered row and every border, outline, icon and mark at 3:1. It also proves both blocks of every theme set the same variables and that every variable a block refers to is set.
+- `scripts/screenshot/`: a mock of an Obsidian window drawn from each theme's variables and a Playwright script that renders it as the theme's `screenshot.png`, light look on the left and dark look on the right, so the directory screenshots follow the palette.
+- `scripts/release.mjs` updates all four Obsidian copies, copying each theme's README, screenshot and licence with the generated files. The release workflow attaches one zip per Obsidian theme.
 
 ## [0.8.0] - 2026-11-01
 

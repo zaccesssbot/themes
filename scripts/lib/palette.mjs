@@ -237,3 +237,258 @@ export const XCODE_KEYS = [
   "DVTSourceTextCurrentLineHighlightColor", "DVTSourceTextInsertionPointColor", "DVTSourceTextInvisiblesColor",
   "DVTSourceTextSelectionColor", "DVTSourceTextSyntaxColors", "DVTSourceTextSyntaxFonts",
 ];
+
+// the four Obsidian themes: a community theme carries one light and one dark look, so the eight
+// looks ship as four pairs, each published to its own read-only copy for the theme directory
+export const OBSIDIAN_THEMES = [
+  { id: "zacess", name: "Zacess", repo: "obsidian-theme", light: "light", dark: "dark" },
+  { id: "zacess-cream", name: "Zacess Cream", repo: "obsidian-theme-cream", light: "cream", dark: "yellow-on-black" },
+  { id: "zacess-high-contrast", name: "Zacess High Contrast", repo: "obsidian-theme-high-contrast", light: "high-contrast-light", dark: "high-contrast-dark" },
+  { id: "zacess-deep-contrast", name: "Zacess Deep Contrast", repo: "obsidian-theme-deep-contrast", light: "deep-contrast-light", dark: "deep-contrast-dark" },
+];
+export const obsidianThemeOf = (themeId) => OBSIDIAN_THEMES.find((t) => t.light === themeId || t.dark === themeId);
+
+// the Obsidian variables that are text and the fills each one can sit on, read back out of every
+// theme.css block and held to the text floor; every name is an Obsidian variable or a zacess- one
+// the theme draws itself
+const OBSIDIAN_PAGE = ["background-primary", "background-primary-alt", "background-secondary", "background-secondary-alt"];
+const OBSIDIAN_PANELS = [
+  "background-modifier-form-field", "interactive-normal", "code-background", "modal-background",
+  "modal-sidebar-background", "prompt-background", "suggestion-background", "menu-background", "tooltip-background",
+  "notice-background", "tab-background-active", "tab-container-background", "tab-switcher-background", "status-bar-background",
+  "titlebar-background", "titlebar-background-focused", "ribbon-background", "ribbon-background-collapsed", "canvas-background",
+  "pdf-background", "pdf-page-background", "pdf-sidebar-background", "settings-background", "setting-items-background",
+  "hotkey-background", "embed-actions-background", "file-header-background", "file-header-background-focused",
+  "search-result-background", "table-header-background", "bases-table-header-background", "bases-table-group-background",
+  "bases-table-summary-background", "bases-cards-background", "bases-cards-cover-background", "bases-kanban-column-background",
+  "bases-kanban-card-background", "bases-kanban-cover-background", "bases-filter-input-background", "mermaid-background",
+  "mermaid-surface", "mermaid-surface-alt", "dropdown-background", "flair-background", "pill-background", "tag-background",
+  "graph-controls-background",
+];
+// the bands that mark a hovered, active or selected row and the fills behind a highlight
+const OBSIDIAN_BANDS = [
+  "background-modifier-hover", "background-modifier-active-hover", "interactive-hover", "nav-item-background-hover",
+  "nav-item-background-active", "nav-item-background-selected", "table-row-background-hover", "bases-table-header-background-hover",
+  "bases-table-summary-background-hover", "bases-table-row-background-hover", "metadata-property-background-active",
+  "metadata-label-background-active", "metadata-input-background-active", "dropdown-background-hover", "pill-background-hover",
+  "tag-background-hover", "text-highlight-bg", "highlight-background-red", "highlight-background-orange", "highlight-background-yellow",
+  "highlight-background-green", "highlight-background-blue", "highlight-background-purple", "text-selection", "table-selection",
+  "bases-table-cell-background-selected",
+];
+const OBSIDIAN_CODE = [
+  "code-normal", "code-comment", "code-function", "code-important", "code-keyword", "code-operator", "code-property",
+  "code-punctuation", "code-string", "code-tag", "code-value", "zacess-code-type", "zacess-code-attribute", "zacess-code-regex",
+  "zacess-code-invalid", "zacess-added", "zacess-removed",
+];
+export const OBSIDIAN_CALLOUTS = [
+  "callout-bug", "callout-default", "callout-error", "callout-example", "callout-fail", "callout-important", "callout-info",
+  "callout-question", "callout-success", "callout-summary", "callout-tip", "callout-todo", "callout-warning", "callout-quote",
+];
+const OBSIDIAN_EXTENDED = ["color-red", "color-orange", "color-yellow", "color-green", "color-cyan", "color-blue", "color-purple", "color-pink"];
+const OBSIDIAN_MERMAID = ["mermaid-color-1", "mermaid-color-2", "mermaid-color-3", "mermaid-color-4", "mermaid-color-5", "mermaid-color-6", "mermaid-color-7", "mermaid-color-8"];
+const OBSIDIAN_SYNC = ["sync-avatar-color-1", "sync-avatar-color-2", "sync-avatar-color-3", "sync-avatar-color-4", "sync-avatar-color-5", "sync-avatar-color-6", "sync-avatar-color-7", "sync-avatar-color-8"];
+const OBSIDIAN_GRAPH = ["graph-line", "graph-node", "graph-node-unresolved", "graph-node-focused", "graph-node-tag", "graph-node-attachment"];
+const OBSIDIAN_CANVAS = ["canvas-color-1", "canvas-color-2", "canvas-color-3", "canvas-color-4", "canvas-color-5", "canvas-color-6", "canvas-dot-pattern"];
+
+export const OBSIDIAN_TEXT_PAIRS = [
+  ["text-normal", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS, ...OBSIDIAN_BANDS, "drag-ghost-background", "lightbox-background"]],
+  ["text-muted", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS]],
+  ["text-faint", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS]],
+  ["text-accent", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS, "nav-item-background-selected", "nav-item-background-active"]],
+  ["text-accent-hover", [...OBSIDIAN_PAGE]],
+  ["link-color", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS]],
+  ["link-color-hover", [...OBSIDIAN_PAGE]],
+  ["link-external-color", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS]],
+  ["link-unresolved-color", [...OBSIDIAN_PAGE]],
+  ["text-error", [...OBSIDIAN_PAGE]],
+  ["text-warning", [...OBSIDIAN_PAGE]],
+  ["text-success", [...OBSIDIAN_PAGE]],
+  ["text-on-accent", ["interactive-accent", "interactive-accent-hover", "checkbox-color", "checkbox-color-hover", "slider-fill-background", "table-drag-handle-background-active"]],
+  ["text-on-accent-inverted", ["interactive-accent"]],
+  ["checkbox-marker-color", ["checkbox-color", "checkbox-color-hover"]],
+  ["table-drag-handle-color-active", ["table-drag-handle-background-active"]],
+  // text drawn on an error, warning or success fill: a destructive button, a hotkey conflict, an error tooltip
+  ["zacess-on-signal", ["background-modifier-error", "background-modifier-error-hover", "background-modifier-warning", "background-modifier-warning-hover", "background-modifier-success"]],
+  ["tooltip-color", ["tooltip-background"]],
+  ["notice-color", ["notice-background"]],
+  ["drag-ghost-text-color", ["drag-ghost-background"]],
+  ["lightbox-titlebar-color", ["lightbox-background"]],
+  ["tab-text-color", ["tab-container-background"]],
+  ["tab-text-color-active", ["tab-background-active"]],
+  ["tab-text-color-focused", ["tab-container-background"]],
+  ["tab-text-color-focused-active", ["tab-background-active"]],
+  ["tab-text-color-focused-highlighted", ["tab-container-background", "tab-background-active"]],
+  ["tab-text-color-focused-active-current", ["tab-background-active"]],
+  ["status-bar-text-color", ["status-bar-background"]],
+  ["titlebar-text-color", ["titlebar-background", "titlebar-background-focused"]],
+  ["titlebar-text-color-focused", ["titlebar-background", "titlebar-background-focused"]],
+  ["nav-item-color", ["background-secondary", "background-primary"]],
+  ["nav-item-color-hover", ["nav-item-background-hover"]],
+  ["nav-item-color-active", ["nav-item-background-active"]],
+  ["nav-item-color-selected", ["nav-item-background-selected"]],
+  ["nav-item-color-highlighted", ["background-secondary", "nav-item-background-selected"]],
+  ["nav-heading-color", ["background-secondary"]],
+  ["nav-heading-color-hover", ["background-secondary"]],
+  ["nav-heading-color-collapsed", ["background-secondary"]],
+  ["nav-heading-color-collapsed-hover", ["background-secondary"]],
+  ["nav-tag-color", ["background-secondary"]],
+  ["nav-tag-color-hover", ["nav-item-background-hover"]],
+  ["nav-tag-color-active", ["nav-item-background-active"]],
+  ["vault-profile-color", ["background-secondary"]],
+  ["vault-profile-color-hover", ["background-secondary"]],
+  ["metadata-label-text-color", ["background-primary", "metadata-property-background-active", "metadata-label-background-active"]],
+  ["metadata-label-text-color-hover", ["background-primary", "metadata-property-background-active"]],
+  ["metadata-input-text-color", ["background-primary", "metadata-input-background-active"]],
+  ["pill-color", ["pill-background"]],
+  ["pill-color-hover", ["pill-background-hover"]],
+  ["pill-color-remove", ["pill-background"]],
+  ["pill-color-remove-hover", ["pill-background-hover"]],
+  ["tag-color", ["tag-background", "background-primary"]],
+  ["tag-color-hover", ["tag-background-hover"]],
+  ["table-header-color", ["table-header-background", "table-header-background-hover"]],
+  ["table-text-color", ["background-primary", "table-row-background-hover"]],
+  ["bases-table-header-color", ["bases-table-header-background", "bases-table-header-background-hover"]],
+  ["bases-group-heading-property-color", ["background-primary"]],
+  ["canvas-card-label-color", ["canvas-background"]],
+  ["graph-text", ["background-primary"]],
+  ["setting-item-name-color", ["setting-items-background"]],
+  ["setting-group-heading-color", ["settings-background"]],
+  ["flair-color", ["flair-background"]],
+  ["embed-action-color", ["embed-actions-background"]],
+  ["footnote-id-color", ["background-primary"]],
+  ["footnote-id-color-no-occurrences", ["background-primary"]],
+  ["mermaid-text-color", ["mermaid-background", "mermaid-surface", "mermaid-surface-alt"]],
+  ["mermaid-muted-color", ["mermaid-background", "mermaid-surface"]],
+  ["heading-formatting", ["background-primary"]],
+  ["h1-color", ["background-primary"]],
+  ["h2-color", ["background-primary"]],
+  ["h3-color", ["background-primary"]],
+  ["h4-color", ["background-primary"]],
+  ["h5-color", ["background-primary"]],
+  ["h6-color", ["background-primary"]],
+  ["inline-title-color", ["background-primary"]],
+  ["blockquote-color", ["background-primary", "background-secondary"]],
+  ["checklist-done-color", ["background-primary"]],
+  ["list-marker-color", ["background-primary"]],
+  ["list-marker-color-hover", ["background-primary"]],
+  ["list-marker-color-collapsed", ["background-primary"]],
+  ["input-placeholder-color", ["background-modifier-form-field"]],
+  ["bold-color", ["background-primary"]],
+  ["italic-color", ["background-primary"]],
+  ["search-clear-button-color", ["background-modifier-form-field"]],
+  ...OBSIDIAN_CODE.map((name) => [name, ["code-background", "background-secondary-alt", "background-primary"]]),
+  // a callout's title is drawn in its colour on the callout fill
+  ...OBSIDIAN_CALLOUTS.map((name) => [name, ["background-secondary", "background-primary"]]),
+  // plugins draw the extended colours as text, so each keeps the text floor on the page and the panels
+  ...OBSIDIAN_EXTENDED.map((name) => [name, [...OBSIDIAN_PAGE]]),
+];
+
+// text that can sit inside the background only selection, held to the selection floor
+export const OBSIDIAN_SELECTION_TEXT_PAIRS = [
+  ["text-muted", ["text-selection", "table-selection", "bases-table-cell-background-selected"]],
+  ["link-color", ["text-selection", "table-selection"]],
+  ["text-accent", ["text-selection", "table-selection"]],
+  ...OBSIDIAN_CODE.map((name) => [name, ["text-selection"]]),
+];
+
+// secondary text over a hovered or selected row, held to the signal text floor like a syntax
+// colour over the current line
+export const OBSIDIAN_SIGNAL_TEXT_PAIRS = [
+  ["text-muted", ["background-modifier-hover", "background-modifier-active-hover", "nav-item-background-selected", "table-row-background-hover", "text-highlight-bg"]],
+  ["text-faint", ["background-modifier-hover", "background-modifier-active-hover"]],
+  ["link-color", ["background-modifier-hover", "background-modifier-active-hover", "table-row-background-hover", "text-highlight-bg"]],
+  ["text-accent", ["background-modifier-hover", "text-highlight-bg"]],
+  ...OBSIDIAN_CODE.map((name) => [name, ["background-modifier-hover", "text-highlight-bg"]]),
+];
+
+// borders, outlines, icons and marks that are not text, held to the non-text floor on every fill
+// they divide or sit on
+export const OBSIDIAN_NON_TEXT_PAIRS = [
+  ["background-modifier-border", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS, "background-modifier-hover", "background-modifier-active-hover"]],
+  ["background-modifier-border-hover", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS]],
+  ["background-modifier-border-focus", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS, "background-modifier-hover", "background-modifier-active-hover"]],
+  ["zacess-focus", [...OBSIDIAN_PAGE, ...OBSIDIAN_PANELS, "background-modifier-hover", "background-modifier-active-hover"]],
+  ["zacess-active-tab", ["tab-background-active", "tab-container-background"]],
+  ["divider-color", ["background-primary", "background-secondary", "ribbon-background", "status-bar-background"]],
+  ["divider-color-hover", ["background-primary", "background-secondary"]],
+  ["tab-outline-color", ["tab-container-background", "tab-background-active"]],
+  ["tab-divider-color", ["tab-container-background"]],
+  ["status-bar-border-color", ["status-bar-background", "background-primary"]],
+  ["titlebar-border-color", ["titlebar-background", "titlebar-background-focused"]],
+  ["hr-color", ["background-primary", "background-secondary"]],
+  ["blockquote-border-color", ["background-primary", "background-secondary"]],
+  ["interactive-accent", [...OBSIDIAN_PAGE, "background-modifier-hover", "setting-items-background"]],
+  ["interactive-accent-hover", [...OBSIDIAN_PAGE]],
+  ["code-border-color", ["code-background", "background-primary", "background-secondary", "background-secondary-alt"]],
+  ["table-border-color", ["background-primary", "background-secondary", "table-header-background", "table-row-background-hover"]],
+  ["table-header-border-color", ["table-header-background"]],
+  ["table-selection-border-color", ["background-primary", "table-selection"]],
+  ["table-add-button-border-color", ["background-primary"]],
+  ["table-drag-handle-color", ["background-primary"]],
+  ["bases-table-border-color", ["background-primary", "bases-table-header-background"]],
+  ["bases-embed-border-color", ["background-primary"]],
+  ["tag-border-color", ["tag-background", "background-primary"]],
+  ["tag-border-color-hover", ["tag-background-hover"]],
+  ["pill-border-color", ["pill-background", "background-primary"]],
+  ["pill-border-color-hover", ["pill-background-hover"]],
+  ["checkbox-border-color", ["background-primary", "background-secondary"]],
+  ["checkbox-border-color-hover", ["background-primary"]],
+  ["checkbox-color", ["background-primary", "background-secondary"]],
+  ["indentation-guide-color", ["background-primary"]],
+  ["indentation-guide-color-active", ["background-primary"]],
+  ["nav-indentation-guide-color", ["background-secondary"]],
+  ["metadata-divider-color", ["background-primary"]],
+  ["metadata-divider-color-hover", ["background-primary"]],
+  ["metadata-divider-color-focus", ["background-primary"]],
+  ["metadata-border-color", ["background-primary"]],
+  ["footnote-divider-color", ["background-primary"]],
+  ["scrollbar-thumb-bg", ["background-primary", "background-secondary"]],
+  ["scrollbar-active-thumb-bg", ["background-primary", "background-secondary"]],
+  ["slider-track-background", ["background-primary", "setting-items-background"]],
+  // the slider's fill is read against the panel: the thumb, with its own border, carries the value
+  ["slider-fill-background", ["background-primary", "setting-items-background"]],
+  ["slider-thumb-border-color", ["slider-thumb-background", "setting-items-background"]],
+  ["toggle-thumb-color", ["background-modifier-border", "interactive-accent"]],
+  ["caret-color", ["background-primary", "background-modifier-hover"]],
+  ["icon-color", ["background-primary", "background-secondary"]],
+  ["icon-color-hover", ["background-primary", "background-secondary"]],
+  ["icon-color-active", ["background-primary", "background-secondary"]],
+  ["icon-color-focused", ["background-primary", "background-secondary"]],
+  ["collapse-icon-color", ["background-primary", "background-secondary"]],
+  ["collapse-icon-color-collapsed", ["background-primary", "background-secondary"]],
+  ["nav-collapse-icon-color", ["background-secondary", "nav-item-background-active", "nav-item-background-selected"]],
+  ["nav-collapse-icon-color-collapsed", ["background-secondary", "nav-item-background-active"]],
+  ["search-icon-color", ["background-modifier-form-field"]],
+  ["embed-border-color", ["background-primary"]],
+  ["menu-border-color", ["menu-background", "background-primary"]],
+  ["modal-border-color", ["modal-background", "background-primary"]],
+  ["prompt-border-color", ["prompt-background", "background-primary"]],
+  ["setting-items-border-color", ["setting-items-background", "settings-background"]],
+  ["setting-items-divider-color", ["setting-items-background"]],
+  ["file-header-border-color", ["file-header-background"]],
+  ["zacess-find-border", ["text-highlight-bg", "background-primary"]],
+  ["zacess-match-outline", ["background-primary", "background-modifier-hover"]],
+  ...OBSIDIAN_GRAPH.map((name) => [name, ["background-primary"]]),
+  ...OBSIDIAN_CANVAS.map((name) => [name, ["canvas-background"]]),
+  ...OBSIDIAN_CALLOUTS.map((name) => [name, ["background-secondary", "background-primary"]]),
+  ...OBSIDIAN_EXTENDED.map((name) => [name, [...OBSIDIAN_PAGE]]),
+  ...OBSIDIAN_SYNC.map((name) => [name, ["background-secondary", "background-primary"]]),
+  ...OBSIDIAN_MERMAID.map((name) => [name, ["mermaid-background", "mermaid-surface"]]),
+  ["mermaid-line-color", ["mermaid-background", "mermaid-surface"]],
+  ["mermaid-border-color", ["mermaid-background", "mermaid-surface"]],
+  ["mermaid-accent", ["mermaid-background", "mermaid-surface"]],
+  ["mermaid-critical", ["mermaid-background", "mermaid-surface"]],
+];
+
+// the hover band and the six named highlight tints, held to the signal floor on the page; the
+// find match fill and the selected row fill are measured by the palette itself and the rows they
+// mark carry a bar as well, so neither is held to the band floor here
+export const OBSIDIAN_SIGNAL_PAIRS = [
+  ["background-modifier-hover", ["background-primary"]],
+  ["highlight-background-red", ["background-primary"]],
+  ["highlight-background-orange", ["background-primary"]],
+  ["highlight-background-yellow", ["background-primary"]],
+  ["highlight-background-green", ["background-primary"]],
+  ["highlight-background-blue", ["background-primary"]],
+  ["highlight-background-purple", ["background-primary"]],
+];

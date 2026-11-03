@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // finishes a release once release.yml has published a tag to the stores: creates the GitHub release
-// from the workflow's artifact and updates the read-only Obsidian and Neovim copies. It runs on a
+// from the workflow's artifact and updates the four read-only Obsidian copies and the Neovim copy. It runs on a
 // maintainer's machine with their own gh login and git identity, so every commit, tag and release it
 // makes is theirs and signed with their key. Safe to run again: anything already done is skipped.
 //
@@ -9,7 +9,7 @@ import { spawnSync } from "node:child_process";
 import { mkdtempSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
-import { ROOT, loadPalette } from "./lib/palette.mjs";
+import { OBSIDIAN_THEMES, ROOT, loadPalette } from "./lib/palette.mjs";
 
 const OWNER = "zacesshq";
 const SOURCE = `${OWNER}/themes`;
@@ -96,20 +96,49 @@ if (hasRelease(SOURCE, tag)) {
   act(`create the ${tag} release on ${SOURCE}`, "gh", ["release", "create", tag, ...assets, "--repo", SOURCE, "--verify-tag", "--title", `Zacess Themes ${version}`, "--notes-file", notesFile]);
 }
 
-// 2. the read-only copies: each keeps its own README, licence and screenshot, only the generated files move
-// read untrimmed so each copied file is byte for byte what the tag holds
-const fromTag = (path) => spawnSync("git", ["show", `${tag}:${path}`], { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 }).stdout;
+// 2. the read-only copies: an Obsidian copy takes its README, screenshot and licence from the source
+// along with the generated files, so it carries nothing the source does not; the Neovim copy keeps
+// its own README and licence, only the colour schemes move
+// read untrimmed so each copied file is byte for byte what the tag holds; a file the tag does not
+// hold, such as a screenshot not yet taken, is skipped
+const fromTag = (path) => {
+  const result = spawnSync("git", ["show", `${tag}:${path}`], { cwd: ROOT, maxBuffer: 64 * 1024 * 1024 });
+  return result.status === 0 ? result.stdout : null;
+};
+
+// the issue links every Obsidian copy carries, so a report lands where the theme is made
+const obsidianIssueConfig = (target) => `# this repository is a read-only copy, so every report goes to the repository the theme is made in
+blank_issues_enabled: false
+contact_links:
+  - name: Report a problem or suggest a change
+    url: https://github.com/${SOURCE}/issues/new/choose
+    about: ${target.name} for Obsidian is made in ${SOURCE}. Problems, ideas and colour requests go there.
+  - name: Ask a question
+    url: https://github.com/orgs/${OWNER}/discussions
+    about: Questions and ideas about Zacess themes.
+  - name: AI policy
+    url: https://github.com/${OWNER}/.github/blob/main/AI_POLICY.md
+    about: How AI may and may not be used in issues and pull requests here.
+`;
 const neovimColours = run("git", ["ls-tree", "--name-only", tag, "editors/neovim/colors/"]).out.split("\n").filter((path) => path.endsWith(".lua"));
 
 const mirrors = [
-  {
-    repo: "obsidian-theme",
-    // obsidian installs from a release tagged exactly as the manifest version, with both files attached
+  // Obsidian installs each theme from a release tagged exactly as the manifest version, with both
+  // generated files attached
+  ...OBSIDIAN_THEMES.map((target) => ({
+    repo: target.repo,
     tag: version,
-    files: { "manifest.json": "editors/obsidian/manifest.json", "theme.css": "editors/obsidian/theme.css" },
+    files: {
+      "manifest.json": `editors/obsidian/${target.id}/manifest.json`,
+      "theme.css": `editors/obsidian/${target.id}/theme.css`,
+      "README.md": `editors/obsidian/${target.id}/README.md`,
+      "screenshot.png": `editors/obsidian/${target.id}/screenshot.png`,
+      LICENSE: "LICENSE",
+    },
+    written: { ".github/ISSUE_TEMPLATE/config.yml": obsidianIssueConfig(target) },
     assets: ["manifest.json", "theme.css"],
     clear: () => {},
-  },
+  })),
   {
     repo: "zacess.nvim",
     tag,
@@ -126,11 +155,24 @@ const mirrors = [
 for (const mirror of mirrors) {
   const repo = `${OWNER}/${mirror.repo}`;
   const dir = join(work, mirror.repo);
+  if (!run("gh", ["repo", "view", repo, "--json", "name"], { allowFail: true }).ok) {
+    console.error(`${repo} does not exist. Create it first with gh repo create ${repo} --public, then run this again.`);
+    process.exit(1);
+  }
   run("gh", ["repo", "clone", repo, dir, "--", "--quiet"]);
   mirror.clear(dir);
   for (const [target, source] of Object.entries(mirror.files)) {
+    const content = fromTag(source);
+    if (content === null) {
+      console.log(`${tag} has no ${source}, so ${repo} keeps its own ${target}`);
+      continue;
+    }
     mkdirSync(join(dir, target, ".."), { recursive: true });
-    writeFileSync(join(dir, target), fromTag(source));
+    writeFileSync(join(dir, target), content);
+  }
+  for (const [target, content] of Object.entries(mirror.written ?? {})) {
+    mkdirSync(join(dir, target, ".."), { recursive: true });
+    writeFileSync(join(dir, target), content);
   }
   run("git", ["add", "-A"], { cwd: dir });
   const changed = !run("git", ["diff", "--cached", "--quiet"], { cwd: dir, allowFail: true }).ok;

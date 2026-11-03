@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Obsidian screenshot mock</title>
+<style>
+/* the theme under test is inlined here by render.mjs */
+{{THEME_CSS}}
+</style>
+<style>
+/* a two-pane mock of an Obsidian window drawn from the theme's own variables: the light look on
+   the left and the dark look on the right, 1024 by 576 like the directory's screenshot slot; each
+   half reads sidebar, note, graph view */
+html, body { margin: 0; padding: 0; }
+body { width: 1024px; height: 576px; display: flex; overflow: hidden; font-family: -apple-system, "SF Pro Text", "Segoe UI", Inter, "Helvetica Neue", Arial, sans-serif; font-size: 14px; line-height: 1.45; }
+.pane { width: 512px; height: 576px; display: flex; background: var(--background-primary); color: var(--text-normal); }
+.sidebar { width: 136px; flex: 0 0 136px; box-sizing: border-box; padding: 14px 8px; background: var(--background-secondary); border-right: 1px solid var(--background-modifier-border); font-size: 12.5px; }
+.vault { font-weight: 700; padding: 0 8px 12px; }
+.tree-item-self { display: block; padding: 3px 8px; margin-bottom: 4px; border-radius: 4px; color: var(--nav-item-color); }
+.tree-item-self.is-active { background: var(--nav-item-background-active); color: var(--nav-item-color-active); font-weight: 700; }
+.markdown-rendered { flex: 1; box-sizing: border-box; padding: 14px 16px 0; border-right: 1px solid var(--background-modifier-border); }
+h1 { font-size: 21px; line-height: 1.2; margin: 0 0 10px; color: var(--h1-color); font-weight: 700; }
+p { margin: 0 0 8px; }
+a { color: var(--link-color); }
+mark { background: var(--text-highlight-bg); color: var(--text-normal); padding: 0 2px; }
+blockquote { margin: 6px 0 8px; padding: 0 0 0 10px; border-left: 3px solid var(--blockquote-border-color); color: var(--blockquote-color); font-size: 13px; }
+ul { margin: 0 0 10px; padding-left: 18px; }
+li { margin: 2px 0; }
+code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.85em; padding: 1px 4px; border-radius: 4px; background: var(--code-background); color: var(--code-normal); border: var(--code-border-width) solid var(--code-border-color); }
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+/* Obsidian draws a tag with no underline, so the theme's link underline is lifted here as it is there */
+.tag, .markdown-rendered a.tag { font-size: 12px; padding: 2px 5px; border-radius: 4px; color: var(--tag-color); background: var(--tag-background); border: var(--tag-border-width) solid var(--tag-border-color); text-decoration: none; }
+/* the graph view, every colour from the theme's graph variables on the page background */
+.graph { flex: 0 0 160px; background: var(--background-primary); }
+.g-lines line { stroke: var(--graph-line); stroke-width: 1; }
+.g-node { fill: var(--graph-node); }
+.g-focused { fill: var(--graph-node-focused); }
+.g-focus-ring { fill: none; stroke: var(--graph-node-focused); stroke-width: 1.5; }
+.g-tag { fill: var(--graph-node-tag); }
+.g-attachment { fill: var(--graph-node-attachment); }
+.g-unresolved { fill: var(--graph-node-unresolved); opacity: 0.6; }
+.g-text text { fill: var(--graph-text); font-size: 9px; }
+</style>
+</head>
+<body>
+<div class="pane theme-light">
+  <nav class="sidebar">
+    <div class="vault">Study vault</div>
+    <div class="tree-item-self">Inbox</div>
+    <div class="tree-item-self is-active">Reading notes</div>
+    <div class="tree-item-self">Lab sheets</div>
+    <div class="tree-item-self">Deadlines</div>
+    <div class="tree-item-self">Templates</div>
+  </nav>
+  <main class="markdown-rendered">
+    <h1>Reading notes</h1>
+    <p>Every colour here keeps <mark>7:1 contrast</mark> or better. <a href="#">Links</a> are underlined, never shown by colour alone.</p>
+    <blockquote>Get access first and success follows.</blockquote>
+    <ul>
+      <li>Recap chapter 3 before <code>Friday</code></li>
+      <li>Check the doubtful words in the scan</li>
+    </ul>
+    <div class="tags"><a class="tag" href="#">#accessibility</a><a class="tag" href="#">#study</a></div>
+  </main>
+    <svg class="graph" viewBox="0 0 160 576" width="160" height="576" role="img" aria-label="Graph view">
+      <g class="g-lines">
+        <line x1="80" y1="200" x2="40" y2="140"/><line x1="80" y1="200" x2="124" y2="150"/><line x1="80" y1="200" x2="52" y2="260"/>
+        <line x1="80" y1="200" x2="118" y2="252"/><line x1="80" y1="200" x2="88" y2="300"/><line x1="40" y1="140" x2="30" y2="90"/>
+        <line x1="124" y1="150" x2="134" y2="96"/><line x1="124" y1="150" x2="138" y2="200"/><line x1="52" y1="260" x2="26" y2="320"/>
+        <line x1="118" y1="252" x2="140" y2="316"/><line x1="88" y1="300" x2="70" y2="362"/><line x1="88" y1="300" x2="118" y2="252"/>
+        <line x1="30" y1="90" x2="70" y2="52"/><line x1="70" y1="362" x2="110" y2="410"/>
+      </g>
+      <circle class="g-focus-ring" cx="80" cy="200" r="13"/>
+      <circle class="g-focused" cx="80" cy="200" r="8"/>
+      <circle class="g-node" cx="40" cy="140" r="6"/><circle class="g-node" cx="124" cy="150" r="6"/><circle class="g-node" cx="52" cy="260" r="6"/>
+      <circle class="g-node" cx="118" cy="252" r="7"/><circle class="g-node" cx="88" cy="300" r="5"/><circle class="g-node" cx="30" cy="90" r="5"/>
+      <circle class="g-node" cx="70" cy="52" r="4"/><circle class="g-node" cx="140" cy="316" r="4"/><circle class="g-node" cx="70" cy="362" r="5"/>
+      <circle class="g-tag" cx="134" cy="96" r="5"/><circle class="g-attachment" cx="138" cy="200" r="5"/>
+      <circle class="g-unresolved" cx="26" cy="320" r="4"/><circle class="g-unresolved" cx="110" cy="410" r="4"/>
+      <g class="g-text">
+        <text x="80" y="226" text-anchor="middle">Reading notes</text>
+        <text x="40" y="130">Inbox</text><text x="132" y="140" text-anchor="end">Lab sheets</text><text x="52" y="277">Deadlines</text>
+        <text x="118" y="270" text-anchor="middle">Templates</text><text x="88" y="316">Week 3</text><text x="30" y="80">Op amps</text>
+        <text x="70" y="42">Revision</text><text x="140" y="330" text-anchor="end">Project</text><text x="70" y="378">Essay</text>
+        <text x="134" y="86" text-anchor="end">#study</text><text x="138" y="216" text-anchor="end">scan.pdf</text>
+        <text x="26" y="336">Missing</text><text x="110" y="426" text-anchor="middle">Later</text>
+      </g>
+    </svg>
+</div>
+<div class="pane theme-dark">
+  <nav class="sidebar">
+    <div class="vault">Study vault</div>
+    <div class="tree-item-self">Inbox</div>
+    <div class="tree-item-self is-active">Reading notes</div>
+    <div class="tree-item-self">Lab sheets</div>
+    <div class="tree-item-self">Deadlines</div>
+    <div class="tree-item-self">Templates</div>
+  </nav>
+  <main class="markdown-rendered">
+    <h1>Reading notes</h1>
+    <p>Every colour here keeps <mark>7:1 contrast</mark> or better. <a href="#">Links</a> are underlined, never shown by colour alone.</p>
+    <blockquote>Get access first and success follows.</blockquote>
+    <ul>
+      <li>Recap chapter 3 before <code>Friday</code></li>
+      <li>Check the doubtful words in the scan</li>
+    </ul>
+    <div class="tags"><a class="tag" href="#">#accessibility</a><a class="tag" href="#">#study</a></div>
+  </main>
+    <svg class="graph" viewBox="0 0 160 576" width="160" height="576" role="img" aria-label="Graph view">
+      <g class="g-lines">
+        <line x1="80" y1="200" x2="40" y2="140"/><line x1="80" y1="200" x2="124" y2="150"/><line x1="80" y1="200" x2="52" y2="260"/>
+        <line x1="80" y1="200" x2="118" y2="252"/><line x1="80" y1="200" x2="88" y2="300"/><line x1="40" y1="140" x2="30" y2="90"/>
+        <line x1="124" y1="150" x2="134" y2="96"/><line x1="124" y1="150" x2="138" y2="200"/><line x1="52" y1="260" x2="26" y2="320"/>
+        <line x1="118" y1="252" x2="140" y2="316"/><line x1="88" y1="300" x2="70" y2="362"/><line x1="88" y1="300" x2="118" y2="252"/>
+        <line x1="30" y1="90" x2="70" y2="52"/><line x1="70" y1="362" x2="110" y2="410"/>
+      </g>
+      <circle class="g-focus-ring" cx="80" cy="200" r="13"/>
+      <circle class="g-focused" cx="80" cy="200" r="8"/>
+      <circle class="g-node" cx="40" cy="140" r="6"/><circle class="g-node" cx="124" cy="150" r="6"/><circle class="g-node" cx="52" cy="260" r="6"/>
+      <circle class="g-node" cx="118" cy="252" r="7"/><circle class="g-node" cx="88" cy="300" r="5"/><circle class="g-node" cx="30" cy="90" r="5"/>
+      <circle class="g-node" cx="70" cy="52" r="4"/><circle class="g-node" cx="140" cy="316" r="4"/><circle class="g-node" cx="70" cy="362" r="5"/>
+      <circle class="g-tag" cx="134" cy="96" r="5"/><circle class="g-attachment" cx="138" cy="200" r="5"/>
+      <circle class="g-unresolved" cx="26" cy="320" r="4"/><circle class="g-unresolved" cx="110" cy="410" r="4"/>
+      <g class="g-text">
+        <text x="80" y="226" text-anchor="middle">Reading notes</text>
+        <text x="40" y="130">Inbox</text><text x="132" y="140" text-anchor="end">Lab sheets</text><text x="52" y="277">Deadlines</text>
+        <text x="118" y="270" text-anchor="middle">Templates</text><text x="88" y="316">Week 3</text><text x="30" y="80">Op amps</text>
+        <text x="70" y="42">Revision</text><text x="140" y="330" text-anchor="end">Project</text><text x="70" y="378">Essay</text>
+        <text x="134" y="86" text-anchor="end">#study</text><text x="138" y="216" text-anchor="end">scan.pdf</text>
+        <text x="26" y="336">Missing</text><text x="110" y="426" text-anchor="middle">Later</text>
+      </g>
+    </svg>
+</div>
+</body>
+</html>

@@ -44,6 +44,12 @@ cannot be merged.
 - Every VS Code colour key that would otherwise fall back to a VS Code default, such as inline code,
   quotes, menus, hovers, notifications and buttons, is set by the theme. The text on each keeps
   7:1.
+- Every colour the four Obsidian themes set, from the page and the panels to callouts, tables,
+  properties, the graph, canvas, Bases views, the PDF viewer and Mermaid diagrams, is read back out
+  of each theme's light and dark blocks and measured: text at 7:1 on every fill it can sit on,
+  secondary text at 4.5:1 over a selection or a hovered row and every border, outline, icon and
+  mark at 3:1. The active tab, the open file, a selected row and a selected suggestion carry a bar
+  and a highlight is underlined, so none of them is marked by a fill alone.
 - Colour is never the only signal. Keywords, control flow and markup tags are bold. Comments and
   parameters are italic. Invalid code is underlined. Links are underlined in Obsidian and in markup.
 - Tokens that often sit side by side are listed as pairs in the palette. When two paired tokens share

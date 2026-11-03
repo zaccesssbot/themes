@@ -22,6 +22,16 @@ updates:
     commit-message:
       prefix: chore
 
+  # the Obsidian screenshot tool pins Playwright
+  - package-ecosystem: npm
+    directory: /scripts/screenshot
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+    labels: ["dependencies"]
+    commit-message:
+      prefix: chore
+
   - package-ecosystem: gradle
     directory: /editors/jetbrains
     schedule:

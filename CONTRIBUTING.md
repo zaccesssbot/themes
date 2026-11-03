@@ -84,7 +84,8 @@ GitHub release and updates the read-only copies, so every tag and release is sig
 
 1. Bump `version` in `palette/zacess.json`, `package.json` and
    `editors/jetbrains/gradle.properties`, then run `npm run build` and `npm run preview` so every
-   generated manifest follows. Move the changelog's `Unreleased` entries into a section for the
+   generated manifest follows. If an Obsidian colour changed, redraw the four Obsidian screenshots
+   with `npm ci` and `node render.mjs` in `scripts/screenshot` (Playwright, pinned there). Move the changelog's `Unreleased` entries into a section for the
    version, add a matching section to `editors/vscode/CHANGELOG.md` and merge that through a pull
    request.
 2. Tag the merged commit with a signed annotated tag and push it:
@@ -110,12 +111,16 @@ GitHub release and updates the read-only copies, so every tag and release is sig
    ```
 
    The script downloads the artifact and creates the GitHub release with this version's changelog
-   section as the notes. It then copies the generated files into
-   [zacesshq/obsidian-theme](https://github.com/zacesshq/obsidian-theme) and
-   [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim) with a signed commit, a signed
-   annotated tag and a release in each. The Obsidian tag is the bare version, such as `0.2.1`, and
-   its release carries `manifest.json` and `theme.css` because Obsidian installs from them. Running
-   it again skips anything already done.
+   section as the notes. It then updates the read-only copies with a signed commit, a signed
+   annotated tag and a release in each: the four Obsidian copies, one per folder under
+   `editors/obsidian/` ([zacesshq/obsidian-theme](https://github.com/zacesshq/obsidian-theme) for
+   Zacess, then `obsidian-theme-cream`, `obsidian-theme-high-contrast` and
+   `obsidian-theme-deep-contrast`) plus [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim).
+   An Obsidian copy takes its `manifest.json`, `theme.css`, `README.md`, `screenshot.png` and the
+   licence from the tag, so each is edited here and never in the copy. The Obsidian tag is the bare
+   version, such as `0.2.1`. Its release carries `manifest.json` and `theme.css` because
+   Obsidian installs from them. A copy that does not exist yet stops the script with the command
+   that creates it. Running it again skips anything already done.
 
 ## Using AI
 

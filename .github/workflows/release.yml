@@ -53,9 +53,14 @@ jobs:
         run: |
           ./gradlew buildPlugin
           cp build/distributions/*.zip ../../dist/
-      - name: Zip the Obsidian theme
+      - name: Zip the four Obsidian themes
         working-directory: editors/obsidian
-        run: zip "../../dist/zacess-obsidian-$VERSION.zip" manifest.json theme.css
+        run: |
+          # one zip per theme folder: zacess, zacess-cream, zacess-high-contrast and zacess-deep-contrast
+          for theme in */; do
+            theme="${theme%/}"
+            (cd "$theme" && zip "../../../dist/$theme-obsidian-$VERSION.zip" manifest.json theme.css)
+          done
       - name: Zip the Sublime Text, Helix, Emacs and Xcode themes
         working-directory: editors
         run: |

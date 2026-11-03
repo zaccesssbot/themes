@@ -14,9 +14,10 @@ btop system monitor.
 > Zacess Themes is on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes),
 > [Open VSX](https://open-vsx.org/extension/zacess/zacess-themes), the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/35082-zacess-themes)
 > and the [Eclipse Marketplace](https://marketplace.eclipse.org/content/zacess-themes-0) (in review there, installable now from the [update site](https://zacesshq.github.io/themes/eclipse/)).
-> Zed lists it in the [Zed extension store](https://zed.dev/extensions?query=zacess). The Obsidian
-> theme is in the [Obsidian community directory](https://community.obsidian.md/themes/zacess)
-> and the Neovim schemes install from [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim).
+> Zed lists it in the [Zed extension store](https://zed.dev/extensions?query=zacess). For Obsidian,
+> Zacess is in the [community directory](https://community.obsidian.md/themes/zacess) and
+> [Zacess Cream, High Contrast and Deep Contrast](editors/obsidian/README.md) have their own
+> themes. The Neovim schemes install from [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim).
 > Every editor can also be installed from the
 > [latest release](https://github.com/zacesshq/themes/releases/latest) as described below.
 
@@ -77,7 +78,7 @@ Every colour of every theme is in [docs/palette.md](docs/palette.md).
 | --- | --- | --- |
 | VS Code | Search **Zacess Themes** in Extensions or run `code --install-extension zacess.zacess-themes`. Editors built on VS Code use [Open VSX](https://open-vsx.org/extension/zacess/zacess-themes) | [editors/vscode](editors/vscode/README.md) |
 | JetBrains IDEs | **Settings**, **Plugins**, **Marketplace**, search **Zacess Themes** (IntelliJ Platform 2025.3 or later) | [editors/jetbrains](editors/jetbrains/README.md) |
-| Obsidian | **Settings**, **Appearance**, **Themes**, **Manage**, search **Zacess** | [editors/obsidian](editors/obsidian/README.md) |
+| Obsidian | **Settings**, **Appearance**, **Themes**, **Manage**, search **Zacess**. Four themes, one per pair of looks, each following light and dark mode | [editors/obsidian](editors/obsidian/README.md) |
 | Neovim | `{ "zacesshq/zacess.nvim", lazy = false, priority = 1000 }` with lazy.nvim | [editors/neovim](editors/neovim/README.md) |
 | Zed | **zed: extensions**, search **Zacess Themes** | [editors/zed](editors/zed/README.md) |
 | Sublime Text | Copy the `.sublime-color-scheme` files into `Packages/User` | [editors/sublime](editors/sublime/README.md) |

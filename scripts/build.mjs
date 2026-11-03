@@ -3,8 +3,8 @@
 // editor folder stands alone, with `npm run verify` proving they match the palette
 import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { ROOT, HEADER, REPO, ANSI_NAMES, loadPalette, loadSchema, styleOf, terminalText } from "./lib/palette.mjs";
-import { parseHex } from "./lib/colour.mjs";
+import { ROOT, HEADER, REPO, ANSI_NAMES, OBSIDIAN_THEMES, loadPalette, loadSchema, styleOf, terminalText } from "./lib/palette.mjs";
+import { contrast, parseHex, toHex } from "./lib/colour.mjs";
 import { UID, bplist } from "./lib/bplist.mjs";
 import { validate } from "./lib/schema.mjs";
 import { contrastTables } from "./lib/tables.mjs";
@@ -708,221 +708,677 @@ function buildJetbrains() {
 
 // ---------------------------------------------------------------- Obsidian
 
+// a tint of a colour over the page for the six named highlight colours: the strongest mix that
+// keeps plain text at the text floor over it and still reads as a band on the page
+function obsidianTint(colour, background, foreground) {
+  const c = parseHex(colour);
+  const b = parseHex(background);
+  // the strongest tint is a third of the colour, so a highlight never reads as a solid block
+  let weakest = background;
+  for (let t = 0.35; t >= 0.1; t -= 0.05) {
+    weakest = toHex(c.map((v, i) => v * t + b[i] * (1 - t)));
+    if (contrast(foreground, weakest) >= palette.rules.textContrast && contrast(weakest, background) >= palette.rules.signalContrast) return weakest;
+  }
+  return weakest;
+}
+
+// every colour Obsidian draws, from the variables on docs.obsidian.md and the ones app.css adds
+// (notices, tooltips, menus, prompts, settings, Bases, the PDF viewer, Mermaid), each a literal
+// from the palette so the checks can read it back and measure it; a value that Obsidian derives
+// with colour mixing is replaced by a measured fill
 function obsidianVars(theme) {
   const u = theme.ui;
   const s = theme.syntax;
-  return [
-    `color-scheme: ${theme.appearance};`,
-    // Obsidian derives form fields and many panels from the base scale, so it is set too; without
-    // it a theme chosen in the other mode keeps the wrong mode's field colours
-    `--color-base-00: ${u.background};`,
-    `--color-base-05: ${u.surface};`,
-    `--color-base-10: ${u.surface};`,
-    `--color-base-20: ${u.surfaceAlt};`,
-    `--color-base-25: ${u.surfaceAlt};`,
-    `--color-base-30: ${u.border};`,
-    `--color-base-35: ${u.border};`,
-    `--color-base-40: ${u.border};`,
-    `--color-base-50: ${u.muted};`,
-    `--color-base-60: ${u.muted};`,
-    `--color-base-70: ${u.muted};`,
-    `--color-base-100: ${u.foreground};`,
-    `--background-modifier-form-field: ${u.background};`,
-    `--background-primary: ${u.background};`,
-    `--background-primary-alt: ${u.surface};`,
-    `--background-secondary: ${u.surface};`,
-    `--background-secondary-alt: ${u.surfaceAlt};`,
-    `--background-modifier-border: ${u.border};`,
-    `--background-modifier-border-hover: ${u.foreground};`,
-    `--background-modifier-border-focus: ${u.borderActive};`,
-    `--background-modifier-hover: ${u.lineHighlight};`,
-    `--background-modifier-active-hover: ${u.lineHighlight};`,
-    `--background-modifier-error: ${u.error};`,
-    `--background-modifier-success: ${s.added};`,
-    `--text-normal: ${u.foreground};`,
-    `--text-muted: ${u.muted};`,
-    `--text-faint: ${u.muted};`,
-    `--text-error: ${u.error};`,
-    `--text-warning: ${u.warning};`,
-    `--text-success: ${s.added};`,
-    `--text-accent: ${u.accent};`,
-    `--text-accent-hover: ${u.accent};`,
-    `--text-on-accent: ${u.accentForeground};`,
-    `--text-on-accent-inverted: ${u.accentForeground};`,
-    `--text-selection: ${u.selection};`,
-    `--text-highlight-bg: ${u.findMatch};`,
-    `--zacess-find-border: ${u.findMatchBorder};`,
-    `--zacess-line-highlight: ${u.lineHighlight};`,
-    `--zacess-match-outline: ${matchOutline(u)};`,
-    `--interactive-normal: ${u.surfaceAlt};`,
-    `--interactive-hover: ${u.lineHighlight};`,
-    `--interactive-accent: ${u.accent};`,
-    `--interactive-accent-hover: ${u.accent};`,
-    `--link-color: ${u.link};`,
-    `--link-color-hover: ${u.link};`,
-    `--link-external-color: ${u.link};`,
-    `--link-external-color-hover: ${u.link};`,
-    `--link-unresolved-color: ${u.link};`,
-    `--link-unresolved-opacity: 1;`,
-    `--link-decoration: underline;`,
-    `--link-decoration-hover: underline;`,
-    `--link-external-decoration: underline;`,
-    `--link-unresolved-decoration-style: dashed;`,
-    `--code-background: ${u.surface};`,
-    `--code-normal: ${s.foreground};`,
-    `--code-comment: ${s.comment};`,
-    `--code-function: ${s.function};`,
-    `--code-important: ${s.control};`,
-    `--code-keyword: ${s.keyword};`,
-    `--code-operator: ${s.operator};`,
-    `--code-property: ${s.property};`,
-    `--code-punctuation: ${s.operator};`,
-    `--code-string: ${s.string};`,
-    `--code-tag: ${s.tag};`,
-    `--code-value: ${s.number};`,
-    `--caret-color: ${u.cursor};`,
-    `--checkbox-color: ${u.accent};`,
-    `--checkbox-border-color: ${u.border};`,
-    `--blockquote-border-color: ${u.border};`,
-    `--hr-color: ${u.border};`,
-    `--tag-color: ${u.accent};`,
-    `--tag-background: ${u.surface};`,
-    `--tag-border-color: ${u.border};`,
-    `--tag-border-width: 1px;`,
-    `--zacess-focus: ${u.borderActive};`,
-    `--zacess-added: ${s.added};`,
-    `--zacess-removed: ${s.removed};`,
+  const outline = matchOutline(u);
+  // the extended colours by role: each is measured on the page and every panel, so a plugin that
+  // draws one as text keeps the text floor
+  const extended = { red: u.error, orange: u.warning, yellow: s.number, green: s.added, cyan: s.type, blue: u.info, purple: s.property, pink: s.regex };
+  const tint = (colour) => obsidianTint(colour, u.background, u.foreground);
+  const vars = [
+    ["color-scheme", theme.appearance],
+    // the base scale, which Obsidian derives form fields and many panels from
+    ["--color-base-00", u.background],
+    ["--color-base-05", u.surface],
+    ["--color-base-10", u.surface],
+    ["--color-base-20", u.surfaceAlt],
+    ["--color-base-25", u.surfaceAlt],
+    ["--color-base-30", u.border],
+    ["--color-base-35", u.border],
+    ["--color-base-40", u.border],
+    ["--color-base-50", u.muted],
+    ["--color-base-60", u.muted],
+    ["--color-base-70", u.muted],
+    ["--color-base-100", u.foreground],
+    // the accent is set directly, so the accent colour picker in Obsidian's settings cannot lower
+    // a measured pair
+    ["--color-accent", u.accent],
+    ["--color-accent-1", u.accent],
+    ["--color-accent-2", u.accent],
+    ["--color-red", extended.red],
+    ["--color-orange", extended.orange],
+    ["--color-yellow", extended.yellow],
+    ["--color-green", extended.green],
+    ["--color-cyan", extended.cyan],
+    ["--color-blue", extended.blue],
+    ["--color-purple", extended.purple],
+    ["--color-pink", extended.pink],
+    // surfaces
+    ["--background-primary", u.background],
+    ["--background-primary-alt", u.surface],
+    ["--background-secondary", u.surface],
+    ["--background-secondary-alt", u.surfaceAlt],
+    ["--background-modifier-hover", u.lineHighlight],
+    ["--background-modifier-active-hover", u.listSelection],
+    ["--background-modifier-border", u.border],
+    ["--background-modifier-border-hover", u.border],
+    ["--background-modifier-border-focus", u.borderActive],
+    ["--background-modifier-error", u.error],
+    ["--background-modifier-error-hover", u.error],
+    ["--background-modifier-warning", u.warning],
+    ["--background-modifier-warning-hover", u.warning],
+    ["--background-modifier-success", s.added],
+    ["--background-modifier-message", u.surfaceAlt],
+    ["--background-modifier-form-field", u.background],
+    ["--background-modifier-form-field-hover", u.background],
+    // interactive
+    ["--interactive-normal", u.surfaceAlt],
+    ["--interactive-hover", u.lineHighlight],
+    ["--interactive-accent", u.accent],
+    ["--interactive-accent-hover", u.accent],
+    // text
+    ["--text-normal", u.foreground],
+    ["--text-muted", u.muted],
+    ["--text-faint", u.muted],
+    ["--text-on-accent", u.accentForeground],
+    ["--text-on-accent-inverted", u.accentForeground],
+    ["--text-success", s.added],
+    ["--text-warning", u.warning],
+    ["--text-error", u.error],
+    ["--text-accent", u.accent],
+    ["--text-accent-hover", u.accent],
+    ["--text-selection", u.selection],
+    ["--text-highlight-bg", u.findMatch],
+    ["--caret-color", u.cursor],
+    ["--bold-color", u.foreground],
+    ["--italic-color", u.foreground],
+    // the text on an error, warning or success fill
+    ["--zacess-on-signal", u.background],
+    // the marks the checks read back: the current line, the find match outline, the word and
+    // bracket outline, the focus ring and the active tab
+    ["--zacess-line-highlight", u.lineHighlight],
+    ["--zacess-find-border", u.findMatchBorder],
+    ["--zacess-match-outline", outline],
+    ["--zacess-focus", u.borderActive],
+    ["--zacess-active-tab", u.borderActive],
+    // highlights: ==marked== text takes the find match fill, the six named colours a measured tint
+    ["--highlight-background", u.findMatch],
+    ["--highlight-background-red", tint(extended.red)],
+    ["--highlight-background-orange", tint(extended.orange)],
+    ["--highlight-background-yellow", tint(extended.yellow)],
+    ["--highlight-background-green", tint(extended.green)],
+    ["--highlight-background-blue", tint(extended.blue)],
+    ["--highlight-background-purple", tint(extended.purple)],
+    // icons
+    ["--icon-color", u.muted],
+    ["--icon-color-hover", u.foreground],
+    ["--icon-color-active", u.accent],
+    ["--icon-color-focused", u.foreground],
+    ["--icon-opacity", "1"],
+    ["--icon-opacity-hover", "1"],
+    ["--icon-opacity-active", "1"],
+    ["--collapse-icon-color", u.muted],
+    ["--collapse-icon-color-collapsed", u.accent],
+    // inputs, buttons and dropdowns draw their edge from the input shadow, so it is a real border
+    ["--input-shadow", "0 0 0 1px var(--background-modifier-border)"],
+    ["--input-shadow-hover", "0 0 0 1px var(--background-modifier-border-hover)"],
+    ["--input-placeholder-color", u.muted],
+    ["--input-date-separator", u.muted],
+    ["--dropdown-background", u.surfaceAlt],
+    ["--dropdown-background-hover", u.lineHighlight],
+    ["--search-icon-color", u.muted],
+    ["--search-clear-button-color", u.muted],
+    ["--search-result-background", u.background],
+    // checkboxes and toggles
+    ["--checkbox-color", u.accent],
+    ["--checkbox-color-hover", u.accent],
+    ["--checkbox-marker-color", u.accentForeground],
+    ["--checkbox-border-color", u.border],
+    ["--checkbox-border-color-hover", u.foreground],
+    ["--checklist-done-decoration", "line-through"],
+    ["--checklist-done-color", u.muted],
+    ["--toggle-thumb-color", u.background],
+    // sliders
+    ["--slider-track-background", u.border],
+    ["--slider-fill-background", u.accent],
+    ["--slider-thumb-background", u.background],
+    ["--slider-thumb-background-hover", u.background],
+    ["--slider-thumb-border-color", u.foreground],
+    ["--slider-thumb-border-width", "2px"],
+    // multi-select pills
+    ["--pill-color", u.foreground],
+    ["--pill-color-hover", u.foreground],
+    ["--pill-color-remove", u.muted],
+    ["--pill-color-remove-hover", u.error],
+    ["--pill-background", u.surface],
+    ["--pill-background-hover", u.surfaceAlt],
+    ["--pill-border-color", u.border],
+    ["--pill-border-color-hover", u.foreground],
+    ["--pill-decoration-hover", "underline"],
+    // the file explorer, outline, tags, backlinks and every other tree
+    ["--nav-item-color", u.foreground],
+    ["--nav-item-color-hover", u.foreground],
+    ["--nav-item-color-active", u.foreground],
+    ["--nav-item-color-selected", u.foreground],
+    ["--nav-item-color-highlighted", u.accent],
+    ["--nav-item-background-hover", u.lineHighlight],
+    ["--nav-item-background-active", u.listSelection],
+    ["--nav-item-background-selected", u.listSelection],
+    ["--nav-indentation-guide-color", u.indentGuide],
+    ["--nav-collapse-icon-color", u.foreground],
+    ["--nav-collapse-icon-color-collapsed", u.accent],
+    ["--nav-heading-color", u.foreground],
+    ["--nav-heading-color-hover", u.foreground],
+    ["--nav-heading-color-collapsed", u.muted],
+    ["--nav-heading-color-collapsed-hover", u.foreground],
+    ["--nav-tag-color", u.muted],
+    ["--nav-tag-color-hover", u.foreground],
+    ["--nav-tag-color-active", u.foreground],
+    ["--indentation-guide-color", u.indentGuide],
+    ["--indentation-guide-color-active", u.muted],
+    // tabs
+    ["--tab-background-active", u.background],
+    ["--tab-text-color", u.muted],
+    ["--tab-text-color-active", u.foreground],
+    ["--tab-text-color-focused", u.muted],
+    ["--tab-text-color-focused-active", u.foreground],
+    ["--tab-text-color-focused-highlighted", u.accent],
+    ["--tab-text-color-focused-active-current", u.foreground],
+    ["--tab-container-background", u.surface],
+    ["--tab-divider-color", u.border],
+    ["--tab-outline-color", u.border],
+    ["--tab-switcher-background", u.surface],
+    // the window: title bar, ribbon, dividers, status bar, scrollbars
+    ["--titlebar-background", u.surface],
+    ["--titlebar-background-focused", u.surface],
+    ["--titlebar-border-color", u.border],
+    ["--titlebar-text-color", u.muted],
+    ["--titlebar-text-color-focused", u.foreground],
+    ["--ribbon-background", u.surface],
+    ["--ribbon-background-collapsed", u.background],
+    ["--divider-color", u.border],
+    ["--divider-color-hover", u.accent],
+    ["--status-bar-background", u.surface],
+    ["--status-bar-border-color", u.border],
+    ["--status-bar-text-color", u.foreground],
+    ["--scrollbar-bg", "transparent"],
+    ["--scrollbar-thumb-bg", u.muted],
+    ["--scrollbar-active-thumb-bg", u.foreground],
+    ["--vault-profile-color", u.foreground],
+    ["--vault-profile-color-hover", u.foreground],
+    ["--drag-ghost-background", u.surfaceAlt],
+    ["--drag-ghost-text-color", u.foreground],
+    ["--lightbox-background", u.background],
+    ["--lightbox-titlebar-color", u.foreground],
+    // menus, prompts, suggestions, modals, settings, notices, tooltips
+    ["--menu-background", u.surface],
+    ["--menu-border-color", u.border],
+    ["--prompt-background", u.background],
+    ["--prompt-border-color", u.border],
+    ["--suggestion-background", u.background],
+    ["--modal-background", u.background],
+    ["--modal-sidebar-background", u.surface],
+    ["--modal-border-color", u.border],
+    ["--settings-background", u.background],
+    ["--setting-items-background", u.surface],
+    ["--setting-items-border-width", "1px"],
+    ["--setting-items-border-color", u.border],
+    ["--setting-items-divider-color", u.border],
+    ["--setting-item-name-color", u.foreground],
+    ["--setting-group-heading-color", u.foreground],
+    ["--hotkey-background", u.surfaceAlt],
+    ["--flair-background", u.surfaceAlt],
+    ["--flair-color", u.foreground],
+    ["--notice-background", u.surfaceAlt],
+    ["--notice-color", u.foreground],
+    ["--notice-border", "1px solid var(--background-modifier-border)"],
+    ["--tooltip-background", u.surfaceAlt],
+    ["--tooltip-color", u.foreground],
+    ["--graph-controls-background", u.surface],
+    // the editor: headings, links, lists, quotes, rules, code, tags, embeds, properties, footnotes
+    ["--heading-formatting", u.muted],
+    ["--h1-color", u.foreground],
+    ["--h2-color", u.foreground],
+    ["--h3-color", u.foreground],
+    ["--h4-color", u.foreground],
+    ["--h5-color", u.foreground],
+    ["--h6-color", u.foreground],
+    ["--inline-title-color", u.foreground],
+    ["--link-color", u.link],
+    ["--link-color-hover", u.link],
+    ["--link-decoration", "underline"],
+    ["--link-decoration-hover", "underline"],
+    ["--link-external-color", u.link],
+    ["--link-external-color-hover", u.link],
+    ["--link-external-decoration", "underline"],
+    ["--link-external-decoration-hover", "underline"],
+    ["--link-unresolved-color", u.link],
+    ["--link-unresolved-opacity", "1"],
+    ["--link-unresolved-decoration-style", "dashed"],
+    ["--link-unresolved-decoration-color", u.link],
+    ["--list-marker-color", u.muted],
+    ["--list-marker-color-hover", u.foreground],
+    ["--list-marker-color-collapsed", u.accent],
+    ["--blockquote-border-color", u.accent],
+    ["--blockquote-border-thickness", "3px"],
+    ["--blockquote-color", u.foreground],
+    ["--hr-color", u.border],
+    ["--hr-thickness", "2px"],
+    ["--code-background", u.surface],
+    ["--code-border-width", "1px"],
+    ["--code-border-color", u.border],
+    ["--code-bracket-background", "transparent"],
+    ["--code-normal", s.foreground],
+    ["--code-comment", s.comment],
+    ["--code-function", s.function],
+    ["--code-important", s.control],
+    ["--code-keyword", s.keyword],
+    ["--code-operator", s.operator],
+    ["--code-property", s.property],
+    ["--code-punctuation", s.operator],
+    ["--code-string", s.string],
+    ["--code-tag", s.tag],
+    ["--code-value", s.number],
+    ["--zacess-code-type", s.type],
+    ["--zacess-code-attribute", s.attribute],
+    ["--zacess-code-regex", s.regex],
+    ["--zacess-code-invalid", s.invalid],
+    ["--zacess-added", s.added],
+    ["--zacess-removed", s.removed],
+    ["--tag-color", u.accent],
+    ["--tag-color-hover", u.accent],
+    ["--tag-decoration-hover", "underline"],
+    ["--tag-background", u.surface],
+    ["--tag-background-hover", u.surfaceAlt],
+    ["--tag-border-color", u.border],
+    ["--tag-border-color-hover", u.foreground],
+    ["--tag-border-width", "1px"],
+    ["--embed-border-color", u.accent],
+    ["--embed-border-start", "3px solid var(--embed-border-color)"],
+    ["--embed-actions-background", u.surfaceAlt],
+    ["--embed-action-color", u.foreground],
+    ["--embed-block-shadow-hover", "0 0 0 1px var(--background-modifier-border)"],
+    ["--file-header-background", u.background],
+    ["--file-header-background-focused", u.background],
+    ["--file-header-border-color", u.border],
+    ["--file-header-border", "1px solid var(--file-header-border-color)"],
+    ["--metadata-border-color", u.border],
+    ["--metadata-divider-color", u.border],
+    ["--metadata-divider-color-hover", u.border],
+    ["--metadata-divider-color-focus", u.borderActive],
+    ["--metadata-property-background-active", u.listSelection],
+    ["--metadata-label-background-active", u.listSelection],
+    ["--metadata-label-text-color", u.muted],
+    ["--metadata-label-text-color-hover", u.foreground],
+    ["--metadata-input-text-color", u.foreground],
+    ["--metadata-input-background-active", u.listSelection],
+    ["--footnote-id-color", u.muted],
+    ["--footnote-id-color-no-occurrences", u.muted],
+    ["--footnote-divider-color", u.border],
+    // tables
+    ["--table-border-color", u.border],
+    ["--table-header-background", u.surface],
+    ["--table-header-background-hover", u.surface],
+    ["--table-header-border-color", u.border],
+    ["--table-header-color", u.foreground],
+    ["--table-text-color", u.foreground],
+    ["--table-row-background-hover", u.lineHighlight],
+    ["--table-selection", u.selection],
+    ["--table-selection-border-color", u.accent],
+    ["--table-drag-handle-color", u.muted],
+    ["--table-drag-handle-background-active", u.accent],
+    ["--table-drag-handle-color-active", u.accentForeground],
+    ["--table-add-button-border-color", u.border],
+    // callouts: each type keeps its own colour for the icon, the title and the border; the fill is
+    // the panel colour so every text and code colour inside stays measured
+    ["--callout-border-width", "1px"],
+    ["--callout-border-opacity", "1"],
+    ["--callout-blend-mode", "normal"],
+    ["--callout-bug", u.error],
+    ["--callout-default", u.info],
+    ["--callout-error", u.error],
+    ["--callout-example", s.property],
+    ["--callout-fail", u.error],
+    ["--callout-important", s.control],
+    ["--callout-info", u.info],
+    ["--callout-question", u.warning],
+    ["--callout-success", s.added],
+    ["--callout-summary", s.type],
+    ["--callout-tip", s.type],
+    ["--callout-todo", u.accent],
+    ["--callout-warning", u.warning],
+    ["--callout-quote", u.muted],
+    // graph view
+    ["--graph-text", u.foreground],
+    ["--graph-line", u.muted],
+    ["--graph-node", u.muted],
+    ["--graph-node-unresolved", u.foreground],
+    ["--graph-node-focused", u.accent],
+    ["--graph-node-tag", s.added],
+    ["--graph-node-attachment", u.warning],
+    // canvas
+    ["--canvas-background", u.background],
+    ["--canvas-card-label-color", u.muted],
+    ["--canvas-dot-pattern", u.indentGuide],
+    ["--canvas-color-1", extended.red],
+    ["--canvas-color-2", extended.orange],
+    ["--canvas-color-3", extended.yellow],
+    ["--canvas-color-4", extended.green],
+    ["--canvas-color-5", extended.cyan],
+    ["--canvas-color-6", extended.purple],
+    // Bases views
+    ["--bases-table-header-color", u.foreground],
+    ["--bases-table-header-background", u.surface],
+    ["--bases-table-header-background-hover", u.lineHighlight],
+    ["--bases-table-group-background", u.surface],
+    ["--bases-table-summary-background", u.surface],
+    ["--bases-table-summary-background-hover", u.lineHighlight],
+    ["--bases-table-border-color", u.border],
+    ["--bases-table-row-background-hover", u.lineHighlight],
+    ["--bases-table-cell-background-selected", u.selection],
+    ["--bases-table-cell-shadow-active", "0 0 0 2px var(--background-modifier-border-focus)"],
+    ["--bases-table-cell-shadow-focus", "0 0 0 2px var(--interactive-accent)"],
+    ["--bases-group-heading-property-color", u.muted],
+    ["--bases-embed-border-color", u.border],
+    ["--bases-filter-input-background", u.background],
+    ["--bases-cards-background", u.surface],
+    ["--bases-cards-cover-background", u.surfaceAlt],
+    ["--bases-cards-shadow", "0 0 0 1px var(--background-modifier-border)"],
+    ["--bases-cards-shadow-hover", "0 0 0 2px var(--background-modifier-border-hover)"],
+    ["--bases-kanban-column-background", u.surface],
+    ["--bases-kanban-card-background", u.background],
+    ["--bases-kanban-cover-background", u.surfaceAlt],
+    ["--bases-kanban-card-shadow", "0 0 0 1px var(--background-modifier-border)"],
+    ["--bases-kanban-card-shadow-hover", "0 0 0 2px var(--background-modifier-border-hover)"],
+    ["--bases-kanban-card-shadow-focus", "0 0 0 2px var(--background-modifier-border-focus)"],
+    // the PDF viewer
+    ["--pdf-background", u.surface],
+    ["--pdf-page-background", u.background],
+    ["--pdf-sidebar-background", u.surface],
+    ["--pdf-shadow", "0 0 0 1px var(--background-modifier-border)"],
+    ["--pdf-spread-shadow", "0 0 0 1px var(--background-modifier-border)"],
+    ["--pdf-thumbnail-shadow", "0 0 0 1px var(--background-modifier-border)"],
+    // Sync avatars
+    ["--sync-avatar-color-current-user", u.accent],
+    ["--sync-avatar-color-1", extended.red],
+    ["--sync-avatar-color-2", extended.orange],
+    ["--sync-avatar-color-3", extended.yellow],
+    ["--sync-avatar-color-4", extended.green],
+    ["--sync-avatar-color-5", extended.cyan],
+    ["--sync-avatar-color-6", extended.blue],
+    ["--sync-avatar-color-7", extended.purple],
+    ["--sync-avatar-color-8", extended.pink],
+    // Mermaid diagrams
+    ["--mermaid-background", u.background],
+    ["--mermaid-text-color", u.foreground],
+    ["--mermaid-muted-color", u.muted],
+    ["--mermaid-line-color", u.foreground],
+    ["--mermaid-surface", u.surface],
+    ["--mermaid-surface-alt", u.surfaceAlt],
+    ["--mermaid-border-color", u.border],
+    ["--mermaid-accent", u.accent],
+    ["--mermaid-critical", u.error],
+    ["--mermaid-error", u.error],
+    ["--mermaid-color-1", extended.blue],
+    ["--mermaid-color-2", extended.orange],
+    ["--mermaid-color-3", extended.green],
+    ["--mermaid-color-4", extended.red],
+    ["--mermaid-color-5", extended.cyan],
+    ["--mermaid-color-6", extended.yellow],
+    ["--mermaid-color-7", extended.purple],
+    ["--mermaid-color-8", extended.pink],
   ];
+  return vars.map(([name, value]) => `${name}: ${value};`);
 }
+
+// the rules every look shares, drawn from the variables above
+const OBSIDIAN_RULES = `
+/* Obsidian fills search matches in the editor with the selection colour; they take the find
+   match colour instead, so a selection never passes for a search hit; the match the
+   cursor is on is outlined as well */
+.cm-s-obsidian span.cm-highlight.obsidian-search-match-highlight,
+.cm-s-obsidian .cm-searchMatch {
+  background-color: var(--text-highlight-bg);
+}
+
+.cm-s-obsidian .cm-searchMatch.cm-searchMatch-selected {
+  outline: 2px solid var(--zacess-find-border);
+  outline-offset: 1px;
+}
+
+/* the line the cursor is on is a visible band in editing view */
+.cm-s-obsidian .cm-active.cm-line,
+.cm-s-obsidian .cm-activeLine {
+  background-color: var(--zacess-line-highlight);
+}
+
+/* a matched bracket is outlined and bold with no fill, so it never hides the character */
+.cm-s-obsidian .cm-matchingBracket,
+.cm-s-obsidian span.cm-matchingBracket,
+.cm-editor.cm-focused .cm-matchingBracket {
+  background-color: transparent;
+  box-shadow: none;
+  outline: 2px solid var(--zacess-match-outline);
+  font-weight: 700;
+}
+
+/* links are underlined so colour is never the only signal */
+.markdown-rendered a,
+.cm-s-obsidian span.cm-hmd-internal-link,
+.cm-s-obsidian span.cm-url,
+.cm-s-obsidian span.cm-link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+}
+
+/* a visible focus ring on every control, never removed */
+:focus-visible {
+  outline: 3px solid var(--zacess-focus);
+  outline-offset: 2px;
+}
+
+/* the active tab carries a bar in the focus colour as well as its fill */
+.workspace-tab-header-container .workspace-tab-header.is-active .workspace-tab-header-inner {
+  box-shadow: inset 0 -3px 0 0 var(--zacess-active-tab);
+}
+
+/* the file explorer, the outline and every other tree mark the open file and a selected row
+   with a bar as well as the row fill, as does a property being edited */
+.tree-item-self.is-active,
+.tree-item-self.is-selected,
+.metadata-property.is-selected,
+.metadata-property:focus-within {
+  box-shadow: inset 3px 0 0 0 var(--zacess-active-tab);
+}
+
+/* a ==highlight== keeps the find match fill and gains an underline in the find match outline
+   colour, so it is never carried by a pale fill alone */
+.markdown-rendered mark,
+.cm-s-obsidian span.cm-highlight,
+.cm-s-obsidian span.cm-formatting-highlight {
+  box-shadow: inset 0 -2px 0 0 var(--zacess-find-border);
+}
+
+/* a selected suggestion in the command palette, the quick switcher and every other prompt takes
+   the selected row fill and a bar, so it is never marked by a hover tint alone */
+.suggestion-item.is-selected {
+  background-color: var(--background-modifier-active-hover);
+  box-shadow: inset 3px 0 0 0 var(--zacess-active-tab);
+}
+
+/* tooltips and notices are panels with a border, not a translucent black block */
+.tooltip {
+  border: 1px solid var(--background-modifier-border);
+}
+
+.tooltip .tooltip-arrow {
+  display: none;
+}
+
+.tooltip.mod-error,
+button.mod-warning,
+button.mod-destructive.mod-cta,
+.setting-hotkey.has-conflict {
+  color: var(--zacess-on-signal);
+  --text-color: var(--zacess-on-signal);
+}
+
+/* callouts: the panel fill with the type colour on the icon, the title and the border plus a
+   thicker start edge; the mixed colours Obsidian derives for tables inside are replaced */
+.callout {
+  background-color: var(--background-secondary);
+  border-inline-start-width: 4px;
+  --code-background: var(--background-secondary-alt);
+  --table-border-color: var(--background-modifier-border);
+  --bases-table-border-color: var(--background-modifier-border);
+  --bases-embed-border-color: var(--background-modifier-border);
+  --bases-table-header-background-hover: var(--background-modifier-hover);
+}
+
+.callout-title-inner {
+  color: var(--callout-color);
+}
+
+/* embeds keep a start border in the accent and a faint panel fill */
+.markdown-embed {
+  border-inline-start: var(--embed-border-start);
+}
+
+/* toggles: the off track is the border colour and the thumb the page colour, so both states keep
+   their contrast and the thumb's position carries the state */
+.checkbox-container {
+  background-color: var(--background-modifier-border);
+}
+
+.checkbox-container.is-enabled {
+  background-color: var(--interactive-accent);
+}
+
+/* unresolved graph nodes keep the text colour at half strength rather than a faint grey */
+.graph-view.color-fill-unresolved {
+  opacity: 0.6;
+}
+
+/* the editing view's own token classes: headings and formatting marks keep the text colours,
+   tags take the tag colours */
+.cm-s-obsidian span.cm-formatting {
+  color: var(--text-muted);
+}
+
+.cm-s-obsidian span.cm-formatting-header {
+  color: var(--heading-formatting);
+}
+
+.cm-s-obsidian span.cm-hashtag {
+  color: var(--tag-color);
+}
+
+/* code: every token class Obsidian draws in reading view (Prism) and editing view (CodeMirror)
+   takes a palette colour, so a type, an attribute, a regular expression or invalid code is never
+   left on the plain text colour */
+.markdown-rendered .token.class-name,
+.markdown-rendered .token.builtin,
+.markdown-rendered .token.atrule,
+.markdown-rendered .token.property-access,
+.cm-s-obsidian span.cm-type,
+.cm-s-obsidian span.cm-variable-3,
+.cm-s-obsidian span.cm-def,
+.cm-s-obsidian span.cm-builtin {
+  color: var(--zacess-code-type);
+}
+
+.markdown-rendered .token.attr-name,
+.markdown-rendered .token.attr-value,
+.markdown-rendered .token.selector,
+.cm-s-obsidian span.cm-attribute,
+.cm-s-obsidian span.cm-qualifier {
+  color: var(--zacess-code-attribute);
+}
+
+.markdown-rendered .token.regex,
+.cm-s-obsidian span.cm-string-2 {
+  color: var(--zacess-code-regex);
+}
+
+.markdown-rendered .token.important,
+.cm-s-obsidian span.cm-meta {
+  color: var(--code-important);
+}
+
+.markdown-rendered .token.inserted {
+  color: var(--zacess-added);
+}
+
+.markdown-rendered .token.deleted {
+  color: var(--zacess-removed);
+}
+
+.cm-s-obsidian span.cm-error,
+.markdown-rendered .token.invalid {
+  color: var(--zacess-code-invalid);
+  text-decoration: underline wavy;
+}
+
+/* font styles in code match every other editor, so styles carry meaning without colour */
+.cm-s-obsidian span.cm-keyword,
+.cm-s-obsidian span.cm-tag,
+.markdown-rendered .token.keyword,
+.markdown-rendered .token.tag,
+.markdown-rendered .token.important {
+  font-weight: 700;
+}
+
+.cm-s-obsidian span.cm-comment,
+.markdown-rendered .token.comment {
+  font-style: italic;
+}
+
+.markdown-rendered .token.parameter {
+  font-style: italic;
+}
+
+/* nothing moves for a reader who asked for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+`;
 
 function buildObsidian() {
   const byId = Object.fromEntries(palette.themes.map((t) => [t.id, t]));
-  const block = (selector, theme) => `${selector} {\n${obsidianVars(theme).map((v) => `  ${v}`).join("\n")}\n}\n`;
-  const css = [
-    `/* ${HEADER} */`,
-    "",
-    "/* @settings",
-    "name: Zacess",
-    "id: zacess-theme",
-    "settings:",
-    "  - id: zacess-contrast",
-    "    title: Contrast theme",
-    "    description: Light and Dark follow Obsidian's own appearance setting. The others replace both.",
-    "    type: class-select",
-    "    allowEmpty: false",
-    "    default: zacess-follow",
-    "    options:",
-    "      - label: Light or Dark, following Obsidian",
-    "        value: zacess-follow",
-    "      - label: Yellow on Black (low vision)",
-    "        value: zacess-yellow-on-black",
-    "      - label: Cream (dyslexia friendly)",
-    "        value: zacess-cream",
-    "      - label: High Contrast Dark",
-    "        value: zacess-high-contrast-dark",
-    "      - label: High Contrast Light",
-    "        value: zacess-high-contrast-light",
-    "      - label: Deep Contrast Dark",
-    "        value: zacess-deep-contrast-dark",
-    "      - label: Deep Contrast Light",
-    "        value: zacess-deep-contrast-light",
-    "*/",
-    "",
-    block(".theme-light", byId.light),
-    block(".theme-dark", byId.dark),
-    "/* the class-select option sits on body, so it outranks the light and dark blocks above */",
-    block("body.zacess-yellow-on-black.theme-light,\nbody.zacess-yellow-on-black.theme-dark", byId["yellow-on-black"]),
-    block("body.zacess-cream.theme-light,\nbody.zacess-cream.theme-dark", byId.cream),
-    block("body.zacess-high-contrast-dark.theme-light,\nbody.zacess-high-contrast-dark.theme-dark", byId["high-contrast-dark"]),
-    block("body.zacess-high-contrast-light.theme-light,\nbody.zacess-high-contrast-light.theme-dark", byId["high-contrast-light"]),
-    block("body.zacess-deep-contrast-dark.theme-light,\nbody.zacess-deep-contrast-dark.theme-dark", byId["deep-contrast-dark"]),
-    block("body.zacess-deep-contrast-light.theme-light,\nbody.zacess-deep-contrast-light.theme-dark", byId["deep-contrast-light"]),
-    "/* Obsidian fills search matches in the editor with the selection colour; they take the find",
-    "   match colour instead, so a selection never passes for a search hit; the match the",
-    "   cursor is on is outlined as well */",
-    ".cm-s-obsidian span.cm-highlight.obsidian-search-match-highlight,",
-    ".cm-s-obsidian .cm-searchMatch {",
-    "  background-color: var(--text-highlight-bg);",
-    "}",
-    "",
-    ".cm-s-obsidian .cm-searchMatch.cm-searchMatch-selected {",
-    "  outline: 2px solid var(--zacess-find-border);",
-    "  outline-offset: 1px;",
-    "}",
-    "",
-    "/* the line the cursor is on is a visible band in editing view */",
-    ".cm-s-obsidian .cm-active.cm-line,",
-    ".cm-s-obsidian .cm-activeLine {",
-    "  background-color: var(--zacess-line-highlight);",
-    "}",
-    "",
-    "/* a matched bracket is outlined and bold with no fill, so it never hides the character */",
-    ".cm-s-obsidian .cm-matchingBracket,",
-    ".cm-s-obsidian span.cm-matchingBracket {",
-    "  background-color: transparent;",
-    "  outline: 2px solid var(--zacess-match-outline);",
-    "  font-weight: 700;",
-    "}",
-    "",
-    "/* links are underlined so colour is never the only signal */",
-    ".markdown-rendered a,",
-    ".cm-s-obsidian span.cm-hmd-internal-link,",
-    ".cm-s-obsidian span.cm-url,",
-    ".cm-s-obsidian span.cm-link {",
-    "  text-decoration: underline;",
-    "  text-decoration-thickness: 1px;",
-    "  text-underline-offset: 2px;",
-    "}",
-    "",
-    "/* a visible focus ring on every control, never removed */",
-    ":focus-visible {",
-    "  outline: 3px solid var(--zacess-focus);",
-    "  outline-offset: 2px;",
-    "}",
-    "",
-    "/* font styles in code match every other editor, so styles carry meaning without colour */",
-    ".cm-s-obsidian .cm-keyword,",
-    ".markdown-rendered .token.keyword {",
-    "  font-weight: 700;",
-    "}",
-    "",
-    ".cm-s-obsidian .cm-comment,",
-    ".markdown-rendered .token.comment {",
-    "  font-style: italic;",
-    "}",
-    "",
-    ".markdown-rendered .token.tag {",
-    "  font-weight: 700;",
-    "}",
-    "",
-    ".markdown-rendered .token.parameter {",
-    "  font-style: italic;",
-    "}",
-    "",
-    ".markdown-rendered .token.inserted {",
-    "  color: var(--zacess-added);",
-    "}",
-    "",
-    ".markdown-rendered .token.deleted {",
-    "  color: var(--zacess-removed);",
-    "}",
-    "",
-    "@media (prefers-reduced-motion: reduce) {",
-    "  * {",
-    "    animation-duration: 0.01ms !important;",
-    "    transition-duration: 0.01ms !important;",
-    "  }",
-    "}",
-    "",
-  ].join("\n");
-  write("editors/obsidian/theme.css", css);
-  write("editors/obsidian/manifest.json", json({
-    name: "Zacess",
-    version: palette.version,
-    minAppVersion: "1.0.0",
-    author: "Zacess",
-    authorUrl: "https://zacess.com",
-  }));
+  const block = (selector, theme) => `/* ${theme.name} */\n${selector} {\n${obsidianVars(theme).map((v) => `  ${v}`).join("\n")}\n}\n`;
+  for (const target of OBSIDIAN_THEMES) {
+    const light = byId[target.light];
+    const dark = byId[target.dark];
+    const css = [
+      `/* ${HEADER} */`,
+      `/* ${target.name} for Obsidian: ${light.name} in light mode and ${dark.name} in dark mode */`,
+      "",
+      block(".theme-light", light),
+      block(".theme-dark", dark),
+      OBSIDIAN_RULES.trimStart(),
+    ].join("\n");
+    write(`editors/obsidian/${target.id}/theme.css`, css);
+    write(`editors/obsidian/${target.id}/manifest.json`, json({
+      name: target.name,
+      version: palette.version,
+      minAppVersion: "1.0.0",
+      author: "Zacess",
+      authorUrl: "https://zacess.com",
+    }));
+  }
 }
 
 // ---------------------------------------------------------------- Neovim

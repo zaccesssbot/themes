@@ -1,0 +1,4 @@
+{
+  // the screenshot tool installs Playwright under scripts/screenshot, whose own markdown is not ours to lint
+  "ignores": ["**/node_modules/**"]
+}

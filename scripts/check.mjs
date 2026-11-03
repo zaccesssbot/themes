@@ -3,7 +3,7 @@
 // every failure so CI shows exactly which colour or file to fix
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { ANSI_NAMES, ROOT, VSCODE_FALLBACK_KEYS, VSCODE_FILL_TEXT_PAIRS, VSCODE_HC_TEXT_PAIRS, VSCODE_NON_TEXT_PAIRS, VSCODE_TEXT_PAIRS, XCODE_KEYS, XCODE_SYNTAX_KEYS, loadPalette, loadSchema, styleOf } from "./lib/palette.mjs";
+import { ANSI_NAMES, OBSIDIAN_NON_TEXT_PAIRS, OBSIDIAN_SELECTION_TEXT_PAIRS, OBSIDIAN_SIGNAL_PAIRS, OBSIDIAN_SIGNAL_TEXT_PAIRS, OBSIDIAN_TEXT_PAIRS, OBSIDIAN_THEMES, ROOT, VSCODE_FALLBACK_KEYS, VSCODE_FILL_TEXT_PAIRS, VSCODE_HC_TEXT_PAIRS, VSCODE_NON_TEXT_PAIRS, VSCODE_TEXT_PAIRS, XCODE_KEYS, XCODE_SYNTAX_KEYS, loadPalette, loadSchema, styleOf } from "./lib/palette.mjs";
 import { validate } from "./lib/schema.mjs";
 import { measureAll, windowsSelectionText } from "./lib/measure.mjs";
 import { contrast, ratio } from "./lib/colour.mjs";
@@ -255,8 +255,26 @@ function shippedSelections(theme) {
   }
   return { pairs, keeps };
 }
-const obsidian = read("editors/obsidian/theme.css");
-const obsidianSelections = [...obsidian.matchAll(/--text-selection: (#\w+);/g)].map((m) => m[1]);
+// each Obsidian theme file carries a light block and a dark block of variables, one per look;
+// every colour the checks need is read back out of the block for that look
+const obsidianFiles = new Map();
+const obsidianBlocks = new Map();
+for (const target of OBSIDIAN_THEMES) {
+  const file = `editors/obsidian/${target.id}/theme.css`;
+  const text = read(file);
+  obsidianFiles.set(file, text);
+  for (const [mode, themeId] of [["light", target.light], ["dark", target.dark]]) {
+    const block = new RegExp(`^\\.theme-${mode} \\{\\n([\\s\\S]*?)\\n\\}`, "m").exec(text);
+    if (!block) {
+      fail("obsidian", file, `has no .theme-${mode} block`);
+      continue;
+    }
+    const vars = {};
+    for (const [, name, value] of block[1].matchAll(/^ {2}--([a-z0-9-]+): ([^;]+);$/gm)) vars[name] = value;
+    obsidianBlocks.set(themeId, { file, mode, vars });
+  }
+}
+const obsidianVar = (themeId, name) => obsidianBlocks.get(themeId)?.vars[name];
 for (const theme of palette.themes) {
   let shipped;
   try {
@@ -273,10 +291,10 @@ for (const theme of palette.themes) {
     if (colour?.toLowerCase() !== theme.ui.selection) fail("selection", `${theme.id} ${target}`, `${colour} is not the background only selection ${theme.ui.selection} the checks measure`);
   }
 }
-// the Obsidian file has one block per theme, in the palette's order
-palette.themes.forEach((theme, i) => {
-  if (obsidianSelections[i] !== theme.ui.selection) fail("selection", `${theme.id} Obsidian`, `--text-selection is ${obsidianSelections[i]}, not ${theme.ui.selection}`);
-});
+for (const theme of palette.themes) {
+  const selection = obsidianVar(theme.id, "text-selection");
+  if (selection !== theme.ui.selection) fail("selection", `${theme.id} Obsidian`, `--text-selection is ${selection}, not ${theme.ui.selection}`);
+}
 report();
 
 // 7. the cursor, the current line, the find match, the word and bracket outlines and the diff marks
@@ -409,11 +427,6 @@ function shippedSignals(theme) {
   for (const [target, list] of Object.entries(lists)) ansi.forEach((c, i) => same.push([target, `ANSI ${i}`, list[i], c]));
   return { same, none };
 }
-const obsidianVar = (name) => [...obsidian.matchAll(new RegExp(`--${name}: (#\\w+);`, "g"))].map((m) => m[1]);
-const obsidianLines = obsidianVar("zacess-line-highlight");
-const obsidianFindBorders = obsidianVar("zacess-find-border");
-const obsidianCursors = obsidianVar("caret-color");
-const obsidianOutlines = obsidianVar("zacess-match-outline");
 palette.themes.forEach((theme, i) => {
   let shipped;
   try {
@@ -422,7 +435,7 @@ palette.themes.forEach((theme, i) => {
     fail("signals", theme.id, error.message);
     return;
   }
-  shipped.same.push(["Obsidian", "current line", obsidianLines[i], theme.ui.lineHighlight], ["Obsidian", "find match border", obsidianFindBorders[i], theme.ui.findMatchBorder], ["Obsidian", "cursor", obsidianCursors[i], theme.ui.cursor], ["Obsidian", "bracket outline", obsidianOutlines[i], theme.ui.matchOutline ?? theme.ui.accent]);
+  shipped.same.push(["Obsidian", "current line", obsidianVar(theme.id, "zacess-line-highlight"), theme.ui.lineHighlight], ["Obsidian", "find match border", obsidianVar(theme.id, "zacess-find-border"), theme.ui.findMatchBorder], ["Obsidian", "cursor", obsidianVar(theme.id, "caret-color"), theme.ui.cursor], ["Obsidian", "bracket outline", obsidianVar(theme.id, "zacess-match-outline"), theme.ui.matchOutline ?? theme.ui.accent]);
   for (const [target, what, value, expected] of shipped.same) {
     if (String(value).toLowerCase() !== String(expected).toLowerCase()) fail("signals", `${theme.id} ${target} ${what}`, `${value} is not ${expected}, which the checks measure`);
   }
@@ -430,8 +443,56 @@ palette.themes.forEach((theme, i) => {
     if (value !== undefined && !/^#[0-9a-f]{6}00$/i.test(value)) fail("signals", `${theme.id} ${target} ${what}`, `has a fill ${value}, which could hide a character or pass for a selection`);
   }
 });
-for (const css of ["--zacess-find-border", "--zacess-line-highlight", "--zacess-match-outline"]) {
-  if (!obsidian.includes(`var(${css})`)) fail("signals", "Obsidian", `${css} is defined but never drawn`);
+for (const [file, text] of obsidianFiles) {
+  for (const css of ["--zacess-find-border", "--zacess-line-highlight", "--zacess-match-outline", "--zacess-focus", "--zacess-active-tab", "--zacess-on-signal"]) {
+    if (!text.includes(`var(${css})`)) fail("signals", file, `${css} is defined but never drawn`);
+  }
+}
+report();
+
+// 8. every colour an Obsidian theme sets is read back out of its light and dark blocks and held to
+// its floor: text on every fill it can sit on, secondary text over a selection or a row band, and
+// every border, outline, icon and mark on the fill it divides; both blocks of every file set the
+// same variables and every var() inside a block names one of them, so no look is left on an
+// Obsidian default
+const obsidianPairs = [
+  ["text", OBSIDIAN_TEXT_PAIRS, palette.rules.textContrast],
+  ["selection text", OBSIDIAN_SELECTION_TEXT_PAIRS, palette.rules.selectionContrast],
+  ["row text", OBSIDIAN_SIGNAL_TEXT_PAIRS, palette.rules.signalTextContrast],
+  ["non-text", OBSIDIAN_NON_TEXT_PAIRS, palette.rules.nonTextContrast],
+  ["signal", OBSIDIAN_SIGNAL_PAIRS, palette.rules.signalContrast],
+];
+const obsidianNames = new Set([...obsidianBlocks.values()].map(({ vars }) => Object.keys(vars).sort().join(" ")));
+if (obsidianNames.size > 1) fail("obsidian", "theme blocks", "the light and dark blocks of the Obsidian themes do not set the same variables");
+for (const [themeId, { file, mode, vars }] of obsidianBlocks) {
+  const where = `${themeId} (${file} ${mode})`;
+  for (const value of Object.values(vars)) {
+    for (const [, name] of value.matchAll(/var\(--([a-z0-9-]+)\)/g)) {
+      if (!(name in vars)) fail("obsidian", where, `--${name} is referenced but not set in the block`);
+    }
+  }
+  for (const [kind, pairs, floor] of obsidianPairs) {
+    for (const [fg, backgrounds] of pairs) {
+      for (const bg of backgrounds) {
+        const a = vars[fg];
+        const b = vars[bg];
+        if (!a || !b) {
+          fail("obsidian", `${where} ${fg} on ${bg}`, "one of the two variables is unset");
+          continue;
+        }
+        if (!/^#[0-9a-f]{6}$/i.test(a) || !/^#[0-9a-f]{6}$/i.test(b)) {
+          fail("obsidian", `${where} ${fg} on ${bg}`, "one of the two variables is not a colour");
+          continue;
+        }
+        if (contrast(a, b) < floor) fail("obsidian", `${where} ${fg} on ${bg}`, `${kind}: ${a} on ${b} is ${ratio(a, b)}:1, needs ${floor}:1`);
+      }
+    }
+  }
+}
+for (const target of OBSIDIAN_THEMES) {
+  const manifest = JSON.parse(read(`editors/obsidian/${target.id}/manifest.json`));
+  if (manifest.name !== target.name) fail("obsidian", `${target.id} manifest.json`, `name ${manifest.name} is not ${target.name}`);
+  if (manifest.version !== palette.version) fail("obsidian", `${target.id} manifest.json`, `version ${manifest.version} differs from the palette's ${palette.version}`);
 }
 report();
 
