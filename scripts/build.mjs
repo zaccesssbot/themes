@@ -3037,6 +3037,12 @@ function btop(theme) {
     ["download_start", magenta], ["download_mid", magenta], ["download_end", brightMagenta],
     ["upload_start", green], ["upload_mid", green], ["upload_end", brightGreen],
     ["process_start", cyan], ["process_mid", blue], ["process_end", magenta],
+    // the process list's paused, followed and banner rows carry the main text, so each takes a
+    // background the palette already keeps readable under it (every pair is 9:1 or better) and the
+    // three differ in hue from one another and from the selected row
+    ["proc_pause_bg", u.diffRemovedBackground], ["proc_follow_bg", u.listSelection],
+    ["proc_banner_bg", u.findMatch], ["proc_banner_fg", t.foreground],
+    ["followed_bg", u.listSelection], ["followed_fg", t.foreground],
   ];
   return [`# ${theme.name}`, `# ${HEADER}`, "", ...values.map(([key, value]) => `theme[${key}]="${value}"`), ""].join("\n");
 }

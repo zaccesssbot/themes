@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.12.0] - 2026-11-04
+
+### Added
+
+- The btop themes set the process list's paused, followed and banner rows (`proc_pause_bg`, `proc_follow_bg`, `proc_banner_bg`, `proc_banner_fg`, `followed_bg` and `followed_fg`), which newer btop releases read. Each takes a palette background the main text keeps at 9:1 or better. The three differ in hue from one another and from the selected row.
+
 ## [0.11.0] - 2026-11-04
 
 ### Fixed
