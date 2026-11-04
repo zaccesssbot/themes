@@ -2,7 +2,7 @@
 /* Zacess High Contrast for Obsidian: Zacess High Contrast Light in light mode and Zacess High Contrast Dark in dark mode */
 
 /* Zacess High Contrast Light */
-.theme-light {
+.theme-light.theme-light {
   color-scheme: light;
   --color-base-00: #ffffff;
   --color-base-05: #f7f7f7;
@@ -304,9 +304,9 @@
   --callout-quote: #2e2e2e;
   --graph-text: #000000;
   --graph-line: #2e2e2e;
-  --graph-node: #2e2e2e;
+  --graph-node: #003d99;
   --graph-node-unresolved: #000000;
-  --graph-node-focused: #003d99;
+  --graph-node-focused: #000000;
   --graph-node-tag: #005518;
   --graph-node-attachment: #5a3a00;
   --canvas-background: #ffffff;
@@ -378,7 +378,7 @@
 }
 
 /* Zacess High Contrast Dark */
-.theme-dark {
+.theme-dark.theme-dark {
   color-scheme: dark;
   --color-base-00: #000000;
   --color-base-05: #000000;
@@ -680,7 +680,7 @@
   --callout-quote: #e0e0e0;
   --graph-text: #ffffff;
   --graph-line: #e0e0e0;
-  --graph-node: #e0e0e0;
+  --graph-node: #8fd0ff;
   --graph-node-unresolved: #ffffff;
   --graph-node-focused: #f5c400;
   --graph-node-tag: #3bff59;
@@ -964,4 +964,41 @@ button.mod-destructive.mod-cta,
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* the workspace chrome in each mode's own colours */
+.theme-light.theme-light .workspace-ribbon,
+.theme-light.theme-light .workspace-split.mod-left-split,
+.theme-light.theme-light .workspace-split.mod-right-split,
+.theme-light.theme-light .mod-left-split .workspace-tabs,
+.theme-light.theme-light .mod-right-split .workspace-tabs,
+.theme-light.theme-light .workspace-tab-header-container,
+.theme-light.theme-light .workspace-sidedock-vault-profile,
+.theme-light.theme-light .status-bar,
+.theme-light.theme-light .titlebar {
+  background-color: #f7f7f7;
+  color: #000000;
+}
+
+.theme-light.theme-light .workspace-split.mod-root .workspace-leaf-content,
+.theme-light.theme-light .workspace-split.mod-root .view-content {
+  background-color: #ffffff;
+}
+
+.theme-dark.theme-dark .workspace-ribbon,
+.theme-dark.theme-dark .workspace-split.mod-left-split,
+.theme-dark.theme-dark .workspace-split.mod-right-split,
+.theme-dark.theme-dark .mod-left-split .workspace-tabs,
+.theme-dark.theme-dark .mod-right-split .workspace-tabs,
+.theme-dark.theme-dark .workspace-tab-header-container,
+.theme-dark.theme-dark .workspace-sidedock-vault-profile,
+.theme-dark.theme-dark .status-bar,
+.theme-dark.theme-dark .titlebar {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.theme-dark.theme-dark .workspace-split.mod-root .workspace-leaf-content,
+.theme-dark.theme-dark .workspace-split.mod-root .view-content {
+  background-color: #000000;
 }

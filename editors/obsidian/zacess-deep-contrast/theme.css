@@ -2,7 +2,7 @@
 /* Zacess Deep Contrast for Obsidian: Zacess Deep Contrast Light in light mode and Zacess Deep Contrast Dark in dark mode */
 
 /* Zacess Deep Contrast Light */
-.theme-light {
+.theme-light.theme-light {
   color-scheme: light;
   --color-base-00: #ffffff;
   --color-base-05: #ffffff;
@@ -304,9 +304,9 @@
   --callout-quote: #4d4d4d;
   --graph-text: #000000;
   --graph-line: #4d4d4d;
-  --graph-node: #4d4d4d;
+  --graph-node: #0f4a85;
   --graph-node-unresolved: #000000;
-  --graph-node-focused: #0f4a85;
+  --graph-node-focused: #b5200d;
   --graph-node-tag: #006108;
   --graph-node-attachment: #674100;
   --canvas-background: #ffffff;
@@ -378,7 +378,7 @@
 }
 
 /* Zacess Deep Contrast Dark */
-.theme-dark {
+.theme-dark.theme-dark {
   color-scheme: dark;
   --color-base-00: #000000;
   --color-base-05: #000000;
@@ -680,9 +680,9 @@
   --callout-quote: #b3b3b3;
   --graph-text: #ffffff;
   --graph-line: #b3b3b3;
-  --graph-node: #b3b3b3;
+  --graph-node: #00ffff;
   --graph-node-unresolved: #ffffff;
-  --graph-node-focused: #00ffff;
+  --graph-node-focused: #ffff00;
   --graph-node-tag: #00f000;
   --graph-node-attachment: #ffd370;
   --canvas-background: #000000;
@@ -964,4 +964,41 @@ button.mod-destructive.mod-cta,
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* the workspace chrome in each mode's own colours */
+.theme-light.theme-light .workspace-ribbon,
+.theme-light.theme-light .workspace-split.mod-left-split,
+.theme-light.theme-light .workspace-split.mod-right-split,
+.theme-light.theme-light .mod-left-split .workspace-tabs,
+.theme-light.theme-light .mod-right-split .workspace-tabs,
+.theme-light.theme-light .workspace-tab-header-container,
+.theme-light.theme-light .workspace-sidedock-vault-profile,
+.theme-light.theme-light .status-bar,
+.theme-light.theme-light .titlebar {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.theme-light.theme-light .workspace-split.mod-root .workspace-leaf-content,
+.theme-light.theme-light .workspace-split.mod-root .view-content {
+  background-color: #ffffff;
+}
+
+.theme-dark.theme-dark .workspace-ribbon,
+.theme-dark.theme-dark .workspace-split.mod-left-split,
+.theme-dark.theme-dark .workspace-split.mod-right-split,
+.theme-dark.theme-dark .mod-left-split .workspace-tabs,
+.theme-dark.theme-dark .mod-right-split .workspace-tabs,
+.theme-dark.theme-dark .workspace-tab-header-container,
+.theme-dark.theme-dark .workspace-sidedock-vault-profile,
+.theme-dark.theme-dark .status-bar,
+.theme-dark.theme-dark .titlebar {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.theme-dark.theme-dark .workspace-split.mod-root .workspace-leaf-content,
+.theme-dark.theme-dark .workspace-split.mod-root .view-content {
+  background-color: #000000;
 }

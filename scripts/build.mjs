@@ -1057,12 +1057,14 @@ function obsidianVars(theme) {
     ["--callout-todo", u.accent],
     ["--callout-warning", u.warning],
     ["--callout-quote", u.muted],
-    // graph view
+    // graph view: Obsidian reads each colour from the --graph-* variables through its
+    // .graph-view.color-* classes, so every node takes a palette colour rather than a grey; the
+    // open note is drawn in the find match outline colour, which no other node uses
     ["--graph-text", u.foreground],
     ["--graph-line", u.muted],
-    ["--graph-node", u.muted],
+    ["--graph-node", outline],
     ["--graph-node-unresolved", u.foreground],
-    ["--graph-node-focused", u.accent],
+    ["--graph-node-focused", u.findMatchBorder],
     ["--graph-node-tag", s.added],
     ["--graph-node-attachment", u.warning],
     // canvas
@@ -1356,9 +1358,29 @@ button.mod-destructive.mod-cta,
 }
 `;
 
+// the workspace chrome painted in literal colours for one mode: the ribbon, both sidebars, the tab
+// bars, the vault profile, the status bar and the title bar on the panel colour and the note area
+// on the page colour; a stylesheet another theme's plugin leaves behind can set the panel variable
+// on its own body class; these rules outrank that whatever class the body carries
+function obsidianChrome(selector, theme) {
+  const u = theme.ui;
+  const on = (parts) => parts.map((part) => `${selector} ${part}`).join(",\n");
+  return [
+    on([".workspace-ribbon", ".workspace-split.mod-left-split", ".workspace-split.mod-right-split", ".mod-left-split .workspace-tabs", ".mod-right-split .workspace-tabs", ".workspace-tab-header-container", ".workspace-sidedock-vault-profile", ".status-bar", ".titlebar"]) + ` {
+  background-color: ${u.surface};
+  color: ${u.foreground};
+}`,
+    on([".workspace-split.mod-root .workspace-leaf-content", ".workspace-split.mod-root .view-content"]) + ` {
+  background-color: ${u.background};
+}`,
+  ].join("\n\n") + "\n";
+}
+
 function buildObsidian() {
   const byId = Object.fromEntries(palette.themes.map((t) => [t.id, t]));
-  const block = (selector, theme) => `/* ${theme.name} */\n${selector} {\n${obsidianVars(theme).map((v) => `  ${v}`).join("\n")}\n}\n`;
+  // the mode class is doubled so the block outranks a rule on a body class that another theme's
+  // plugin or a stale setting may leave behind, which a single class would lose to
+  const block = (selector, theme) => `/* ${theme.name} */\n${selector}${selector} {\n${obsidianVars(theme).map((v) => `  ${v}`).join("\n")}\n}\n`;
   for (const target of OBSIDIAN_THEMES) {
     const light = byId[target.light];
     const dark = byId[target.dark];
@@ -1369,6 +1391,9 @@ function buildObsidian() {
       block(".theme-light", light),
       block(".theme-dark", dark),
       OBSIDIAN_RULES.trimStart(),
+      "/* the workspace chrome in each mode's own colours */",
+      obsidianChrome(".theme-light.theme-light", light),
+      obsidianChrome(".theme-dark.theme-dark", dark),
     ].join("\n");
     write(`editors/obsidian/${target.id}/theme.css`, css);
     write(`editors/obsidian/${target.id}/manifest.json`, json({

@@ -1,6 +1,6 @@
 {
   "name": "zacess-themes-obsidian-screenshots",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "private": true,
   "description": "Draws the Obsidian theme screenshots from a mock of an Obsidian window.",
   "license": "MIT",

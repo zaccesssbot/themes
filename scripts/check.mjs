@@ -264,7 +264,7 @@ for (const target of OBSIDIAN_THEMES) {
   const text = read(file);
   obsidianFiles.set(file, text);
   for (const [mode, themeId] of [["light", target.light], ["dark", target.dark]]) {
-    const block = new RegExp(`^\\.theme-${mode} \\{\\n([\\s\\S]*?)\\n\\}`, "m").exec(text);
+    const block = new RegExp(`^\\.theme-${mode}\\.theme-${mode} \\{\\n([\\s\\S]*?)\\n\\}`, "m").exec(text);
     if (!block) {
       fail("obsidian", file, `has no .theme-${mode} block`);
       continue;

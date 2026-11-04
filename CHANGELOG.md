@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.10.0] - 2026-11-04
+
+### Fixed
+
+- The Obsidian themes paint the workspace chrome (the ribbon, both sidebars, the tab bars, the vault profile, the status bar and the title bar) in each mode's own colours with rules that outrank a body class left behind by another theme's plugin or an old setting, so light mode no longer shows dark sidebars where such a class is present. The variable blocks carry the same precedence.
+- The graph view draws every node in a palette colour: notes in the outline colour, the open note in the find match outline colour, tags in the added colour, attachments in the warning colour and unresolved notes in the text colour. Nodes were the muted grey before.
+
 ## [0.9.0] - 2026-11-03
 
 ### Changed
