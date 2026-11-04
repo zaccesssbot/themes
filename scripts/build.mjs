@@ -1349,11 +1349,16 @@ button.mod-destructive.mod-cta,
   font-style: italic;
 }
 
-/* nothing moves for a reader who asked for reduced motion */
+/* nothing moves for a reader who asked for reduced motion; the selector carries an id, which
+   outranks every animation and transition rule in Obsidian's own stylesheet (five classes and a
+   pseudo-element at most, none with an id), so no declaration needs !important */
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
+  body:not(#zacess-still),
+  body:not(#zacess-still) *,
+  body:not(#zacess-still) *::before,
+  body:not(#zacess-still) *::after {
+    animation-duration: 0.01ms;
+    transition-duration: 0.01ms;
   }
 }
 `;
@@ -1399,7 +1404,9 @@ function buildObsidian() {
     write(`editors/obsidian/${target.id}/manifest.json`, json({
       name: target.name,
       version: palette.version,
-      minAppVersion: "1.0.0",
+      // the theme directory lints a stylesheet against the Obsidian version named here, so a floor
+      // far below current reports properties every supported version draws
+      minAppVersion: "1.5.0",
       author: "Zacess",
       authorUrl: "https://zacess.com",
     }));

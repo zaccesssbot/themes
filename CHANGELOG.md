@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-11-04
+
+### Fixed
+
+- The Obsidian themes pass the theme directory's lint. Each manifest names Obsidian 1.5.0 as its lowest version, so the lint no longer checks the stylesheet against an old Obsidian and reports `text-decoration` as partly supported. The reduced-motion rule wins on specificity alone (its selector carries an id, which outranks every animation and transition rule in Obsidian's own stylesheet) instead of `!important`, which the lint refuses. `npm run check` now fails on any `!important` in an Obsidian theme and on any other lowest version.
+- `scripts/release.mjs` attaches the workflow's built files to a GitHub release that exists already, uploading only the files the release lacks, where it skipped the release altogether and left one made from the tag with no files. A dry run says how many of the built files are attached and which it would upload.
+
 ## [0.10.0] - 2026-11-04
 
 ### Fixed

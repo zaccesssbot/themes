@@ -120,7 +120,9 @@ GitHub release and updates the read-only copies, so every tag and release is sig
    licence from the tag, so each is edited here and never in the copy. The Obsidian tag is the bare
    version, such as `0.2.1`. Its release carries `manifest.json` and `theme.css` because
    Obsidian installs from them. A copy that does not exist yet stops the script with the command
-   that creates it. Running it again skips anything already done.
+   that creates it. Running it again skips anything already done. A release that exists before the
+   script runs (one made from the tag by hand) keeps its notes and gets whichever of the built
+   files it lacks.
 
 ## Using AI
 

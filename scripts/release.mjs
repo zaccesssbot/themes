@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // finishes a release once release.yml has published a tag to the stores: creates the GitHub release
-// from the workflow's artifact and updates the four read-only Obsidian copies and the Neovim copy. It runs on a
+// from the workflow's artifact (a release made from the tag already gets the files it lacks) and
+// updates the four read-only Obsidian copies and the Neovim copy. It runs on a
 // maintainer's machine with their own gh login and git identity, so every commit, tag and release it
 // makes is theirs and signed with their key. Safe to run again: anything already done is skipped.
 //
@@ -81,19 +82,37 @@ writeFileSync(mirrorNotesFile, `${notesText}\n\nMatches [${SOURCE} ${tag}](https
 
 const hasRelease = (repo, releaseTag) => run("gh", ["release", "view", releaseTag, "--repo", repo], { allowFail: true }).ok;
 
-// 1. the GitHub release on the source repository, with the files the workflow built
-if (hasRelease(SOURCE, tag)) {
-  console.log(`${SOURCE} already has the ${tag} release.`);
-} else {
+// 1. the GitHub release on the source repository, with the files the workflow built; a release
+// that exists already (one made from the tag by hand or by another tool) keeps its notes and
+// gets whichever of those files it lacks, so a run after the workflow always ends with every
+// built file attached
+{
   const dist = join(work, "dist");
+  const attached = hasRelease(SOURCE, tag)
+    ? run("gh", ["release", "view", tag, "--repo", SOURCE, "--json", "assets", "--jq", ".assets[].name"]).out.split("\n").filter(Boolean)
+    : null;
   const download = run("gh", ["run", "download", String(runs[0].databaseId), "--repo", SOURCE, "--name", `zacess-themes-${version}`, "--dir", dist], { allowFail: true });
   if (!download.ok) {
     console.error(`Could not download the zacess-themes-${version} artifact from run ${runs[0].databaseId}. Artifacts expire after the repository's retention period, so rerun the workflow if it has gone.`);
-    if (!dryRun) process.exit(1);
+    // without the release there is nothing to attach the files to later, so this stops; with it,
+    // the files it has stay and the copies can still be brought up to date
+    if (!dryRun && attached === null) process.exit(1);
   }
-  const assets = download.ok ? readdirSync(dist).map((name) => join(dist, name)) : [];
-  console.log(`assets: ${assets.map((path) => path.slice(dist.length + 1)).join(", ") || "none"}`);
-  act(`create the ${tag} release on ${SOURCE}`, "gh", ["release", "create", tag, ...assets, "--repo", SOURCE, "--verify-tag", "--title", `Zacess Themes ${version}`, "--notes-file", notesFile]);
+  const built = download.ok ? readdirSync(dist).sort() : [];
+  if (attached === null) {
+    console.log(`assets: ${built.join(", ") || "none"}`);
+    act(`create the ${tag} release on ${SOURCE}`, "gh", ["release", "create", tag, ...built.map((name) => join(dist, name)), "--repo", SOURCE, "--verify-tag", "--title", `Zacess Themes ${version}`, "--notes-file", notesFile]);
+  } else {
+    const missing = built.filter((name) => !attached.includes(name));
+    console.log(`${SOURCE} already has the ${tag} release with ${attached.length} of the ${built.length} built files attached.`);
+    if (missing.length) {
+      console.log(`missing: ${missing.join(", ")}`);
+      // --clobber covers a file that lands between the listing and the upload
+      act(`upload ${missing.length} missing ${missing.length === 1 ? "file" : "files"} to the ${tag} release on ${SOURCE}`, "gh", ["release", "upload", tag, ...missing.map((name) => join(dist, name)), "--repo", SOURCE, "--clobber"]);
+    } else if (built.length) {
+      console.log(`every built file is attached, so there is nothing to upload.`);
+    }
+  }
 }
 
 // 2. the read-only copies: an Obsidian copy takes its README, screenshot and licence from the source

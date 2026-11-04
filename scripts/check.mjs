@@ -489,10 +489,16 @@ for (const [themeId, { file, mode, vars }] of obsidianBlocks) {
     }
   }
 }
+for (const [file, text] of obsidianFiles) {
+  // the theme directory's lint refuses !important, so every rule wins on specificity alone; a
+  // comment may name the flag, a declaration may not
+  if (text.replace(/\/\*[\s\S]*?\*\//g, "").includes("!important")) fail("obsidian", file, "uses !important");
+}
 for (const target of OBSIDIAN_THEMES) {
   const manifest = JSON.parse(read(`editors/obsidian/${target.id}/manifest.json`));
   if (manifest.name !== target.name) fail("obsidian", `${target.id} manifest.json`, `name ${manifest.name} is not ${target.name}`);
   if (manifest.version !== palette.version) fail("obsidian", `${target.id} manifest.json`, `version ${manifest.version} differs from the palette's ${palette.version}`);
+  if (manifest.minAppVersion !== "1.5.0") fail("obsidian", `${target.id} manifest.json`, `minAppVersion ${manifest.minAppVersion} is not 1.5.0`);
 }
 report();
 

@@ -4,6 +4,12 @@ All notable changes to the Zacess Themes extension are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.11.0] - 2026-11-04
+
+### Fixed
+
+- The repository's Obsidian themes pass the theme directory's lint and its release script attaches files to an existing release. The VS Code themes are unchanged.
+
 ## [0.10.0] - 2026-11-04
 
 ### Fixed
