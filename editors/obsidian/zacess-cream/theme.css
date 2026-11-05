@@ -20,7 +20,7 @@
   --color-accent-1: #004498;
   --color-accent-2: #004498;
   --color-red: #770004;
-  --color-orange: #513100;
+  --color-orange: #803200;
   --color-yellow: #451700;
   --color-green: #005512;
   --color-cyan: #003232;
@@ -38,8 +38,8 @@
   --background-modifier-border-focus: #004498;
   --background-modifier-error: #770004;
   --background-modifier-error-hover: #770004;
-  --background-modifier-warning: #513100;
-  --background-modifier-warning-hover: #513100;
+  --background-modifier-warning: #803200;
+  --background-modifier-warning-hover: #803200;
   --background-modifier-success: #005512;
   --background-modifier-message: #e9e5dd;
   --background-modifier-form-field: #fdf6e3;
@@ -54,7 +54,7 @@
   --text-on-accent: #ffffff;
   --text-on-accent-inverted: #ffffff;
   --text-success: #005512;
-  --text-warning: #513100;
+  --text-warning: #803200;
   --text-error: #770004;
   --text-accent: #004498;
   --text-accent-hover: #004498;
@@ -71,7 +71,7 @@
   --zacess-active-tab: #004498;
   --highlight-background: #ffd400;
   --highlight-background-red: #cea095;
-  --highlight-background-orange: #c1b194;
+  --highlight-background-orange: #d1b194;
   --highlight-background-yellow: #bda894;
   --highlight-background-green: #a4be9a;
   --highlight-background-blue: #a4b2be;
@@ -295,12 +295,12 @@
   --callout-fail: #770004;
   --callout-important: #550036;
   --callout-info: #00357a;
-  --callout-question: #513100;
+  --callout-question: #803200;
   --callout-success: #005512;
   --callout-summary: #003232;
   --callout-tip: #003232;
   --callout-todo: #004498;
-  --callout-warning: #513100;
+  --callout-warning: #803200;
   --callout-quote: #3f382c;
   --graph-text: #000000;
   --graph-line: #3f382c;
@@ -308,12 +308,12 @@
   --graph-node-unresolved: #000000;
   --graph-node-focused: #000000;
   --graph-node-tag: #005512;
-  --graph-node-attachment: #513100;
+  --graph-node-attachment: #803200;
   --canvas-background: #fdf6e3;
   --canvas-card-label-color: #3f382c;
   --canvas-dot-pattern: #857b69;
   --canvas-color-1: #770004;
-  --canvas-color-2: #513100;
+  --canvas-color-2: #803200;
   --canvas-color-3: #451700;
   --canvas-color-4: #005512;
   --canvas-color-5: #003232;
@@ -350,7 +350,7 @@
   --pdf-thumbnail-shadow: 0 0 0 1px var(--background-modifier-border);
   --sync-avatar-color-current-user: #004498;
   --sync-avatar-color-1: #770004;
-  --sync-avatar-color-2: #513100;
+  --sync-avatar-color-2: #803200;
   --sync-avatar-color-3: #451700;
   --sync-avatar-color-4: #005512;
   --sync-avatar-color-5: #003232;
@@ -368,7 +368,7 @@
   --mermaid-critical: #770004;
   --mermaid-error: #770004;
   --mermaid-color-1: #00357a;
-  --mermaid-color-2: #513100;
+  --mermaid-color-2: #803200;
   --mermaid-color-3: #005512;
   --mermaid-color-4: #770004;
   --mermaid-color-5: #003232;

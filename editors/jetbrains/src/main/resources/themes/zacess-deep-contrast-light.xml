@@ -329,7 +329,7 @@
     </option>
     <option name="WARNING_ATTRIBUTES">
       <value>
-        <option name="EFFECT_COLOR" value="674100" />
+        <option name="EFFECT_COLOR" value="642600" />
         <option name="EFFECT_TYPE" value="2" />
       </value>
     </option>
@@ -466,7 +466,7 @@
     </option>
     <option name="LOG_WARNING_OUTPUT">
       <value>
-        <option name="FOREGROUND" value="674100" />
+        <option name="FOREGROUND" value="642600" />
       </value>
     </option>
     <option name="LOG_INFO_OUTPUT">

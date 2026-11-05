@@ -51,7 +51,8 @@
         "additionalProperties": false,
         "properties": {
           "pair": { "type": "array", "items": { "type": "string" }, "minItems": 2, "maxItems": 2 },
-          "lightness": { "type": "boolean", "description": "When true the pair must differ in tone even if its styles differ." }
+          "lightness": { "type": "boolean", "description": "When true the pair must differ in tone even if its styles differ." },
+          "ui": { "type": "boolean", "description": "When true the pair names two interface colours from each theme's ui, such as error and warning, instead of two syntax tokens. Interface colours carry no font style, so the pair must differ in tone and under each simulated colour vision deficiency." }
         }
       }
     },

@@ -49,4 +49,5 @@ The checks refuse any colour below these floors and CI fails on the first one.
 | Two paired tokens under simulated protanopia, deuteranopia and tritanopia: OKLab distance | 0.04 |
 
 The pair rules apply when two paired tokens share a font style. Pairs that are often red and green,
-such as strings and numbers or added and removed lines, must meet them whatever their style.
+such as strings and numbers or added and removed lines, must meet them whatever their style. The
+error and warning colours of the interface are a pair too and always meet both.

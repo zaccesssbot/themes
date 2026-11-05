@@ -30,8 +30,8 @@
       "borderColor": "#0f4a85",
       "errorFocusColor": "#aa0000",
       "inactiveErrorFocusColor": "#aa0000",
-      "warningFocusColor": "#674100",
-      "inactiveWarningFocusColor": "#674100"
+      "warningFocusColor": "#642600",
+      "inactiveWarningFocusColor": "#642600"
     },
     "Link": {
       "activeForeground": "#003df6",

@@ -109,10 +109,13 @@ export function measureTheme(palette, theme) {
     return [{ theme: theme.id, index: i, colour, foreground: term.foreground, toneDiff, simulated, apart, pass }];
   });
 
-  const pairRows = palette.pairs.map(({ pair: [a, b], lightness = false }) => {
-    const ca = theme.syntax[a];
-    const cb = theme.syntax[b];
-    const sameStyle = styleOf(palette, a).join() === styleOf(palette, b).join();
+  // a ui pair names two interface colours, which carry no font style, so it always needs both
+  // the tone step and the simulated distance
+  const pairRows = palette.pairs.map(({ pair: [a, b], lightness = false, ui = false }) => {
+    const colours = ui ? theme.ui : theme.syntax;
+    const ca = colours[a];
+    const cb = colours[b];
+    const sameStyle = ui || styleOf(palette, a).join() === styleOf(palette, b).join();
     const toneDiff = Math.abs(tone(ca) - tone(cb));
     const simulated = Object.fromEntries(
       DEFICIENCIES.filter((d) => d !== "achromatopsia").map((d) => [d, distance(simulate(ca, d), simulate(cb, d))]),

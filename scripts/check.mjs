@@ -30,8 +30,12 @@ for (const [token, style] of Object.entries(REQUIRED_STYLES)) {
 }
 
 // a misspelt pair would otherwise crash the measurements instead of reporting
-for (const { pair } of palette.pairs) {
-  for (const token of pair) if (!(token in palette.tokens)) fail("pairs", pair.join(" and "), `${token} is not a token in palette.tokens`);
+const UI_COLOURS = loadSchema().$defs.theme.properties.ui.required;
+for (const { pair, ui = false } of palette.pairs) {
+  for (const token of pair) {
+    if (ui && !UI_COLOURS.includes(token)) fail("pairs", pair.join(" and "), `${token} is not a colour every theme's ui has`);
+    if (!ui && !(token in palette.tokens)) fail("pairs", pair.join(" and "), `${token} is not a token in palette.tokens`);
+  }
 }
 report();
 

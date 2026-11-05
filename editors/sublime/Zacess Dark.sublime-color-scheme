@@ -24,7 +24,7 @@
     "find_match": "#4d4000",
     "find_match_border": "#ffd400",
     "error": "#ffccc4",
-    "warning": "#ffd182",
+    "warning": "#edc071",
     "info": "#bddaff",
     "diff_added_background": "#0f2a17",
     "diff_removed_background": "#331414",

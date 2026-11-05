@@ -84,7 +84,7 @@
 	<key>DVTScrollbarMarkerRuntimeIssueColor</key>
 	<string>0.34902 0.007843 0.623529 1</string>
 	<key>DVTScrollbarMarkerWarningColor</key>
-	<string>0.345098 0.211765 0 1</string>
+	<string>0.517647 0.219608 0 1</string>
 	<key>DVTSourceTextBackground</key>
 	<string>1 1 1 1</string>
 	<key>DVTSourceTextBlockDimBackgroundColor</key>

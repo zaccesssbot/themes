@@ -286,6 +286,13 @@
         "changed"
       ],
       "lightness": true
+    },
+    {
+      "pair": [
+        "error",
+        "warning"
+      ],
+      "ui": true
     }
   ],
   "themes": [
@@ -319,7 +326,7 @@
         "findMatch": "#ffd400",
         "findMatchBorder": "#111111",
         "error": "#810005",
-        "warning": "#583600",
+        "warning": "#843800",
         "info": "#003a84",
         "diffAddedBackground": "#e3f5e6",
         "diffRemovedBackground": "#fdeaea",
@@ -417,7 +424,7 @@
         "findMatch": "#4d4000",
         "findMatchBorder": "#ffd400",
         "error": "#ffccc4",
-        "warning": "#ffd182",
+        "warning": "#edc071",
         "info": "#bddaff",
         "diffAddedBackground": "#0f2a17",
         "diffRemovedBackground": "#331414",
@@ -594,7 +601,7 @@
         "findMatch": "#ffd400",
         "findMatchBorder": "#000000",
         "error": "#770004",
-        "warning": "#513100",
+        "warning": "#803200",
         "info": "#00357a",
         "diffAddedBackground": "#e4f1d8",
         "diffRemovedBackground": "#f9e3d8",
@@ -777,7 +784,7 @@
         "findMatch": "#ffd400",
         "findMatchBorder": "#000000",
         "error": "#8b0000",
-        "warning": "#5a3a00",
+        "warning": "#4e1c00",
         "info": "#00337f",
         "diffAddedBackground": "#e0f5e3",
         "diffRemovedBackground": "#fde4e4",
@@ -961,7 +968,7 @@
         "findMatch": "#fff1a0",
         "findMatchBorder": "#b5200d",
         "error": "#aa0000",
-        "warning": "#674100",
+        "warning": "#642600",
         "info": "#002ec2",
         "diffAddedBackground": "#eefaee",
         "diffRemovedBackground": "#fff3f3",

@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Fixed
+
+- Errors and warnings no longer look alike under simulated colour vision deficiency. In Zacess Light, Dark, Cream, High Contrast Light and Deep Contrast Light the two colours were under 0.05 apart in tone and under 0.04 apart in OKLab under protanopia, deuteranopia or tritanopia (Machado 2009 at full severity), so a warning could pass for an error. On the four light themes the warning becomes a burnt orange, the most colourful shade that still meets 7:1. Zacess Dark keeps its hue and moves in lightness. Each is given with its lowest contrast on the background and the two surfaces: Zacess Light `#583600` to `#843800` (7.0:1), Zacess Dark `#ffd182` to `#edc071` (9.2:1), Zacess Cream `#513100` to `#803200` (7.0:1), Zacess High Contrast Light `#5a3a00` to `#4e1c00` (12.2:1) and Zacess Deep Contrast Light `#674100` to `#642600` (11.5:1). Every editor and terminal colour drawn from the warning follows it, as does the orange highlight tint in Obsidian.
+
+### Added
+
+- `npm run check` measures error and warning as a colour vision pair in every theme, held to the same tone step (0.05) and simulated OKLab distance (0.04) as the paired syntax tokens. A pair in the palette can name two interface colours with `"ui": true`.
+
 ## [0.12.0] - 2026-11-04
 
 ### Added
