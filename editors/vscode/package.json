@@ -2,7 +2,7 @@
   "name": "zacess-themes",
   "displayName": "Zacess Themes",
   "description": "Eight high contrast code themes matching the Zacess reader: Light, Dark, Yellow on Black for low vision, Cream for dyslexia and four maximum contrast themes, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light. Every text and syntax colour keeps 7:1 contrast on the background and selections stand out in a colour of their own.",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "publisher": "zacess",
   "license": "MIT",
   "icon": "icon.png",

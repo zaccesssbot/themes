@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [0.12.1] - 2026-11-05
+
 ### Fixed
 
 - Errors and warnings no longer look alike under simulated colour vision deficiency. In Zacess Light, Dark, Cream, High Contrast Light and Deep Contrast Light the two colours were under 0.05 apart in tone and under 0.04 apart in OKLab under protanopia, deuteranopia or tritanopia (Machado 2009 at full severity), so a warning could pass for an error. On the four light themes the warning becomes a burnt orange, the most colourful shade that still meets 7:1. Zacess Dark keeps its hue and moves in lightness. Each is given with its lowest contrast on the background and the two surfaces: Zacess Light `#583600` to `#843800` (7.0:1), Zacess Dark `#ffd182` to `#edc071` (9.2:1), Zacess Cream `#513100` to `#803200` (7.0:1), Zacess High Contrast Light `#5a3a00` to `#4e1c00` (12.2:1) and Zacess Deep Contrast Light `#674100` to `#642600` (11.5:1). Every editor and terminal colour drawn from the warning follows it, as does the orange highlight tint in Obsidian.
@@ -232,7 +234,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 - SVG previews drawn as real text and the data for the themes page on the Zacess website.
 - CI that runs the checks, proves the committed files are current, packages the VS Code extension and builds the JetBrains plugin. A release workflow that attaches the `.vsix`, the JetBrains zip and an Obsidian zip to each GitHub release and publishes to each marketplace once its token is set.
 
-[Unreleased]: https://github.com/zacesshq/themes/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/zacesshq/themes/compare/v0.12.1...HEAD
+[0.12.1]: https://github.com/zacesshq/themes/compare/v0.12.0...v0.12.1
+[0.12.0]: https://github.com/zacesshq/themes/compare/v0.11.0...v0.12.0
+[0.11.0]: https://github.com/zacesshq/themes/compare/v0.10.0...v0.11.0
+[0.10.0]: https://github.com/zacesshq/themes/compare/v0.9.0...v0.10.0
+[0.9.0]: https://github.com/zacesshq/themes/compare/v0.8.0...v0.9.0
 [0.8.0]: https://github.com/zacesshq/themes/compare/v0.7.0...v0.8.0
 [0.7.0]: https://github.com/zacesshq/themes/compare/v0.6.1...v0.7.0
 [0.6.1]: https://github.com/zacesshq/themes/compare/v0.6.0...v0.6.1

@@ -1,6 +1,6 @@
 {
   "name": "zacess-themes-source",
-  "version": "0.12.0",
+  "version": "0.12.1",
   "private": true,
   "description": "The palette, generator and checks behind the Zacess themes.",
   "license": "MIT",

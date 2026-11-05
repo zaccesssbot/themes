@@ -4,6 +4,12 @@ All notable changes to the Zacess Themes extension are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.12.1] - 2026-11-05
+
+### Fixed
+
+- Errors and warnings no longer look alike under colour vision deficiency. On Zacess Light, Cream, High Contrast Light and Deep Contrast Light the warning becomes a burnt orange, the most colourful shade that still meets 7:1. Zacess Dark keeps its hue and moves in lightness.
+
 ## [0.12.0] - 2026-11-04
 
 ### Added
@@ -151,9 +157,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 - Editor, workbench, terminal and semantic token colours, with every text and syntax colour at 7:1 contrast or more.
 - Bold keywords, italic comments and parameters and underlined invalid code, so colour is never the only signal.
 
+[0.12.1]: https://github.com/zacesshq/themes/releases/tag/v0.12.1
+[0.12.0]: https://github.com/zacesshq/themes/releases/tag/v0.12.0
+[0.11.0]: https://github.com/zacesshq/themes/releases/tag/v0.11.0
+[0.10.0]: https://github.com/zacesshq/themes/releases/tag/v0.10.0
+[0.9.0]: https://github.com/zacesshq/themes/releases/tag/v0.9.0
+[0.8.0]: https://github.com/zacesshq/themes/releases/tag/v0.8.0
+[0.7.0]: https://github.com/zacesshq/themes/releases/tag/v0.7.0
+[0.6.1]: https://github.com/zacesshq/themes/releases/tag/v0.6.1
+[0.6.0]: https://github.com/zacesshq/themes/releases/tag/v0.6.0
 [0.5.0]: https://github.com/zacesshq/themes/releases/tag/v0.5.0
 [0.4.0]: https://github.com/zacesshq/themes/releases/tag/v0.4.0
 [0.3.0]: https://github.com/zacesshq/themes/releases/tag/v0.3.0
+[0.2.1]: https://github.com/zacesshq/themes/releases/tag/v0.2.1
 [0.2.0]: https://github.com/zacesshq/themes/releases/tag/v0.2.0
 [0.1.5]: https://github.com/zacesshq/themes/releases/tag/v0.1.5
 [0.1.4]: https://github.com/zacesshq/themes/releases/tag/v0.1.4
