@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Added
+
+- The Zacess Themes mark in `assets/` in light, dark, automatic and single colour versions, with a light and a dark lockup at the head of the README. A dark and a light banner and a 1280 by 640 social preview image sit beside them.
+- The VS Code and JetBrains icons use the Zacess Themes mark. The stores show it from the next release.
+
 ## [0.12.1] - 2026-11-05
 
 ### Fixed

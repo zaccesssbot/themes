@@ -6,7 +6,8 @@ extension each carry a copy of the same licence file.
 ## The Zacess mark
 
 The icons in `editors/vscode/icon.png` and `editors/jetbrains/src/main/resources/META-INF/` are made
-from the Zacess mark in `assets/zacess-mark.svg`. The MIT licence covers the themes and the code. It
+from the Zacess Themes mark in `assets/themes-light.svg` and `assets/themes-dark.svg`, which is built on
+the Zacess mark in `assets/zacess-mark.svg`. The MIT licence covers the themes and the code. It
 does not grant any right to use the Zacess name or mark to suggest that another product is Zacess or
 is endorsed by it.
 

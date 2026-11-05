@@ -1,4 +1,9 @@
-# Zacess themes
+<h1>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/themes-lockup-dark.svg">
+    <img src="assets/themes-lockup-light.svg" alt="Zacess Themes" width="400">
+  </picture>
+</h1>
 
 High contrast code themes that match the four contrast themes in the [Zacess](https://zacess.com)
 reader, so a student sees the same page in the reader and in the editor, plus four maximum contrast
