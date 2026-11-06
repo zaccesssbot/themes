@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Yellow on Black",
+  "version": "0.12.1",
+  "description": "Yellow on black for low vision.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        10,
+        34,
+        87
+      ],
+      "frame_inactive": [
+        10,
+        34,
+        87
+      ],
+      "toolbar": [
+        0,
+        0,
+        0
+      ],
+      "tab_text": [
+        255,
+        235,
+        59
+      ],
+      "tab_background_text": [
+        255,
+        235,
+        59
+      ],
+      "tab_background_text_inactive": [
+        255,
+        235,
+        59
+      ],
+      "bookmark_text": [
+        255,
+        235,
+        59
+      ],
+      "toolbar_button_icon": [
+        255,
+        235,
+        59
+      ],
+      "omnibox_background": [
+        10,
+        34,
+        87
+      ],
+      "omnibox_text": [
+        255,
+        235,
+        59
+      ],
+      "ntp_background": [
+        0,
+        0,
+        0
+      ],
+      "ntp_text": [
+        255,
+        235,
+        59
+      ],
+      "ntp_link": [
+        27,
+        228,
+        237
+      ]
+    }
+  }
+}

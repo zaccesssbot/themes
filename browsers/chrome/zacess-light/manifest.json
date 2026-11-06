@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Light",
+  "version": "0.12.1",
+  "description": "Ink on white.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        237,
+        237,
+        237
+      ],
+      "frame_inactive": [
+        237,
+        237,
+        237
+      ],
+      "toolbar": [
+        255,
+        255,
+        255
+      ],
+      "tab_text": [
+        17,
+        17,
+        17
+      ],
+      "tab_background_text": [
+        17,
+        17,
+        17
+      ],
+      "tab_background_text_inactive": [
+        17,
+        17,
+        17
+      ],
+      "bookmark_text": [
+        17,
+        17,
+        17
+      ],
+      "toolbar_button_icon": [
+        17,
+        17,
+        17
+      ],
+      "omnibox_background": [
+        237,
+        237,
+        237
+      ],
+      "omnibox_text": [
+        17,
+        17,
+        17
+      ],
+      "ntp_background": [
+        255,
+        255,
+        255
+      ],
+      "ntp_text": [
+        17,
+        17,
+        17
+      ],
+      "ntp_link": [
+        0,
+        73,
+        163
+      ]
+    }
+  }
+}

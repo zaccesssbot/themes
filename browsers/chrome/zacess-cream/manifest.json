@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Cream",
+  "version": "0.12.1",
+  "description": "Black on cream for dyslexia.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        233,
+        229,
+        221
+      ],
+      "frame_inactive": [
+        233,
+        229,
+        221
+      ],
+      "toolbar": [
+        253,
+        246,
+        227
+      ],
+      "tab_text": [
+        0,
+        0,
+        0
+      ],
+      "tab_background_text": [
+        0,
+        0,
+        0
+      ],
+      "tab_background_text_inactive": [
+        0,
+        0,
+        0
+      ],
+      "bookmark_text": [
+        0,
+        0,
+        0
+      ],
+      "toolbar_button_icon": [
+        0,
+        0,
+        0
+      ],
+      "omnibox_background": [
+        233,
+        229,
+        221
+      ],
+      "omnibox_text": [
+        0,
+        0,
+        0
+      ],
+      "ntp_background": [
+        253,
+        246,
+        227
+      ],
+      "ntp_text": [
+        0,
+        0,
+        0
+      ],
+      "ntp_link": [
+        0,
+        68,
+        152
+      ]
+    }
+  }
+}

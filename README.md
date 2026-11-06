@@ -13,7 +13,7 @@ syntax colour below 7:1 contrast (WCAG AAA) on the background.
 
 Built for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse,
 Xcode, Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal, plus the
-btop system monitor.
+btop system monitor and the Chrome and Firefox browsers.
 
 > [!NOTE]
 > Zacess Themes is on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes),
@@ -92,6 +92,7 @@ Every colour of every theme is in [docs/palette.md](docs/palette.md).
 | Eclipse | **Help**, **Install New Software...** with the update site `https://zacesshq.github.io/themes/eclipse/` | [editors/eclipse](editors/eclipse/README.md) |
 | Xcode | Copy the `.xccolortheme` files into `~/Library/Developer/Xcode/UserData/FontAndColorThemes/` | [editors/xcode](editors/xcode/README.md) |
 | Terminals | Run the installer below in the terminal to theme | [editors/terminals](editors/terminals/README.md) |
+| Chrome and Firefox | Search **Zacess** in the [Chrome Web Store](https://chromewebstore.google.com/search/zacess) or [Firefox Add-ons](https://addons.mozilla.org/firefox/search/?q=zacess&type=statictheme). Edge installs the Chrome versions | [browsers](browsers/README.md) |
 
 Every file is also in the [latest release](https://github.com/zacesshq/themes/releases/latest) for an
 offline install. [docs/recommended-settings.md](docs/recommended-settings.md) has the settings that

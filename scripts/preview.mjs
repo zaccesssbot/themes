@@ -2,7 +2,7 @@
 // draws previews/<theme>.svg as real SVG text in each theme's colours and writes
 // previews/themes.json, the data the website's themes page is built from; PNG copies for the
 // VS Code Marketplace, which refuses SVG images, are drawn with rsvg-convert when it is installed
-import { mkdirSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { join } from "node:path";
 import { ROOT, REPO, loadPalette, styleOf } from "./lib/palette.mjs";
@@ -67,6 +67,50 @@ for (const theme of palette.themes) {
   if (canPng) {
     const png = join(out, `zacess-${theme.id}.png`);
     const run = spawnSync("rsvg-convert", ["--zoom", "2", "--output", png, file], { encoding: "utf8" });
+    if (run.status !== 0) throw new Error(`rsvg-convert failed for ${file}: ${run.stderr}`);
+  }
+}
+
+// the store image for each browser theme, drawn from the colours in its own Chrome manifest the way
+// Firefox Add-ons draws a theme's preview: the tab strip, the toolbar and the new tab page
+const UI_FONT = "'Atkinson Hyperlegible', -apple-system, 'Segoe UI', Roboto, sans-serif";
+function browserSvg(theme) {
+  const colours = JSON.parse(readFileSync(join(ROOT, "browsers", "chrome", `zacess-${theme.id}`, "manifest.json"), "utf8")).theme.colors;
+  const c = Object.fromEntries(Object.entries(colours).map(([k, [r, g, b]]) => [k, `rgb(${r}, ${g}, ${b})`]));
+  const icon = (x, path) => `    <path transform="translate(${x} 60)" d="${path}" fill="none" stroke="${c.toolbar_button_icon}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>`;
+  return [
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" role="img" aria-label="${esc(theme.name)} in a browser: the tab strip, toolbar and new tab page">`,
+    `  <title>${esc(theme.name)} browser theme</title>`,
+    `  <g font-family="${esc(UI_FONT)}">`,
+    `    <rect width="1280" height="800" fill="${c.ntp_background}"/>`,
+    `    <rect width="1280" height="46" fill="${c.frame}"/>`,
+    `    <circle cx="22" cy="23" r="6" fill="${c.tab_background_text}" opacity="0.55"/>`,
+    `    <circle cx="42" cy="23" r="6" fill="${c.tab_background_text}" opacity="0.55"/>`,
+    `    <circle cx="62" cy="23" r="6" fill="${c.tab_background_text}" opacity="0.55"/>`,
+    `    <path d="M 84 46 Q 92 46 92 38 L 92 18 Q 92 8 102 8 L 330 8 Q 340 8 340 18 L 340 38 Q 340 46 348 46 Z" fill="${c.toolbar}"/>`,
+    `    <text x="112" y="32" font-size="15" fill="${c.tab_text}">New Tab</text>`,
+    `    <text x="364" y="32" font-size="15" fill="${c.tab_background_text}">Zacess Themes</text>`,
+    `    <rect y="46" width="1280" height="48" fill="${c.toolbar}"/>`,
+    icon(20, "M 10 0 L 0 10 L 10 20 M 0 10 L 20 10"),
+    icon(56, "M 10 0 L 20 10 L 10 20 M 20 10 L 0 10"),
+    icon(92, "M 18 6 A 9 9 0 1 0 19 13 M 18 0 L 18 6 L 12 6"),
+    `    <rect x="132" y="53" width="1060" height="34" rx="17" fill="${c.omnibox_background}"/>`,
+    `    <text x="156" y="76" font-size="15" fill="${c.omnibox_text}">Search or type a web address</text>`,
+    `    <text x="640" y="330" font-size="44" font-weight="700" text-anchor="middle" fill="${c.ntp_text}">${esc(theme.name)}</text>`,
+    `    <text x="640" y="384" font-size="20" text-anchor="middle" fill="${c.ntp_text}">${esc(theme.description.replace(/, the reader's .+ theme\.$/, "."))}</text>`,
+    `    <text x="640" y="440" font-size="20" text-anchor="middle" fill="${c.ntp_link}" text-decoration="underline">zacess.com</text>`,
+    "  </g>",
+    "</svg>",
+    "",
+  ].join("\n");
+}
+
+mkdirSync(join(out, "browsers"), { recursive: true });
+for (const theme of palette.themes) {
+  const file = join(out, "browsers", `zacess-${theme.id}.svg`);
+  writeFileSync(file, browserSvg(theme));
+  if (canPng) {
+    const run = spawnSync("rsvg-convert", ["--output", file.replace(/\.svg$/, ".png"), file], { encoding: "utf8" });
     if (run.status !== 0) throw new Error(`rsvg-convert failed for ${file}: ${run.stderr}`);
   }
 }

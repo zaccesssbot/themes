@@ -3062,6 +3062,142 @@ function buildTerminals() {
   write("editors/terminals/windows-terminal/zacess.json", windowsTerminal());
 }
 
+// ---------------------------------------------------------------- browsers
+
+// a theme recolours the browser's own frame, tabs, toolbar and address bar; web pages keep their
+// colours. The high and deep contrast themes draw the tab strip in their border colour, the strong
+// frame those themes are built around, since their background and surfaces are too close to tell
+// the active tab from the strip
+function browserColours(theme) {
+  const u = theme.ui;
+  const strongFrame = contrast(u.border, u.background) >= palette.rules.textContrast;
+  // a second surface too close to the background to see takes the list selection tint, which every
+  // theme keeps at text contrast; Chrome draws the address bar with no border, so it needs this too
+  const tint = contrast(u.surfaceAlt, u.background) >= 1.15 ? u.surfaceAlt : u.listSelection;
+  const c = {
+    frame: strongFrame ? u.border : tint,
+    frameText: strongFrame ? u.background : u.foreground,
+    toolbar: u.background,
+    text: u.foreground,
+    field: tint,
+    fieldBorder: u.border,
+    accent: u.accent,
+    link: u.link,
+    highlight: u.selectionStrong,
+    highlightText: u.selectionForeground,
+  };
+  // a browser theme that fails its own floors is not written at all
+  const floors = [
+    ["tab strip text", c.frameText, c.frame, palette.rules.textContrast],
+    ["toolbar and tab text", c.text, c.toolbar, palette.rules.textContrast],
+    ["address bar text", c.text, c.field, palette.rules.textContrast],
+    ["new tab page link", c.link, c.toolbar, palette.rules.textContrast],
+    ["highlighted text", c.highlightText, c.highlight, palette.rules.selectionContrast],
+    ["active tab line and focus outline", c.accent, c.toolbar, palette.rules.nonTextContrast],
+    ["address bar border", c.fieldBorder, c.toolbar, palette.rules.nonTextContrast],
+  ];
+  for (const [name, fg, bg, floor] of floors) {
+    const ratio = contrast(fg, bg);
+    if (ratio < floor) throw new Error(`${theme.name} browser theme: ${name} is ${ratio.toFixed(2)}:1, below ${floor}:1`);
+  }
+  return c;
+}
+
+// the store summary: the theme's own description without the reader's name for it
+const browserDescription = (theme) => theme.description.replace(/, the reader's .+ theme\.$/, ".");
+
+function chromeTheme(theme) {
+  const c = browserColours(theme);
+  const rgb = (hex) => parseHex(hex);
+  return {
+    manifest_version: 3,
+    name: theme.name,
+    version: palette.version,
+    description: browserDescription(theme),
+    homepage_url: REPO,
+    icons: { 128: "icon-128.png" },
+    theme: {
+      colors: {
+        frame: rgb(c.frame),
+        frame_inactive: rgb(c.frame),
+        toolbar: rgb(c.toolbar),
+        tab_text: rgb(c.text),
+        tab_background_text: rgb(c.frameText),
+        tab_background_text_inactive: rgb(c.frameText),
+        bookmark_text: rgb(c.text),
+        toolbar_button_icon: rgb(c.text),
+        omnibox_background: rgb(c.field),
+        omnibox_text: rgb(c.text),
+        ntp_background: rgb(c.toolbar),
+        ntp_text: rgb(c.text),
+        ntp_link: rgb(c.link),
+      },
+    },
+  };
+}
+
+function firefoxTheme(theme) {
+  const c = browserColours(theme);
+  return {
+    manifest_version: 3,
+    name: theme.name,
+    version: palette.version,
+    description: browserDescription(theme),
+    homepage_url: REPO,
+    browser_specific_settings: {
+      gecko: { id: `theme-${theme.id}@zacess.com`, strict_min_version: "142.0", data_collection_permissions: { required: ["none"] } },
+    },
+    theme: {
+      colors: {
+        frame: c.frame,
+        frame_inactive: c.frame,
+        tab_background_text: c.frameText,
+        tab_selected: c.toolbar,
+        tab_text: c.text,
+        tab_line: c.accent,
+        tab_loading: c.accent,
+        toolbar: c.toolbar,
+        toolbar_text: c.text,
+        icons: c.text,
+        icons_attention: c.accent,
+        toolbar_top_separator: c.fieldBorder,
+        toolbar_bottom_separator: c.fieldBorder,
+        toolbar_vertical_separator: c.fieldBorder,
+        toolbar_field: c.field,
+        toolbar_field_text: c.text,
+        toolbar_field_border: c.fieldBorder,
+        toolbar_field_focus: c.toolbar,
+        toolbar_field_text_focus: c.text,
+        toolbar_field_border_focus: c.accent,
+        toolbar_field_highlight: c.highlight,
+        toolbar_field_highlight_text: c.highlightText,
+        popup: c.toolbar,
+        popup_text: c.text,
+        popup_border: c.fieldBorder,
+        popup_highlight: c.highlight,
+        popup_highlight_text: c.highlightText,
+        sidebar: c.toolbar,
+        sidebar_text: c.text,
+        sidebar_border: c.fieldBorder,
+        sidebar_highlight: c.highlight,
+        sidebar_highlight_text: c.highlightText,
+        ntp_background: c.toolbar,
+        ntp_text: c.text,
+        focus_outline: c.accent,
+      },
+      properties: { color_scheme: theme.appearance },
+    },
+  };
+}
+
+function buildBrowsers() {
+  for (const theme of palette.themes) {
+    write(`browsers/chrome/${slug(theme)}/manifest.json`, json(chromeTheme(theme)));
+    copyFileSync(join(ROOT, "assets/themes-icon-128.png"), join(ROOT, `browsers/chrome/${slug(theme)}/icon-128.png`));
+    write(`browsers/firefox/${slug(theme)}/manifest.json`, json(firefoxTheme(theme)));
+  }
+}
+
 // ---------------------------------------------------------------- docs
 
 function replaceBetween(path, marker, body) {
@@ -3115,5 +3251,6 @@ buildEmacs();
 buildEclipse();
 buildXcode();
 buildTerminals();
+buildBrowsers();
 buildDocs();
 console.log(`wrote ${written.length} files from palette/zacess.json`);

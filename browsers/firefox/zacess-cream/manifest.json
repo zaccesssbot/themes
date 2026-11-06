@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Cream",
+  "version": "0.12.1",
+  "description": "Black on cream for dyslexia.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "theme-cream@zacess.com",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#e9e5dd",
+      "frame_inactive": "#e9e5dd",
+      "tab_background_text": "#000000",
+      "tab_selected": "#fdf6e3",
+      "tab_text": "#000000",
+      "tab_line": "#004498",
+      "tab_loading": "#004498",
+      "toolbar": "#fdf6e3",
+      "toolbar_text": "#000000",
+      "icons": "#000000",
+      "icons_attention": "#004498",
+      "toolbar_top_separator": "#6e6555",
+      "toolbar_bottom_separator": "#6e6555",
+      "toolbar_vertical_separator": "#6e6555",
+      "toolbar_field": "#e9e5dd",
+      "toolbar_field_text": "#000000",
+      "toolbar_field_border": "#6e6555",
+      "toolbar_field_focus": "#fdf6e3",
+      "toolbar_field_text_focus": "#000000",
+      "toolbar_field_border_focus": "#004498",
+      "toolbar_field_highlight": "#7401ca",
+      "toolbar_field_highlight_text": "#fdf6e3",
+      "popup": "#fdf6e3",
+      "popup_text": "#000000",
+      "popup_border": "#6e6555",
+      "popup_highlight": "#7401ca",
+      "popup_highlight_text": "#fdf6e3",
+      "sidebar": "#fdf6e3",
+      "sidebar_text": "#000000",
+      "sidebar_border": "#6e6555",
+      "sidebar_highlight": "#7401ca",
+      "sidebar_highlight_text": "#fdf6e3",
+      "ntp_background": "#fdf6e3",
+      "ntp_text": "#000000",
+      "focus_outline": "#004498"
+    },
+    "properties": {
+      "color_scheme": "light"
+    }
+  }
+}

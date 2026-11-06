@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 - The Zacess Themes mark in `assets/` in light, dark, automatic and single colour versions, with a light and a dark lockup at the head of the README. A dark and a light banner and a 1280 by 640 social preview image sit beside them.
 - The VS Code and JetBrains icons use the Zacess Themes mark. The stores show it from the next release.
+- All eight themes for Chrome and Firefox in `browsers/`, written by `npm run build` from the palette. Each colours the tab strip, toolbar, address bar and new tab page. The build refuses one whose text falls below 7:1 on any of them. The high and deep contrast themes draw the tab strip in their border colour. They are submitted to the Chrome Web Store and Firefox Add-ons. Microsoft Edge Add-ons does not accept themes, so Edge installs the Chrome versions.
+- `npm run preview` draws a 1280 by 800 store image of each browser theme in `previews/browsers/`. `assets/` has the 128 pixel store icon and a 440 by 280 promotional tile.
+- Each release attaches a Chrome zip and a Firefox zip of every browser theme.
 
 ## [0.12.1] - 2026-11-05
 

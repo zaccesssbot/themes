@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Yellow on Black",
+  "version": "0.12.1",
+  "description": "Yellow on black for low vision.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "theme-yellow-on-black@zacess.com",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#0a2257",
+      "frame_inactive": "#0a2257",
+      "tab_background_text": "#ffeb3b",
+      "tab_selected": "#000000",
+      "tab_text": "#ffeb3b",
+      "tab_line": "#ffeb3b",
+      "tab_loading": "#ffeb3b",
+      "toolbar": "#000000",
+      "toolbar_text": "#ffeb3b",
+      "icons": "#ffeb3b",
+      "icons_attention": "#ffeb3b",
+      "toolbar_top_separator": "#7a7a7a",
+      "toolbar_bottom_separator": "#7a7a7a",
+      "toolbar_vertical_separator": "#7a7a7a",
+      "toolbar_field": "#0a2257",
+      "toolbar_field_text": "#ffeb3b",
+      "toolbar_field_border": "#7a7a7a",
+      "toolbar_field_focus": "#000000",
+      "toolbar_field_text_focus": "#ffeb3b",
+      "toolbar_field_border_focus": "#ffeb3b",
+      "toolbar_field_highlight": "#09bcc4",
+      "toolbar_field_highlight_text": "#000000",
+      "popup": "#000000",
+      "popup_text": "#ffeb3b",
+      "popup_border": "#7a7a7a",
+      "popup_highlight": "#09bcc4",
+      "popup_highlight_text": "#000000",
+      "sidebar": "#000000",
+      "sidebar_text": "#ffeb3b",
+      "sidebar_border": "#7a7a7a",
+      "sidebar_highlight": "#09bcc4",
+      "sidebar_highlight_text": "#000000",
+      "ntp_background": "#000000",
+      "ntp_text": "#ffeb3b",
+      "focus_outline": "#ffeb3b"
+    },
+    "properties": {
+      "color_scheme": "dark"
+    }
+  }
+}

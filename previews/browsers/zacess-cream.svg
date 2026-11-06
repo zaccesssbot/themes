@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 800" width="1280" height="800" role="img" aria-label="Zacess Cream in a browser: the tab strip, toolbar and new tab page">
+  <title>Zacess Cream browser theme</title>
+  <g font-family="'Atkinson Hyperlegible', -apple-system, 'Segoe UI', Roboto, sans-serif">
+    <rect width="1280" height="800" fill="rgb(253, 246, 227)"/>
+    <rect width="1280" height="46" fill="rgb(233, 229, 221)"/>
+    <circle cx="22" cy="23" r="6" fill="rgb(0, 0, 0)" opacity="0.55"/>
+    <circle cx="42" cy="23" r="6" fill="rgb(0, 0, 0)" opacity="0.55"/>
+    <circle cx="62" cy="23" r="6" fill="rgb(0, 0, 0)" opacity="0.55"/>
+    <path d="M 84 46 Q 92 46 92 38 L 92 18 Q 92 8 102 8 L 330 8 Q 340 8 340 18 L 340 38 Q 340 46 348 46 Z" fill="rgb(253, 246, 227)"/>
+    <text x="112" y="32" font-size="15" fill="rgb(0, 0, 0)">New Tab</text>
+    <text x="364" y="32" font-size="15" fill="rgb(0, 0, 0)">Zacess Themes</text>
+    <rect y="46" width="1280" height="48" fill="rgb(253, 246, 227)"/>
+    <path transform="translate(20 60)" d="M 10 0 L 0 10 L 10 20 M 0 10 L 20 10" fill="none" stroke="rgb(0, 0, 0)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path transform="translate(56 60)" d="M 10 0 L 20 10 L 10 20 M 20 10 L 0 10" fill="none" stroke="rgb(0, 0, 0)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path transform="translate(92 60)" d="M 18 6 A 9 9 0 1 0 19 13 M 18 0 L 18 6 L 12 6" fill="none" stroke="rgb(0, 0, 0)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="132" y="53" width="1060" height="34" rx="17" fill="rgb(233, 229, 221)"/>
+    <text x="156" y="76" font-size="15" fill="rgb(0, 0, 0)">Search or type a web address</text>
+    <text x="640" y="330" font-size="44" font-weight="700" text-anchor="middle" fill="rgb(0, 0, 0)">Zacess Cream</text>
+    <text x="640" y="384" font-size="20" text-anchor="middle" fill="rgb(0, 0, 0)">Black on cream for dyslexia.</text>
+    <text x="640" y="440" font-size="20" text-anchor="middle" fill="rgb(0, 68, 152)" text-decoration="underline">zacess.com</text>
+  </g>
+</svg>

@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Dark",
+  "version": "0.12.1",
+  "description": "Near white on near black.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        35,
+        35,
+        35
+      ],
+      "frame_inactive": [
+        35,
+        35,
+        35
+      ],
+      "toolbar": [
+        18,
+        18,
+        18
+      ],
+      "tab_text": [
+        245,
+        245,
+        245
+      ],
+      "tab_background_text": [
+        245,
+        245,
+        245
+      ],
+      "tab_background_text_inactive": [
+        245,
+        245,
+        245
+      ],
+      "bookmark_text": [
+        245,
+        245,
+        245
+      ],
+      "toolbar_button_icon": [
+        245,
+        245,
+        245
+      ],
+      "omnibox_background": [
+        35,
+        35,
+        35
+      ],
+      "omnibox_text": [
+        245,
+        245,
+        245
+      ],
+      "ntp_background": [
+        18,
+        18,
+        18
+      ],
+      "ntp_text": [
+        245,
+        245,
+        245
+      ],
+      "ntp_link": [
+        140,
+        188,
+        255
+      ]
+    }
+  }
+}

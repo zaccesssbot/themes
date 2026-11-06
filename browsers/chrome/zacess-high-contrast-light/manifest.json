@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess High Contrast Light",
+  "version": "0.12.1",
+  "description": "Black on white with strong dark borders and focus outlines, for the highest contrast on a light screen.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        38,
+        38,
+        38
+      ],
+      "frame_inactive": [
+        38,
+        38,
+        38
+      ],
+      "toolbar": [
+        255,
+        255,
+        255
+      ],
+      "tab_text": [
+        0,
+        0,
+        0
+      ],
+      "tab_background_text": [
+        255,
+        255,
+        255
+      ],
+      "tab_background_text_inactive": [
+        255,
+        255,
+        255
+      ],
+      "bookmark_text": [
+        0,
+        0,
+        0
+      ],
+      "toolbar_button_icon": [
+        0,
+        0,
+        0
+      ],
+      "omnibox_background": [
+        255,
+        241,
+        160
+      ],
+      "omnibox_text": [
+        0,
+        0,
+        0
+      ],
+      "ntp_background": [
+        255,
+        255,
+        255
+      ],
+      "ntp_text": [
+        0,
+        0,
+        0
+      ],
+      "ntp_link": [
+        0,
+        61,
+        153
+      ]
+    }
+  }
+}

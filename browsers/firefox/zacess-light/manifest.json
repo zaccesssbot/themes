@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Light",
+  "version": "0.12.1",
+  "description": "Ink on white.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "theme-light@zacess.com",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#ededed",
+      "frame_inactive": "#ededed",
+      "tab_background_text": "#111111",
+      "tab_selected": "#ffffff",
+      "tab_text": "#111111",
+      "tab_line": "#0049a3",
+      "tab_loading": "#0049a3",
+      "toolbar": "#ffffff",
+      "toolbar_text": "#111111",
+      "icons": "#111111",
+      "icons_attention": "#0049a3",
+      "toolbar_top_separator": "#707070",
+      "toolbar_bottom_separator": "#707070",
+      "toolbar_vertical_separator": "#707070",
+      "toolbar_field": "#ededed",
+      "toolbar_field_text": "#111111",
+      "toolbar_field_border": "#707070",
+      "toolbar_field_focus": "#ffffff",
+      "toolbar_field_text_focus": "#111111",
+      "toolbar_field_border_focus": "#0049a3",
+      "toolbar_field_highlight": "#0150b2",
+      "toolbar_field_highlight_text": "#ffffff",
+      "popup": "#ffffff",
+      "popup_text": "#111111",
+      "popup_border": "#707070",
+      "popup_highlight": "#0150b2",
+      "popup_highlight_text": "#ffffff",
+      "sidebar": "#ffffff",
+      "sidebar_text": "#111111",
+      "sidebar_border": "#707070",
+      "sidebar_highlight": "#0150b2",
+      "sidebar_highlight_text": "#ffffff",
+      "ntp_background": "#ffffff",
+      "ntp_text": "#111111",
+      "focus_outline": "#0049a3"
+    },
+    "properties": {
+      "color_scheme": "light"
+    }
+  }
+}

@@ -68,6 +68,15 @@ jobs:
           (cd helix/themes && zip "../../../dist/zacess-helix-$VERSION.zip" ./*.toml)
           (cd emacs && zip "../../dist/zacess-emacs-$VERSION.zip" ./*.el)
           (cd xcode && zip "../../dist/zacess-xcode-$VERSION.zip" ./*.xccolortheme)
+      - name: Zip the browser themes
+        working-directory: browsers
+        run: |
+          # one zip per theme and browser, the files the Chrome Web Store and Firefox Add-ons take
+          for theme in chrome/*/; do
+            theme="$(basename "$theme")"
+            (cd "chrome/$theme" && zip "../../../dist/$theme-chrome-$VERSION.zip" manifest.json icon-128.png)
+            (cd "firefox/$theme" && zip "../../../dist/$theme-firefox-$VERSION.zip" manifest.json)
+          done
       - name: Check the changelog has a section for this version
         run: |
           # scripts/release.mjs uses this section as the release notes, so a missing one stops the release before anything is published

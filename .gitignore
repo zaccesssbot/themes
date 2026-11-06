@@ -14,3 +14,5 @@ editors/eclipse/**/target/
 # os and editors
 .DS_Store
 .idea/
+# written by Chrome when a theme folder is loaded unpacked
+Cached Theme.pak

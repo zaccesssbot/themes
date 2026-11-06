@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess High Contrast Dark",
+  "version": "0.12.1",
+  "description": "White on black with strong borders and a yellow focus ring, for the highest contrast on a dark screen.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        166,
+        166,
+        166
+      ],
+      "frame_inactive": [
+        166,
+        166,
+        166
+      ],
+      "toolbar": [
+        0,
+        0,
+        0
+      ],
+      "tab_text": [
+        255,
+        255,
+        255
+      ],
+      "tab_background_text": [
+        0,
+        0,
+        0
+      ],
+      "tab_background_text_inactive": [
+        0,
+        0,
+        0
+      ],
+      "bookmark_text": [
+        255,
+        255,
+        255
+      ],
+      "toolbar_button_icon": [
+        255,
+        255,
+        255
+      ],
+      "omnibox_background": [
+        10,
+        37,
+        82
+      ],
+      "omnibox_text": [
+        255,
+        255,
+        255
+      ],
+      "ntp_background": [
+        0,
+        0,
+        0
+      ],
+      "ntp_text": [
+        255,
+        255,
+        255
+      ],
+      "ntp_link": [
+        143,
+        208,
+        255
+      ]
+    }
+  }
+}
