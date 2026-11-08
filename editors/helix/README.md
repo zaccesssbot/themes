@@ -1,8 +1,8 @@
 # Zacess for Helix
 
-Eight themes, `zacess_light`, `zacess_dark`, `zacess_yellow_on_black`, `zacess_cream`,
-`zacess_high_contrast_dark`, `zacess_high_contrast_light`, `zacess_deep_contrast_dark` and
-`zacess_deep_contrast_light`. Each names
+Ten themes, `zacess_light`, `zacess_dark`, `zacess_yellow_on_black`, `zacess_cream`,
+`zacess_high_contrast_dark`, `zacess_high_contrast_light`, `zacess_deep_contrast_dark`,
+`zacess_deep_contrast_light`, `zacess_warm_dark` and `zacess_warm_light`. Each names
 every palette colour once in a `[palette]` table, then sets the interface, the diagnostics, the diff
 gutter, Markdown and the syntax scopes from it. Bold, italic and underline follow the palette's font
 styles, as in every other editor.
@@ -34,4 +34,4 @@ Or try one in a running editor with `:theme zacess_dark`.
 > [!NOTE]
 > Helix has no scope for invalid code, so invalid code is marked by the error diagnostic's curly
 > underline instead of its own colour. Search results show as selections: a bold block with every
-> selected character in one colour at 7:1 or more.
+> selected character in one colour at 7:1 or more (4.5:1 in the Warm pair).

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installs the eight Zacess themes for the terminal this script runs in. A terminal named as the
+# Installs the ten Zacess themes for the terminal this script runs in. A terminal named as the
 # first argument is used instead. It only copies theme files into the folder the terminal reads them from
 # and prints the step that turns one on: it never edits a configuration file.
 #
@@ -17,8 +17,8 @@ readonly BASE="${ZACESS_THEMES_BASE:-https://raw.githubusercontent.com/zacesshq/
 readonly CONFIG="${XDG_CONFIG_HOME:-${HOME}/.config}"
 
 # ids and names in the palette's order; npm run check proves this list matches palette/zacess.json
-readonly IDS=(light dark yellow-on-black cream high-contrast-dark high-contrast-light deep-contrast-dark deep-contrast-light)
-readonly NAMES=("Zacess Light" "Zacess Dark" "Zacess Yellow on Black" "Zacess Cream" "Zacess High Contrast Dark" "Zacess High Contrast Light" "Zacess Deep Contrast Dark" "Zacess Deep Contrast Light")
+readonly IDS=(light dark yellow-on-black cream high-contrast-dark high-contrast-light deep-contrast-dark deep-contrast-light warm-dark warm-light)
+readonly NAMES=("Zacess Light" "Zacess Dark" "Zacess Yellow on Black" "Zacess Cream" "Zacess High Contrast Dark" "Zacess High Contrast Light" "Zacess Deep Contrast Dark" "Zacess Deep Contrast Light" "Zacess Warm Dark" "Zacess Warm Light")
 
 say() { printf '%s\n' "$1"; }
 fail() { printf 'zacess themes: %s\n' "$1" >&2; exit 1; }
@@ -50,14 +50,14 @@ fetch() {
     mv "${folder}/${name}.part" "${folder}/${name}"
 }
 
-# downloads all eight themes; the pattern names each file from the theme's id or name
+# downloads all ten themes; the pattern names each file from the theme's id or name
 fetch_all() {
     local folder="$1" kind="$2" ext="$3" i file
     for i in "${!IDS[@]}"; do
         if [[ "$kind" == "id" ]]; then file="zacess-${IDS[$i]}${ext}"; else file="${NAMES[$i]}${ext}"; fi
         fetch "${4}/${file}" "$folder"
     done
-    say "Copied the eight Zacess themes to ${folder}"
+    say "Copied the ten Zacess themes to ${folder}"
 }
 
 support_folder() {
@@ -124,7 +124,7 @@ install_for() {
                 # file is never touched
                 folder="$(cygpath -u "$LOCALAPPDATA" 2>/dev/null || say "$LOCALAPPDATA")/Microsoft/Windows Terminal/Fragments/Zacess"
                 fetch windows-terminal/zacess.json "$folder"
-                say "Copied the eight Zacess colour schemes to ${folder}"
+                say "Copied the ten Zacess colour schemes to ${folder}"
                 say "To turn one on, restart Windows Terminal, open Settings, choose a profile, then Appearance, Color scheme."
             else
                 say "Windows Terminal reads its themes from Windows itself. Run this in PowerShell:"

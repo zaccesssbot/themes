@@ -1,7 +1,7 @@
 // every measurement the checks, the tables and the website data share, so a number in the
 // README is always the number CI enforced
 import { DEFICIENCIES, contrast, distance, luminance, oklab, ratio, simulate } from "./colour.mjs";
-import { CURSOR_NEIGHBOURS, LINE_NEIGHBOURS, SELECTION_NEIGHBOURS, SELECTION_TEXT, TEXT_SURFACES, UI_TEXT, UI_NON_TEXT, styleOf, terminalText } from "./palette.mjs";
+import { CURSOR_NEIGHBOURS, LINE_NEIGHBOURS, SELECTION_NEIGHBOURS, SELECTION_TEXT, TEXT_SURFACES, UI_TEXT, UI_NON_TEXT, rulesFor, styleOf, terminalText } from "./palette.mjs";
 
 // tone is the cube root of relative luminance: the OKLab lightness of the grey with the same
 // luminance, which is all a viewer with no colour vision has to go on
@@ -22,7 +22,7 @@ const row = (theme, item, colour, on, background, floor) => {
 };
 
 export function measureTheme(palette, theme) {
-  const r = palette.rules;
+  const r = rulesFor(palette, theme);
   const u = theme.ui;
   const contrastRows = [];
   for (const [token, colour] of Object.entries(theme.syntax)) {

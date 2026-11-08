@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zacess High Contrast Dark",
-  "version": "0.12.1",
+  "version": "1.0.0",
   "description": "White on black with strong borders and a yellow focus ring, for the highest contrast on a dark screen.",
   "homepage_url": "https://github.com/zacesshq/themes",
   "icons": {

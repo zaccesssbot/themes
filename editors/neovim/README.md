@@ -1,8 +1,8 @@
 # Zacess for Neovim
 
-Eight colour schemes, `zacess-light`, `zacess-dark`, `zacess-yellow-on-black`, `zacess-cream`,
-`zacess-high-contrast-dark`, `zacess-high-contrast-light`, `zacess-deep-contrast-dark` and
-`zacess-deep-contrast-light`.
+Ten colour schemes, `zacess-light`, `zacess-dark`, `zacess-yellow-on-black`, `zacess-cream`,
+`zacess-high-contrast-dark`, `zacess-high-contrast-light`, `zacess-deep-contrast-dark`,
+`zacess-deep-contrast-light`, `zacess-warm-dark` and `zacess-warm-light`.
 Each sets `background`, the standard highlight groups, the Tree-sitter `@` groups, the LSP semantic
 token groups and the 16 terminal colours.
 

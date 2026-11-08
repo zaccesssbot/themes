@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zacess Light",
-  "version": "0.12.1",
+  "version": "1.0.0",
   "description": "Ink on white.",
   "homepage_url": "https://github.com/zacesshq/themes",
   "browser_specific_settings": {

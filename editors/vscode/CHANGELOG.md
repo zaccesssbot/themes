@@ -4,6 +4,12 @@ All notable changes to the Zacess Themes extension are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.0] - 2026-11-08
+
+### Added
+
+- Zacess Warm Dark and Zacess Warm Light, a gentler pair for anyone who finds high contrast too intense: cream on warm dark brown and dark brown on warm paper, with earthy amber, rust, olive and teal. Every text and syntax colour keeps at least 4.5:1 (WCAG AA), while the other eight themes keep 7:1. The colour vision, selection, current line and find match checks apply to them unchanged.
+
 ## [0.12.1] - 2026-11-05
 
 ### Fixed

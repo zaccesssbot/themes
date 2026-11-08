@@ -1,0 +1,255 @@
+{
+  "name": "Zacess Warm Light",
+  "author": "Zacess",
+  "variables": {
+    "background": "#f4ead5",
+    "foreground": "#342410",
+    "surface": "#ece1ca",
+    "surface_alt": "#e4d8be",
+    "muted": "#483b2c",
+    "border": "#7e6f5f",
+    "border_active": "#6d3b02",
+    "accent": "#6d3b02",
+    "accent_foreground": "#f4ead5",
+    "link": "#6d3b02",
+    "selection": "#a0d2fe",
+    "selection_strong": "#215779",
+    "selection_foreground": "#f4ead5",
+    "list_selection": "#e7d6b3",
+    "line_highlight": "#d0cec0",
+    "cursor": "#5b1301",
+    "gutter": "#f4ead5",
+    "line_number": "#514639",
+    "line_number_active": "#342410",
+    "find_match": "#fdc436",
+    "find_match_border": "#2c1501",
+    "error": "#710205",
+    "warning": "#623d02",
+    "info": "#01385c",
+    "diff_added_background": "#dae9d2",
+    "diff_removed_background": "#fdddda",
+    "indent_guide": "#8a7e71",
+    "whitespace": "#827568",
+    "syntax_foreground": "#342410",
+    "keyword": "#832a01",
+    "control": "#760244",
+    "function": "#744f01",
+    "type": "#045247",
+    "variable": "#342410",
+    "parameter": "#723902",
+    "property": "#02318d",
+    "string": "#04523a",
+    "number": "#962b70",
+    "comment": "#625240",
+    "operator": "#342410",
+    "tag": "#930e04",
+    "attribute": "#8c4105",
+    "regex": "#064045",
+    "invalid": "#62020b",
+    "added": "#08651b",
+    "removed": "#790411",
+    "changed": "#04488d"
+  },
+  "globals": {
+    "background": "var(background)",
+    "foreground": "var(foreground)",
+    "caret": "var(cursor)",
+    "line_highlight": "var(line_highlight)",
+    "selection": "var(selection_strong)",
+    "selection_foreground": "var(selection_foreground)",
+    "inactive_selection": "var(selection_strong)",
+    "inactive_selection_foreground": "var(selection_foreground)",
+    "gutter": "var(gutter)",
+    "gutter_foreground": "var(line_number)",
+    "gutter_foreground_highlight": "var(line_number_active)",
+    "invisibles": "var(whitespace)",
+    "guide": "var(indent_guide)",
+    "active_guide": "var(foreground)",
+    "stack_guide": "var(indent_guide)",
+    "rulers": "var(indent_guide)",
+    "minimap_border": "var(border)",
+    "accent": "var(accent)",
+    "find_highlight": "var(find_match)",
+    "find_highlight_foreground": "var(foreground)",
+    "highlight": "var(find_match_border)",
+    "brackets_options": "underline",
+    "brackets_foreground": "var(accent)",
+    "bracket_contents_options": "underline",
+    "bracket_contents_foreground": "var(accent)",
+    "tags_options": "underline",
+    "tags_foreground": "var(accent)",
+    "line_diff_width": "3",
+    "line_diff_added": "var(added)",
+    "line_diff_modified": "var(changed)",
+    "line_diff_deleted": "var(removed)",
+    "misspelling": "var(error)"
+  },
+  "rules": [
+    {
+      "name": "Comments",
+      "scope": "comment, punctuation.definition.comment, string.quoted.docstring.multi.python",
+      "foreground": "var(comment)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Strings",
+      "scope": "string, punctuation.definition.string, constant.character, markup.inline.raw",
+      "foreground": "var(string)"
+    },
+    {
+      "name": "Regular expressions",
+      "scope": "string.regexp, constant.character.escape, constant.other.character-class.regexp",
+      "foreground": "var(regex)"
+    },
+    {
+      "name": "Numbers and constants",
+      "scope": "constant.numeric, constant.language, constant.other, support.constant, variable.other.constant, variable.other.enummember, entity.name.constant",
+      "foreground": "var(number)"
+    },
+    {
+      "name": "Keywords",
+      "scope": "keyword, storage, storage.type, storage.modifier, keyword.operator.new, keyword.operator.expression, keyword.operator.logical.python, variable.language, support.type.primitive.ts, keyword.other",
+      "foreground": "var(keyword)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Control flow",
+      "scope": "keyword.control, keyword.control.flow, keyword.control.import, keyword.control.conditional, keyword.control.loop, keyword.control.trycatch",
+      "foreground": "var(control)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Operators and punctuation",
+      "scope": "keyword.operator, punctuation, meta.brace, punctuation.separator, punctuation.terminator, punctuation.accessor",
+      "foreground": "var(operator)"
+    },
+    {
+      "name": "Functions",
+      "scope": "entity.name.function, support.function, meta.function-call entity.name.function, variable.function, entity.name.function.macro, meta.decorator, entity.name.function.decorator",
+      "foreground": "var(function)"
+    },
+    {
+      "name": "Types",
+      "scope": "entity.name.type, entity.name.class, entity.name.namespace, entity.other.inherited-class, support.type, support.class, storage.type.primitive, entity.name.type.primitive, entity.name.type.parameter",
+      "foreground": "var(type)"
+    },
+    {
+      "name": "Variables",
+      "scope": "variable, variable.other.readwrite, meta.definition.variable, support.variable",
+      "foreground": "var(variable)"
+    },
+    {
+      "name": "Parameters",
+      "scope": "variable.parameter, meta.parameters variable, entity.name.variable.parameter",
+      "foreground": "var(parameter)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Properties",
+      "scope": "variable.other.property, variable.other.object.property, variable.other.member, support.type.property-name, meta.object-literal.key, entity.name.tag.yaml, support.variable.property, entity.name.field",
+      "foreground": "var(property)"
+    },
+    {
+      "name": "Tags",
+      "scope": "entity.name.tag, punctuation.definition.tag",
+      "foreground": "var(tag)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Attributes",
+      "scope": "entity.other.attribute-name, meta.attribute, entity.other.attribute-name.id, entity.other.attribute-name.class",
+      "foreground": "var(attribute)"
+    },
+    {
+      "name": "Invalid",
+      "scope": "invalid, invalid.illegal, invalid.deprecated",
+      "foreground": "var(invalid)",
+      "font_style": "underline"
+    },
+    {
+      "name": "Added",
+      "scope": "markup.inserted, meta.diff.header.to-file, punctuation.definition.inserted",
+      "foreground": "var(added)"
+    },
+    {
+      "name": "Removed",
+      "scope": "markup.deleted, meta.diff.header.from-file, punctuation.definition.deleted",
+      "foreground": "var(removed)"
+    },
+    {
+      "name": "Changed",
+      "scope": "markup.changed, punctuation.definition.changed",
+      "foreground": "var(changed)"
+    },
+    {
+      "name": "Headings",
+      "scope": "markup.heading, entity.name.section",
+      "foreground": "var(keyword)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Bold",
+      "scope": "markup.bold",
+      "foreground": "var(variable)",
+      "font_style": "bold"
+    },
+    {
+      "name": "Italic",
+      "scope": "markup.italic",
+      "foreground": "var(variable)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Links",
+      "scope": "markup.underline.link, string.other.link",
+      "foreground": "var(function)",
+      "font_style": "underline"
+    },
+    {
+      "name": "Quotes",
+      "scope": "markup.quote",
+      "foreground": "var(comment)",
+      "font_style": "italic"
+    },
+    {
+      "name": "Region redish",
+      "scope": "region.redish",
+      "foreground": "var(error)"
+    },
+    {
+      "name": "Region orangish",
+      "scope": "region.orangish",
+      "foreground": "var(warning)"
+    },
+    {
+      "name": "Region yellowish",
+      "scope": "region.yellowish",
+      "foreground": "var(warning)"
+    },
+    {
+      "name": "Region greenish",
+      "scope": "region.greenish",
+      "foreground": "var(added)"
+    },
+    {
+      "name": "Region cyanish",
+      "scope": "region.cyanish",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Region bluish",
+      "scope": "region.bluish",
+      "foreground": "var(info)"
+    },
+    {
+      "name": "Region purplish",
+      "scope": "region.purplish",
+      "foreground": "var(keyword)"
+    },
+    {
+      "name": "Region pinkish",
+      "scope": "region.pinkish",
+      "foreground": "var(control)"
+    }
+  ]
+}

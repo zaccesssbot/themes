@@ -4,7 +4,7 @@
   <name>Zacess Themes</name>
   <vendor url="https://zacess.com" email="contact@zacess.com">Zacess</vendor>
   <description><![CDATA[
-<p>Eight high contrast themes that match the Zacess reader, so a page looks the same in the reader and in the IDE.</p>
+<p>Ten accessible themes: four match the Zacess reader, so a page looks the same in the reader and in the IDE, four give the highest contrast a screen can show and the Warm pair is a gentler option for anyone who finds high contrast too intense.</p>
 <ul>
 <li><b>Zacess Light</b>: Ink on white, the reader's Dark on light theme.</li>
 <li><b>Zacess Dark</b>: Near white on near black, the reader's Light on dark theme.</li>
@@ -14,8 +14,10 @@
 <li><b>Zacess High Contrast Light</b>: Black on white with strong dark borders and focus outlines, for the highest contrast on a light screen.</li>
 <li><b>Zacess Deep Contrast Dark</b>: White on black with deep, fully saturated colours, yellow focus outlines and cyan frames, for low vision.</li>
 <li><b>Zacess Deep Contrast Light</b>: Black on white with vivid deep colours, red focus outlines and navy frames, for low vision.</li>
+<li><b>Zacess Warm Dark</b>: Cream on warm dark brown with earthy amber, rust, olive and teal, a gentler theme for anyone who finds high contrast too intense.</li>
+<li><b>Zacess Warm Light</b>: Dark brown on warm paper with earthy amber, rust, olive and teal, a gentler theme for anyone who finds high contrast too intense.</li>
 </ul>
-<p>Every text and syntax colour keeps at least 7:1 contrast (WCAG AAA) on the background. The current line is a visible band with plain text at 7:1 and every syntax colour at 4.5:1 or more over it. Comments are never dimmed below 7:1. Selected text takes one colour at 7:1 or more on a bold selection block. Keywords are bold, comments italic and invalid code underlined, so colour is never the only signal.</p>
+<p>Every text and syntax colour keeps at least 7:1 contrast (WCAG AAA) on the background. Zacess Warm Dark and Zacess Warm Light keep 4.5:1 (WCAG AA) instead. The current line is a visible band with plain text at the theme's text floor and every syntax colour at 4.5:1 or more over it. Comments are never dimmed below that floor. Selected text takes one colour at the floor or more on a bold selection block. Keywords are bold, comments italic and invalid code underlined, so colour is never the only signal.</p>
 <p>Source, contrast tables and issues: <a href="https://github.com/zacesshq/themes">https://github.com/zacesshq/themes</a></p>
 ]]></description>
   <depends>com.intellij.modules.platform</depends>
@@ -28,5 +30,7 @@
     <themeProvider id="zacess-high-contrast-light" path="/themes/zacess-high-contrast-light.theme.json" />
     <themeProvider id="zacess-deep-contrast-dark" path="/themes/zacess-deep-contrast-dark.theme.json" />
     <themeProvider id="zacess-deep-contrast-light" path="/themes/zacess-deep-contrast-light.theme.json" />
+    <themeProvider id="zacess-warm-dark" path="/themes/zacess-warm-dark.theme.json" />
+    <themeProvider id="zacess-warm-light" path="/themes/zacess-warm-light.theme.json" />
   </extensions>
 </idea-plugin>

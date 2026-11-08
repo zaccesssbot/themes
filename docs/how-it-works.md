@@ -13,7 +13,8 @@ flowchart LR
 
 1. [`palette/zacess.json`](../palette/zacess.json) holds every colour: the interface, the syntax tokens
    and the 16 terminal colours of each theme, the font style of each token, the pairs of tokens that
-   must look different and the floors the checks enforce. [`palette/schema.json`](../palette/schema.json)
+   must look different and the floors the checks enforce, with any text floor a theme sets for
+   itself. [`palette/schema.json`](../palette/schema.json)
    describes its shape.
 2. `npm run build` writes every editor's files from the palette. The generated files are committed,
    so each folder under `editors/` stands alone.
@@ -34,7 +35,7 @@ The checks need Node.js 24 and nothing else: the scripts have no dependencies.
 | `scripts/screenshot/` | The Obsidian screenshots: a mock of an Obsidian window drawn from each theme's variables, rendered by Playwright with `npm ci` then `node render.mjs` in that folder |
 | `editors/vscode/` | The VS Code extension |
 | `editors/jetbrains/` | The JetBrains theme plugin and its Gradle build |
-| `editors/obsidian/` | The four Obsidian themes, one folder each with its manifest, stylesheet and README |
+| `editors/obsidian/` | The five Obsidian themes, one folder each with its manifest, stylesheet and README |
 | `editors/neovim/` | The Neovim colour schemes |
 | `editors/zed/` | The Zed theme extension |
 | `editors/sublime/` | The Sublime Text colour schemes |

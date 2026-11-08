@@ -1,8 +1,8 @@
 # Zacess for Eclipse
 
-Eight preference files, `Zacess Light`, `Zacess Dark`, `Zacess Yellow on Black`, `Zacess Cream`,
-`Zacess High Contrast Dark`, `Zacess High Contrast Light`, `Zacess Deep Contrast Dark` and
-`Zacess Deep Contrast Light`, in Eclipse's `.epf` preference export
+Ten preference files, `Zacess Light`, `Zacess Dark`, `Zacess Yellow on Black`, `Zacess Cream`,
+`Zacess High Contrast Dark`, `Zacess High Contrast Light`, `Zacess Deep Contrast Dark`,
+`Zacess Deep Contrast Light`, `Zacess Warm Dark` and `Zacess Warm Light`, in Eclipse's `.epf` preference export
 format. Each sets the Java editor's syntax colours and font styles, Javadoc and task tags, Java
 semantic highlighting, the properties file editor and the colours every Eclipse text editor shares:
 background, text, selection, current line, line numbers, print margin, links, marked occurrences,
@@ -14,9 +14,9 @@ ignores any key it does not know.
 
 ## Install from the update site
 
-The themes are listed on the [Eclipse Marketplace](https://marketplace.eclipse.org/content/zacess-themes-0), where they are in review. Once approved, **Help**, **Eclipse Marketplace** finds them by searching for Zacess. Until then, install from the update site as below. It stays available as an alternative afterwards.
+The themes are on the [Eclipse Marketplace](https://marketplace.eclipse.org/content/zacess-themes-0): **Help**, **Eclipse Marketplace** finds them by searching for Zacess. The update site below is an alternative.
 
-The `com.zacess.themes.eclipse` plugin adds the eight themes to Eclipse's own theme list, so no file
+The `com.zacess.themes.eclipse` plugin adds the ten themes to Eclipse's own theme list, so no file
 needs importing. Each Zacess theme brings the Eclipse Light or Dark window with it and the same
 editor and Terminal colours as its `.epf` file, plus Console colours from the palette.
 
@@ -61,6 +61,8 @@ matches the Zacess theme first:
 | Zacess High Contrast Light | Light |
 | Zacess Deep Contrast Dark | Dark |
 | Zacess Deep Contrast Light | Light |
+| Zacess Warm Dark | Dark |
+| Zacess Warm Light | Light |
 
 1. Open **Eclipse**, **Preferences...** on macOS (**Window**, **Preferences** on Windows and
    Linux), then **General**,
@@ -106,7 +108,7 @@ page and on the **General**, **Editors**, **Text Editors** pages puts back Eclip
 - Everything outside the editor, such as the Package Explorer, the Console and the toolbars, follows
   the Eclipse appearance theme rather than the Zacess palette.
 
-All eight files and everything under `plugin`, `feature` and `site` are generated from
+All ten files and everything under `plugin`, `feature` and `site` are generated from
 `palette/zacess.json` by `npm run build` at the root of the repository. Never edit them by hand.
 `mvn verify` in this folder, with Maven and Java 21 or later, builds the plugin and the update site
 in `site/target/repository`.

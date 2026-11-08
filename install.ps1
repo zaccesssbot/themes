@@ -1,6 +1,6 @@
 # Installs the Zacess themes on Windows without editing any settings file. By default it adds the
-# eight colour schemes for Windows Terminal as a settings fragment. Set $env:ZACESS_THEMES_APP to
-# btop to copy the eight btop themes beside btop4win instead.
+# ten colour schemes for Windows Terminal as a settings fragment. Set $env:ZACESS_THEMES_APP to
+# btop to copy the ten btop themes beside btop4win instead.
 #
 #   irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 | iex
 #   $env:ZACESS_THEMES_APP = 'btop'; irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 | iex
@@ -13,7 +13,7 @@ $base = if ($env:ZACESS_THEMES_BASE) { $env:ZACESS_THEMES_BASE } else { "https:/
 $app = if ($env:ZACESS_THEMES_APP) { $env:ZACESS_THEMES_APP } else { 'windows-terminal' }
 
 # ids in the palette's order; npm run check proves this list matches palette/zacess.json
-$ids = @('light', 'dark', 'yellow-on-black', 'cream', 'high-contrast-dark', 'high-contrast-light', 'deep-contrast-dark', 'deep-contrast-light')
+$ids = @('light', 'dark', 'yellow-on-black', 'cream', 'high-contrast-dark', 'high-contrast-light', 'deep-contrast-dark', 'deep-contrast-light', 'warm-dark', 'warm-light')
 
 if ($app -eq 'btop') {
     $command = Get-Command btop4win, btop -CommandType Application -ErrorAction SilentlyContinue | Select-Object -First 1
@@ -32,14 +32,14 @@ if ($app -eq 'btop') {
         foreach ($id in $ids) {
             Invoke-WebRequest -UseBasicParsing -Uri "$base/btop/zacess-$id.theme" -OutFile (Join-Path $themes "zacess-$id.theme")
         }
-        Write-Output "Copied the eight Zacess themes to $themes"
+        Write-Output "Copied the ten Zacess themes to $themes"
     }
     Write-Output 'To turn one on, open btop, press Esc, choose Options and set Color theme to a Zacess theme.'
 } elseif ($app -eq 'windows-terminal') {
     $folder = Join-Path $env:LOCALAPPDATA 'Microsoft\Windows Terminal\Fragments\Zacess'
     New-Item -ItemType Directory -Force -Path $folder | Out-Null
     Invoke-WebRequest -UseBasicParsing -Uri "$base/windows-terminal/zacess.json" -OutFile (Join-Path $folder 'zacess.json')
-    Write-Output "Copied the eight Zacess colour schemes to $folder"
+    Write-Output "Copied the ten Zacess colour schemes to $folder"
     Write-Output 'To turn one on, restart Windows Terminal, open Settings, choose a profile, then Appearance, Color scheme.'
 } else {
     throw "Unknown app '$app'. Use windows-terminal or btop."

@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Warm Dark",
+  "version": "1.0.0",
+  "description": "Cream on warm dark brown with earthy amber, rust, olive and teal, a gentler theme for anyone who finds high contrast too intense.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        63,
+        51,
+        40
+      ],
+      "frame_inactive": [
+        63,
+        51,
+        40
+      ],
+      "toolbar": [
+        33,
+        27,
+        23
+      ],
+      "tab_text": [
+        229,
+        213,
+        182
+      ],
+      "tab_background_text": [
+        229,
+        213,
+        182
+      ],
+      "tab_background_text_inactive": [
+        229,
+        213,
+        182
+      ],
+      "bookmark_text": [
+        229,
+        213,
+        182
+      ],
+      "toolbar_button_icon": [
+        229,
+        213,
+        182
+      ],
+      "omnibox_background": [
+        63,
+        51,
+        40
+      ],
+      "omnibox_text": [
+        229,
+        213,
+        182
+      ],
+      "ntp_background": [
+        33,
+        27,
+        23
+      ],
+      "ntp_text": [
+        229,
+        213,
+        182
+      ],
+      "ntp_link": [
+        233,
+        181,
+        106
+      ]
+    }
+  }
+}

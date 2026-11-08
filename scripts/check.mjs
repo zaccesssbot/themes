@@ -3,7 +3,7 @@
 // every failure so CI shows exactly which colour or file to fix
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
-import { ANSI_NAMES, OBSIDIAN_NON_TEXT_PAIRS, OBSIDIAN_SELECTION_TEXT_PAIRS, OBSIDIAN_SIGNAL_PAIRS, OBSIDIAN_SIGNAL_TEXT_PAIRS, OBSIDIAN_TEXT_PAIRS, OBSIDIAN_THEMES, ROOT, VSCODE_FALLBACK_KEYS, VSCODE_FILL_TEXT_PAIRS, VSCODE_HC_TEXT_PAIRS, VSCODE_NON_TEXT_PAIRS, VSCODE_TEXT_PAIRS, XCODE_KEYS, XCODE_SYNTAX_KEYS, loadPalette, loadSchema, styleOf } from "./lib/palette.mjs";
+import { ANSI_NAMES, OBSIDIAN_NON_TEXT_PAIRS, OBSIDIAN_SELECTION_TEXT_PAIRS, OBSIDIAN_SIGNAL_PAIRS, OBSIDIAN_SIGNAL_TEXT_PAIRS, OBSIDIAN_TEXT_PAIRS, OBSIDIAN_THEMES, ROOT, VSCODE_FALLBACK_KEYS, VSCODE_FILL_TEXT_PAIRS, VSCODE_HC_TEXT_PAIRS, VSCODE_NON_TEXT_PAIRS, VSCODE_TEXT_PAIRS, XCODE_KEYS, XCODE_SYNTAX_KEYS, loadPalette, loadSchema, rulesFor, styleOf } from "./lib/palette.mjs";
 import { validate } from "./lib/schema.mjs";
 import { measureAll, windowsSelectionText } from "./lib/measure.mjs";
 import { contrast, ratio } from "./lib/colour.mjs";
@@ -51,7 +51,7 @@ for (const { theme, contrastRows, terminalRows, terminalTextRows, pairRows, sele
   const dim = theme.terminal.dim ?? [];
   for (const x of terminalRows) {
     const index = Number(x.item.split(".")[1]);
-    const floor = dim.includes(index) ? palette.rules.ansiFloor : palette.rules.textContrast;
+    const floor = dim.includes(index) ? palette.rules.ansiFloor : rulesFor(palette, theme).textContrast;
     if (x.ratio < floor) {
       const what = x.role === "background" ? `${x.text} text on the background shade ${x.colour}` : `${x.colour} on ${x.background}`;
       fail("terminal", `${theme.id} ${x.item}`, `${what} is ${x.ratio}:1, needs ${floor}:1`);
@@ -95,15 +95,16 @@ for (const theme of palette.themes) {
   if (!existsSync(join(ROOT, file))) continue;
   const { colors } = JSON.parse(readFileSync(join(ROOT, file), "utf8"));
   const highContrast = theme.vscodeUiTheme.startsWith("hc");
+  const textFloor = rulesFor(palette, theme).textContrast;
   for (const key of VSCODE_FALLBACK_KEYS) {
     if (!(key in colors)) {
       fail("vscode", `${theme.id} ${key}`, highContrast ? `unset on the ${theme.vscodeUiTheme} base, which would fall back to the built in high contrast colour` : "unset, so it would fall back to a VS Code default");
     }
   }
   const pairs = [
-    ...VSCODE_TEXT_PAIRS.map((p) => [...p, palette.rules.textContrast]),
-    ...VSCODE_FILL_TEXT_PAIRS.map((p) => [...p, palette.rules.textContrast]),
-    ...(highContrast ? VSCODE_HC_TEXT_PAIRS.map((p) => [...p, palette.rules.textContrast]) : []),
+    ...VSCODE_TEXT_PAIRS.map((p) => [...p, textFloor]),
+    ...VSCODE_FILL_TEXT_PAIRS.map((p) => [...p, textFloor]),
+    ...(highContrast ? VSCODE_HC_TEXT_PAIRS.map((p) => [...p, textFloor]) : []),
     ...VSCODE_NON_TEXT_PAIRS.map((p) => [...p, palette.rules.nonTextContrast]),
   ];
   for (const [fg, bg, floor] of pairs) {
@@ -289,7 +290,8 @@ for (const theme of palette.themes) {
   }
   for (const [target, fg, bg] of shipped.pairs) {
     if (!fg || !bg) { fail("selection", `${theme.id} ${target}`, "the selected text colour or the selection is missing"); continue; }
-    if (contrast(fg, bg) < palette.rules.textContrast) fail("selection", `${theme.id} ${target}`, `selected text ${fg} on ${bg} is ${ratio(fg, bg)}:1, needs ${palette.rules.textContrast}:1`);
+    const floor = rulesFor(palette, theme).textContrast;
+    if (contrast(fg, bg) < floor) fail("selection", `${theme.id} ${target}`, `selected text ${fg} on ${bg} is ${ratio(fg, bg)}:1, needs ${floor}:1`);
   }
   for (const [target, colour] of shipped.keeps) {
     if (colour?.toLowerCase() !== theme.ui.selection) fail("selection", `${theme.id} ${target}`, `${colour} is not the background only selection ${theme.ui.selection} the checks measure`);
@@ -459,8 +461,9 @@ report();
 // every border, outline, icon and mark on the fill it divides; both blocks of every file set the
 // same variables and every var() inside a block names one of them, so no look is left on an
 // Obsidian default
-const obsidianPairs = [
-  ["text", OBSIDIAN_TEXT_PAIRS, palette.rules.textContrast],
+// the text floor is each look's own, so a gentler theme's block is held to its theme's floor
+const obsidianPairs = (themeId) => [
+  ["text", OBSIDIAN_TEXT_PAIRS, rulesFor(palette, palette.themes.find((t) => t.id === themeId)).textContrast],
   ["selection text", OBSIDIAN_SELECTION_TEXT_PAIRS, palette.rules.selectionContrast],
   ["row text", OBSIDIAN_SIGNAL_TEXT_PAIRS, palette.rules.signalTextContrast],
   ["non-text", OBSIDIAN_NON_TEXT_PAIRS, palette.rules.nonTextContrast],
@@ -475,7 +478,7 @@ for (const [themeId, { file, mode, vars }] of obsidianBlocks) {
       if (!(name in vars)) fail("obsidian", where, `--${name} is referenced but not set in the block`);
     }
   }
-  for (const [kind, pairs, floor] of obsidianPairs) {
+  for (const [kind, pairs, floor] of obsidianPairs(themeId)) {
     for (const [fg, backgrounds] of pairs) {
       for (const bg of backgrounds) {
         const a = vars[fg];

@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for telling us. We treat a readability problem as a bug. You never need to share a diagnosis or anything personal: describe what was hard to read and we will work from that. If you would rather report privately, email contact@zacess.com.
+        Thank you for telling us. We treat a readability problem as a bug. You never need to share a diagnosis or anything personal: describe what was hard to read and we will work from that. If you would rather report privately, email support@zacess.com.
   - type: dropdown
     id: theme
     attributes:
@@ -19,6 +19,8 @@ body:
         - Zacess High Contrast Light
         - Zacess Deep Contrast Dark
         - Zacess Deep Contrast Light
+        - Zacess Warm Dark
+        - Zacess Warm Light
     validations:
       required: true
   - type: dropdown
@@ -37,6 +39,7 @@ body:
         - Eclipse
         - Xcode
         - A terminal
+        - Chrome or Firefox
         - Other
     validations:
       required: true

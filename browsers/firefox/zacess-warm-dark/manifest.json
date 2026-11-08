@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Warm Dark",
+  "version": "1.0.0",
+  "description": "Cream on warm dark brown with earthy amber, rust, olive and teal, a gentler theme for anyone who finds high contrast too intense.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "theme-warm-dark@zacess.com",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#3f3328",
+      "frame_inactive": "#3f3328",
+      "tab_background_text": "#e5d5b6",
+      "tab_selected": "#211b17",
+      "tab_text": "#e5d5b6",
+      "tab_line": "#e9b56a",
+      "tab_loading": "#e9b56a",
+      "toolbar": "#211b17",
+      "toolbar_text": "#e5d5b6",
+      "icons": "#e5d5b6",
+      "icons_attention": "#e9b56a",
+      "toolbar_top_separator": "#988c7e",
+      "toolbar_bottom_separator": "#988c7e",
+      "toolbar_vertical_separator": "#988c7e",
+      "toolbar_field": "#3f3328",
+      "toolbar_field_text": "#e5d5b6",
+      "toolbar_field_border": "#988c7e",
+      "toolbar_field_focus": "#211b17",
+      "toolbar_field_text_focus": "#e5d5b6",
+      "toolbar_field_border_focus": "#e9b56a",
+      "toolbar_field_highlight": "#7abad3",
+      "toolbar_field_highlight_text": "#211b17",
+      "popup": "#211b17",
+      "popup_text": "#e5d5b6",
+      "popup_border": "#988c7e",
+      "popup_highlight": "#7abad3",
+      "popup_highlight_text": "#211b17",
+      "sidebar": "#211b17",
+      "sidebar_text": "#e5d5b6",
+      "sidebar_border": "#988c7e",
+      "sidebar_highlight": "#7abad3",
+      "sidebar_highlight_text": "#211b17",
+      "ntp_background": "#211b17",
+      "ntp_text": "#e5d5b6",
+      "focus_outline": "#e9b56a"
+    },
+    "properties": {
+      "color_scheme": "dark"
+    }
+  }
+}

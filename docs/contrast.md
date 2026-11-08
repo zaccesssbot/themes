@@ -14,6 +14,8 @@ the ones CI enforced. Every ratio is rounded down.
 | Zacess High Contrast Light | `#000000` on `#ffffff`, 21.0:1 | 8.6:1 (comment) | 7.1:1 (comment on a removed line) | `#c3e5fe` 1.3:1 on the background, syntax 6.5:1 (comment) | `#ffffff` on `#015f5e`, 7.5:1; background only `#00d3d0`, syntax 4.6:1 (comment) |
 | Zacess Deep Contrast Dark | `#ffffff` on `#000000`, 21.0:1 | 9.0:1 (property) | 7.0:1 (property on a selected row) | `#262626` 1.3:1 on the background, syntax 6.4:1 (property) | `#000000` on `#ff70ff`, 9.0:1; background only `#720072`, syntax 4.6:1 (property) |
 | Zacess Deep Contrast Light | `#000000` on `#ffffff`, 21.0:1 | 7.7:1 (number) | 7.0:1 (number on a selected row) | `#c8debd` 1.4:1 on the background, syntax 5.3:1 (number) | `#ffffff` on `#990098`, 7.4:1; background only `#ffbcfa`, syntax 5.0:1 (number) |
+| Zacess Warm Dark | `#e5d5b6` on `#211b17`, 11.7:1 | 8.0:1 (type) | 5.7:1 (type on a selected row) | `#36322d` 1.3:1 on the background, syntax 6.0:1 (type) | `#211b17` on `#7abad3`, 7.9:1; background only `#2c465c`, syntax 4.6:1 (type) |
+| Zacess Warm Light | `#342410` on `#f4ead5`, 12.5:1 | 6.0:1 (added) | 5.0:1 (added on a selected row) | `#d0cec0` 1.3:1 on the background, syntax 4.5:1 (added) | `#f4ead5` on `#215779`, 6.5:1; background only `#a0d2fe`, syntax 4.5:1 (added) |
 <!-- contrast summary end -->
 
 Every token in every theme, the interface colours, the terminal colours and the colour vision results
@@ -21,28 +23,32 @@ are listed in [ACCESSIBILITY.md](../ACCESSIBILITY.md).
 
 ## The floors
 
-The checks refuse any colour below these floors and CI fails on the first one.
+The checks refuse any colour below these floors and CI fails on the first one. Every 7:1 floor for
+text below is the palette's `rules.textContrast`. A theme can set its own `textContrast` instead:
+Zacess Warm Dark and Zacess Warm Light, the gentler pair, set 4.5:1 (WCAG AA), so each 7:1 text
+floor in this table is 4.5:1 for them. Every floor that is not a text floor is the same for all ten
+themes.
 
 | Rule | Floor |
 | --- | --- |
-| Every text and syntax colour on the background, the panels and bars, a selected row and both diff backgrounds | 7:1 |
+| Every text and syntax colour on the background, the panels and bars, a selected row and both diff backgrounds | 7:1, 4.5:1 in the Warm pair |
 | The current line band on the background | 1.3:1 |
-| Every syntax colour over the current line, with plain text, the active line number and the cursor at 7:1 | 4.5:1 |
-| The cursor on the background and the current line, in the editors and the terminals | 7:1 |
-| The character under a block cursor on the cursor | 7:1 |
-| Selected text on the selection block, in every editor and terminal that sets a selected text colour | 7:1 |
+| Every syntax colour over the current line, with plain text, the active line number and the cursor at 7:1 (4.5:1 in the Warm pair) | 4.5:1 |
+| The cursor on the background and the current line, in the editors and the terminals | 7:1, 4.5:1 in the Warm pair |
+| The character under a block cursor on the cursor | 7:1, 4.5:1 in the Warm pair |
+| Selected text on the selection block, in every editor and terminal that sets a selected text colour | 7:1, 4.5:1 in the Warm pair |
 | The selection block on the background | 3:1 |
 | Every syntax colour, muted text and link over the background only selection | 4.5:1 |
-| The text colour over the background only selection | 7:1 |
+| The text colour over the background only selection | 7:1, 4.5:1 in the Warm pair |
 | Either selection against the background, the current line, a find match and both diff backgrounds: OKLab distance in normal vision and under each simulation | 0.08 |
 | The cursor against both selections, the current line and a find match: OKLab distance in normal vision and under each simulation | 0.08 |
 | The current line against a find match: OKLab distance in normal vision and under each simulation | 0.08 |
-| The text colour over a find match | 7:1 |
+| The text colour over a find match | 7:1, 4.5:1 in the Warm pair |
 | Every syntax colour over a find match, which also carries a border | 4.5:1 |
-| Interface text: muted text, links, errors, warnings, information, line numbers and button text | 7:1 |
+| Interface text: muted text, links, errors, warnings, information, line numbers and button text | 7:1, 4.5:1 in the Warm pair |
 | Borders, dividers, focus outlines, indent guides and whitespace markers, on every surface they divide | 3:1 |
 | Find match, word and bracket outlines and the diff marks in the gutter, on the background, the current line and the match | 3:1 |
-| Every terminal colour in a dark theme plus the black, white and grey slots in a light theme | 7:1 |
+| Every terminal colour in a dark theme plus the black, white and grey slots in a light theme | 7:1, 4.5:1 in the Warm pair |
 | The coloured terminal slots in a light theme, listed as dim and named in ACCESSIBILITY.md | 4.5:1 |
 | Every coloured terminal output against the terminal's default text: tone difference or OKLab distance in normal vision and under each simulation | 0.05 or 0.04 |
 | Two paired tokens: tone difference (the cube root of relative luminance) | 0.05 |

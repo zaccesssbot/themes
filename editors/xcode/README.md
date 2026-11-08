@@ -1,8 +1,8 @@
 # Zacess for Xcode
 
-Eight themes, `Zacess Light`, `Zacess Dark`, `Zacess Yellow on Black`, `Zacess Cream`,
-`Zacess High Contrast Dark`, `Zacess High Contrast Light`, `Zacess Deep Contrast Dark` and
-`Zacess Deep Contrast Light`, in Xcode's `.xccolortheme` format. Each sets the colour and font of
+Ten themes, `Zacess Light`, `Zacess Dark`, `Zacess Yellow on Black`, `Zacess Cream`,
+`Zacess High Contrast Dark`, `Zacess High Contrast Light`, `Zacess Deep Contrast Dark`,
+`Zacess Deep Contrast Light`, `Zacess Warm Dark` and `Zacess Warm Light`, in Xcode's `.xccolortheme` format. Each sets the colour and font of
 every syntax type Xcode colours, the editor background, cursor, selection, current line, invisible
 characters and the debugger's current line, the console's text, prompt, background and selection,
 rendered documentation and the issue, breakpoint and change marks in the scroll bar. Bold and italic
@@ -44,6 +44,8 @@ a dark one while it is in Dark mode.
 | Zacess High Contrast Light | Light |
 | Zacess Deep Contrast Dark | Dark |
 | Zacess Deep Contrast Light | Light |
+| Zacess Warm Dark | Dark |
+| Zacess Warm Light | Light |
 
 > [!NOTE]
 > The themes use SF Mono at 12 points, Xcode's own default. Change the size in the **Themes** pane
@@ -52,12 +54,12 @@ a dark one while it is in Dark mode.
 ## Known limits
 
 - Xcode has no syntax type for operators, parameters or invalid code, so those show in the plain
-  text colour, which keeps 7:1. Local variables are plain too. Instance variables and globals take
+  text colour, which keeps the theme's text floor. Local variables are plain too. Instance variables and globals take
   the property colour.
 - Xcode fonts carry weight and slant but no underline, so links in comments are told apart by
   colour alone.
 - The find match highlight, the minimap and the window around the editor follow Xcode's own colours
   for the macOS appearance rather than the palette.
 
-All eight files are generated from `palette/zacess.json` by `npm run build` at the root of the
+All ten files are generated from `palette/zacess.json` by `npm run build` at the root of the
 repository. Never edit them by hand.

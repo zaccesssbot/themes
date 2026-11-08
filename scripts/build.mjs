@@ -3,7 +3,7 @@
 // editor folder stands alone, with `npm run verify` proving they match the palette
 import { mkdirSync, readFileSync, writeFileSync, copyFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { ROOT, HEADER, REPO, ANSI_NAMES, OBSIDIAN_THEMES, loadPalette, loadSchema, styleOf, terminalText } from "./lib/palette.mjs";
+import { ROOT, HEADER, REPO, ANSI_NAMES, OBSIDIAN_THEMES, loadPalette, loadSchema, rulesFor, styleOf, terminalText } from "./lib/palette.mjs";
 import { contrast, parseHex, toHex } from "./lib/colour.mjs";
 import { UID, bplist } from "./lib/bplist.mjs";
 import { validate } from "./lib/schema.mjs";
@@ -384,7 +384,7 @@ function buildVscode() {
   write("editors/vscode/package.json", json({
     name: "zacess-themes",
     displayName: "Zacess Themes",
-    description: "Eight high contrast code themes matching the Zacess reader: Light, Dark, Yellow on Black for low vision, Cream for dyslexia and four maximum contrast themes, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light. Every text and syntax colour keeps 7:1 contrast on the background and selections stand out in a colour of their own.",
+    description: "Ten accessible code themes: four matching the Zacess reader (Light, Dark, Yellow on Black for low vision and Cream for dyslexia), four maximum contrast themes (High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light) and the gentler Warm Dark and Warm Light. Every text and syntax colour keeps 7:1 contrast on the background (4.5:1 in the Warm pair) and selections stand out in a colour of their own.",
     version: palette.version,
     publisher: "zacess",
     license: "MIT",
@@ -395,7 +395,7 @@ function buildVscode() {
     bugs: { url: `${REPO}/issues` },
     engines: { vscode: "^1.85.0" },
     categories: ["Themes"],
-    keywords: ["theme", "high contrast", "accessibility", "low vision", "dyslexia", "WCAG", "AAA", "colour blind", "yellow on black", "cream"],
+    keywords: ["theme", "high contrast", "accessibility", "low vision", "dyslexia", "WCAG", "AAA", "colour blind", "yellow on black", "cream", "warm"],
     contributes: { themes: contributes },
   }));
   copyFileSync(join(ROOT, "LICENSE"), join(ROOT, "editors/vscode/LICENSE"));
@@ -689,11 +689,11 @@ function buildJetbrains() {
     "  <name>Zacess Themes</name>",
     "  <vendor url=\"https://zacess.com\" email=\"contact@zacess.com\">Zacess</vendor>",
     "  <description><![CDATA[",
-    "<p>Eight high contrast themes that match the Zacess reader, so a page looks the same in the reader and in the IDE.</p>",
+    "<p>Ten accessible themes: four match the Zacess reader, so a page looks the same in the reader and in the IDE, four give the highest contrast a screen can show and the Warm pair is a gentler option for anyone who finds high contrast too intense.</p>",
     "<ul>",
     ...palette.themes.map((t) => `<li><b>${t.name}</b>: ${t.description}</li>`),
     "</ul>",
-    "<p>Every text and syntax colour keeps at least 7:1 contrast (WCAG AAA) on the background. The current line is a visible band with plain text at 7:1 and every syntax colour at 4.5:1 or more over it. Comments are never dimmed below 7:1. Selected text takes one colour at 7:1 or more on a bold selection block. Keywords are bold, comments italic and invalid code underlined, so colour is never the only signal.</p>",
+    "<p>Every text and syntax colour keeps at least 7:1 contrast (WCAG AAA) on the background. Zacess Warm Dark and Zacess Warm Light keep 4.5:1 (WCAG AA) instead. The current line is a visible band with plain text at the theme's text floor and every syntax colour at 4.5:1 or more over it. Comments are never dimmed below that floor. Selected text takes one colour at the floor or more on a bold selection block. Keywords are bold, comments italic and invalid code underlined, so colour is never the only signal.</p>",
     `<p>Source, contrast tables and issues: <a href="${REPO}">${REPO}</a></p>`,
     "]]></description>",
     "  <depends>com.intellij.modules.platform</depends>",
@@ -710,14 +710,14 @@ function buildJetbrains() {
 
 // a tint of a colour over the page for the six named highlight colours: the strongest mix that
 // keeps plain text at the text floor over it and still reads as a band on the page
-function obsidianTint(colour, background, foreground) {
+function obsidianTint(colour, background, foreground, textFloor) {
   const c = parseHex(colour);
   const b = parseHex(background);
   // the strongest tint is a third of the colour, so a highlight never reads as a solid block
   let weakest = background;
   for (let t = 0.35; t >= 0.1; t -= 0.05) {
     weakest = toHex(c.map((v, i) => v * t + b[i] * (1 - t)));
-    if (contrast(foreground, weakest) >= palette.rules.textContrast && contrast(weakest, background) >= palette.rules.signalContrast) return weakest;
+    if (contrast(foreground, weakest) >= textFloor && contrast(weakest, background) >= palette.rules.signalContrast) return weakest;
   }
   return weakest;
 }
@@ -733,7 +733,7 @@ function obsidianVars(theme) {
   // the extended colours by role: each is measured on the page and every panel, so a plugin that
   // draws one as text keeps the text floor
   const extended = { red: u.error, orange: u.warning, yellow: s.number, green: s.added, cyan: s.type, blue: u.info, purple: s.property, pink: s.regex };
-  const tint = (colour) => obsidianTint(colour, u.background, u.foreground);
+  const tint = (colour) => obsidianTint(colour, u.background, u.foreground, rulesFor(palette, theme).textContrast);
   const vars = [
     ["color-scheme", theme.appearance],
     // the base scale, which Obsidian derives form fields and many panels from
@@ -1870,7 +1870,7 @@ function buildZed() {
     `version = "${palette.version}"`,
     "schema_version = 1",
     "authors = [\"Zacess <contact@zacess.com>\"]",
-    "description = \"High contrast themes matching the Zacess reader: Light, Dark, Yellow on Black, Cream, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light, every text and syntax colour at 7:1 or more on the background.\"",
+    "description = \"Accessible themes matching the Zacess reader: Light, Dark, Yellow on Black, Cream, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light at 7:1 or more, plus the gentler Warm Dark and Warm Light at 4.5:1 or more for every text and syntax colour on the background.\"",
     `repository = "${REPO}"`,
     "",
   ].join("\n"));
@@ -2212,9 +2212,9 @@ function emacs(theme) {
     ";;; Commentary:",
     "",
     `;; ${theme.description}`,
-    ";; Every text and syntax colour keeps at least 7:1 contrast on the",
+    `;; Every text and syntax colour keeps at least ${rulesFor(palette, theme).textContrast}:1 contrast on the`,
     ";; background and 4.5:1 or more over the current line. Selected text",
-    ";; takes one colour at 7:1 or more on a bold selection block.",
+    `;; takes one colour at ${rulesFor(palette, theme).textContrast}:1 or more on a bold selection block.`,
     "",
     ";;; Code:",
     "",
@@ -2553,7 +2553,7 @@ function eclipseBuildFiles() {
       '<?xml version="1.0" encoding="UTF-8"?>',
       `<!-- ${HEADER} -->`,
       `<feature id="${ECLIPSE_FEATURE}" label="Zacess Themes" version="${v}" provider-name="Zacess">`,
-      `  <description url="${REPO}">${xml(`High contrast colour themes with every text and syntax colour at 7:1 contrast or more: ${palette.themes.map((t) => t.name).join(", ").replace(/, ([^,]*)$/, " and $1")}. Choose one under General, Appearance.`)}</description>`,
+      `  <description url="${REPO}">${xml(`Accessible colour themes with every text and syntax colour at 7:1 contrast or more, 4.5:1 in the gentler Warm pair: ${palette.themes.map((t) => t.name).join(", ").replace(/, ([^,]*)$/, " and $1")}. Choose one under General, Appearance.`)}</description>`,
       `  <copyright url="${REPO}">Copyright (c) 2026 Zacess</copyright>`,
       `  <license url="${REPO}/blob/main/LICENSE">${xml(licence)}</license>`,
       `  <plugin id="${ECLIPSE_PLUGIN}" version="${v}"/>`,
@@ -3070,6 +3070,9 @@ function buildTerminals() {
 // the active tab from the strip
 function browserColours(theme) {
   const u = theme.ui;
+  const r = rulesFor(palette, theme);
+  // the strong frame is the high and deep contrast themes' own, recognised by a border at the AAA
+  // text floor, so a gentler theme's own floor never turns it on
   const strongFrame = contrast(u.border, u.background) >= palette.rules.textContrast;
   // a second surface too close to the background to see takes the list selection tint, which every
   // theme keeps at text contrast; Chrome draws the address bar with no border, so it needs this too
@@ -3088,10 +3091,10 @@ function browserColours(theme) {
   };
   // a browser theme that fails its own floors is not written at all
   const floors = [
-    ["tab strip text", c.frameText, c.frame, palette.rules.textContrast],
-    ["toolbar and tab text", c.text, c.toolbar, palette.rules.textContrast],
-    ["address bar text", c.text, c.field, palette.rules.textContrast],
-    ["new tab page link", c.link, c.toolbar, palette.rules.textContrast],
+    ["tab strip text", c.frameText, c.frame, r.textContrast],
+    ["toolbar and tab text", c.text, c.toolbar, r.textContrast],
+    ["address bar text", c.text, c.field, r.textContrast],
+    ["new tab page link", c.link, c.toolbar, r.textContrast],
     ["highlighted text", c.highlightText, c.highlight, palette.rules.selectionContrast],
     ["active tab line and focus outline", c.accent, c.toolbar, palette.rules.nonTextContrast],
     ["address bar border", c.fieldBorder, c.toolbar, palette.rules.nonTextContrast],

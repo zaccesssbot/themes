@@ -8,7 +8,8 @@
 - **Something is hard to read:** use the
   [readability form](https://github.com/zacesshq/themes/issues/new?template=readability.yml). A
   readability problem is a bug. You never need to share a diagnosis or anything personal. To report
-  privately, email [contact@zacess.com](mailto:contact@zacess.com).
+  privately, email [support@zacess.com](mailto:support@zacess.com).
+- **Help with a theme or an install:** email [support@zacess.com](mailto:support@zacess.com).
 - **Security vulnerabilities:** never open a public issue. Follow [SECURITY.md](SECURITY.md).
 - **Anything else:** email [contact@zacess.com](mailto:contact@zacess.com).
 
@@ -19,5 +20,5 @@
 - [ACCESSIBILITY.md](ACCESSIBILITY.md) for every measured ratio and the known limits
 
 > [!NOTE]
-> The marketplace listings are not live yet. Install from the
-> [latest release](https://github.com/zacesshq/themes/releases/latest) until they are.
+> The [README](README.md#install) links every store listing. The
+> [latest release](https://github.com/zacesshq/themes/releases/latest) has every file for an offline install.

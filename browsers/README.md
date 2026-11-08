@@ -1,6 +1,6 @@
 # Zacess for browsers
 
-All eight Zacess themes for Chrome and Firefox. A theme colours the browser's tab strip, toolbar,
+All ten Zacess themes for Chrome and Firefox. A theme colours the browser's tab strip, toolbar,
 address bar and new tab page. Web pages keep their own colours.
 
 | Browser | Folder | Store |
@@ -24,6 +24,8 @@ address bar and new tab page. Web pages keep their own colours.
 | Zacess High Contrast Light | [Chrome Web Store](https://chromewebstore.google.com/detail/khmfjccebfgnbeanmknhcgjhjpojadie) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-high-contrast-light/) |
 | Zacess Deep Contrast Dark | [Chrome Web Store](https://chromewebstore.google.com/detail/hempingnjhdnpkdnhhhheocbnidjlhnd) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-deep-contrast-dark/) |
 | Zacess Deep Contrast Light | [Chrome Web Store](https://chromewebstore.google.com/detail/pdmcgfeljojjckjmoojocbljmldckahm) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-deep-contrast-light/) |
+| Zacess Warm Dark | [Chrome Web Store](https://chromewebstore.google.com/detail/lfjkmkckfjfkmplghebjhdjkfkmpbmad) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-warm-dark/) |
+| Zacess Warm Light | [Chrome Web Store](https://chromewebstore.google.com/detail/kcehmemabnmmnepekabnjkpebagicekp) | [Firefox Add-ons](https://addons.mozilla.org/firefox/addon/zacess-warm-light/) |
 
 ## Install
 
@@ -49,8 +51,8 @@ The build refuses to write a theme that falls below these floors:
 
 | Pair | Floor |
 | --- | --- |
-| Text on the tab strip, toolbar and address bar | 7:1 |
-| Links on the new tab page | 7:1 |
+| Text on the tab strip, toolbar and address bar | 7:1, 4.5:1 in the Warm pair |
+| Links on the new tab page | 7:1, 4.5:1 in the Warm pair |
 | Highlighted text in the address bar and menus | 4.5:1 |
 | The active tab line, focus outline and address bar border on the toolbar | 3:1 |
 

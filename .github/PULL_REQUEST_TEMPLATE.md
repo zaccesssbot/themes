@@ -15,7 +15,7 @@
 
 ## Accessibility impact
 
-- [ ] Every text and syntax colour still keeps 7:1 contrast (tick this too when no colour changed)
+- [ ] Every text and syntax colour still keeps its theme's floor, 7:1 or 4.5:1 in the Warm pair (tick this too when no colour changed)
 - [ ] Tokens that sit next to each other still differ in tone or font style, not only in hue
 
 ## Before submitting

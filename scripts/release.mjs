@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // finishes a release once release.yml has published a tag to the stores: creates the GitHub release
 // from the workflow's artifact (a release made from the tag already gets the files it lacks) and
-// updates the four read-only Obsidian copies and the Neovim copy. It runs on a
+// updates the five read-only Obsidian copies and the Neovim copy. It runs on a
 // maintainer's machine with their own gh login and git identity, so every commit, tag and release it
 // makes is theirs and signed with their key. Safe to run again: anything already done is skipped.
 //

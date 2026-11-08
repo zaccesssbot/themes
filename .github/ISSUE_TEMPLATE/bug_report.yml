@@ -17,11 +17,17 @@ body:
         - Emacs
         - Eclipse
         - Xcode
+        - Terminal.app
         - iTerm2
-        - Alacritty
-        - kitty
         - Ghostty
+        - kitty
+        - WezTerm
+        - Warp
+        - Alacritty
         - Windows Terminal
+        - btop
+        - Chrome
+        - Firefox
         - Other
     validations:
       required: true
@@ -39,6 +45,8 @@ body:
         - Zacess High Contrast Light
         - Zacess Deep Contrast Dark
         - Zacess Deep Contrast Light
+        - Zacess Warm Dark
+        - Zacess Warm Light
     validations:
       required: true
   - type: textarea
@@ -68,7 +76,7 @@ body:
     id: version
     attributes:
       label: Editor version and theme version
-      placeholder: VS Code 1.105 on macOS 26, Zacess Themes 0.1.0
+      placeholder: VS Code 1.105 on macOS 26, Zacess Themes 1.0.0
   - type: dropdown
     id: ai-use
     attributes:

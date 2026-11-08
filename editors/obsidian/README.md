@@ -1,6 +1,6 @@
 # Zacess for Obsidian
 
-Four Obsidian themes, one for each pair of Zacess looks. A community theme carries one light and one
+Five Obsidian themes, one for each pair of Zacess looks. A community theme carries one light and one
 dark look, so each theme follows Obsidian's own **Base color scheme** setting between its two and
 needs no plugin.
 
@@ -10,6 +10,7 @@ needs no plugin.
 | Zacess Cream | Zacess Cream | Zacess Yellow on Black | [zacess-cream](zacess-cream/README.md) | `zacesshq/obsidian-theme-cream` |
 | Zacess High Contrast | Zacess High Contrast Light | Zacess High Contrast Dark | [zacess-high-contrast](zacess-high-contrast/README.md) | `zacesshq/obsidian-theme-high-contrast` |
 | Zacess Deep Contrast | Zacess Deep Contrast Light | Zacess Deep Contrast Dark | [zacess-deep-contrast](zacess-deep-contrast/README.md) | `zacesshq/obsidian-theme-deep-contrast` |
+| Zacess Warm | Zacess Warm Light | Zacess Warm Dark | [zacess-warm](zacess-warm/README.md) | `zacesshq/obsidian-theme-warm` |
 
 Each folder holds the theme's `manifest.json`, `theme.css`, README and `screenshot.png`. The
 manifest and the stylesheet are written by `scripts/build.mjs` from the palette and the screenshot
@@ -23,7 +24,7 @@ Zacess is in the [Obsidian community directory](https://community.obsidian.md/th
 **Settings**, then **Appearance**, select **Manage** under **Themes**, search for **Zacess** and
 select **Install and use**.
 
-To install any of the four by hand, download `<folder>-obsidian-<version>.zip` from the
+To install any of the five by hand, download `<folder>-obsidian-<version>.zip` from the
 [latest release](https://github.com/zacesshq/themes/releases/latest), put `manifest.json` and
 `theme.css` in a folder named after the theme inside your vault's `.obsidian/themes/` folder and
 choose the theme under **Settings**, **Appearance**, **Themes**. The same two files are in each
@@ -41,7 +42,7 @@ dividers, the status bar, the title bar, menus, the command palette and every ot
 suggestions, modals, settings, notices, tooltips, inputs, toggles, sliders, the graph view, canvas,
 Bases table, card and kanban views, the PDF viewer, Sync avatars and Mermaid diagrams.
 
-Every text colour keeps 7:1 on every fill it can sit on, secondary text keeps 4.5:1 over a selection
+Every text colour keeps 7:1 on every fill it can sit on (4.5:1 in Zacess Warm, the gentler pair), secondary text keeps 4.5:1 over a selection
 or a hovered row and every border, outline, icon and mark keeps 3:1. Colour is never the only signal:
 links are underlined, the active tab, the open file, a selected row and a selected suggestion carry a
 bar, a highlight is underlined, a matched bracket is outlined and bold, a finished task is struck

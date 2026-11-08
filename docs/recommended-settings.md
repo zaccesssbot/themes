@@ -24,7 +24,7 @@ Zed, in `settings.json`:
 The JetBrains IDEs: **Settings**, **Appearance & Behavior**, **Appearance**, tick **Sync with OS**
 and choose a Zacess theme for each side. Ghostty takes
 `theme = light:zacess-deep-contrast-light,dark:zacess-deep-contrast-dark`. In Obsidian each of the
-four themes follows the system: **Settings**, **Appearance**, **Base color scheme**, **Adapt to
+five themes follows the system: **Settings**, **Appearance**, **Base color scheme**, **Adapt to
 system**, which gives the theme's light look by day and its dark look by night.
 
 ## Keep terminal text readable

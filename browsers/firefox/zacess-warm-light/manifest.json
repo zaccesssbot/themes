@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Warm Light",
+  "version": "1.0.0",
+  "description": "Dark brown on warm paper with earthy amber, rust, olive and teal, a gentler theme for anyone who finds high contrast too intense.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "theme-warm-light@zacess.com",
+      "strict_min_version": "142.0",
+      "data_collection_permissions": {
+        "required": [
+          "none"
+        ]
+      }
+    }
+  },
+  "theme": {
+    "colors": {
+      "frame": "#e4d8be",
+      "frame_inactive": "#e4d8be",
+      "tab_background_text": "#342410",
+      "tab_selected": "#f4ead5",
+      "tab_text": "#342410",
+      "tab_line": "#6d3b02",
+      "tab_loading": "#6d3b02",
+      "toolbar": "#f4ead5",
+      "toolbar_text": "#342410",
+      "icons": "#342410",
+      "icons_attention": "#6d3b02",
+      "toolbar_top_separator": "#7e6f5f",
+      "toolbar_bottom_separator": "#7e6f5f",
+      "toolbar_vertical_separator": "#7e6f5f",
+      "toolbar_field": "#e4d8be",
+      "toolbar_field_text": "#342410",
+      "toolbar_field_border": "#7e6f5f",
+      "toolbar_field_focus": "#f4ead5",
+      "toolbar_field_text_focus": "#342410",
+      "toolbar_field_border_focus": "#6d3b02",
+      "toolbar_field_highlight": "#215779",
+      "toolbar_field_highlight_text": "#f4ead5",
+      "popup": "#f4ead5",
+      "popup_text": "#342410",
+      "popup_border": "#7e6f5f",
+      "popup_highlight": "#215779",
+      "popup_highlight_text": "#f4ead5",
+      "sidebar": "#f4ead5",
+      "sidebar_text": "#342410",
+      "sidebar_border": "#7e6f5f",
+      "sidebar_highlight": "#215779",
+      "sidebar_highlight_text": "#f4ead5",
+      "ntp_background": "#f4ead5",
+      "ntp_text": "#342410",
+      "focus_outline": "#6d3b02"
+    },
+    "properties": {
+      "color_scheme": "light"
+    }
+  }
+}

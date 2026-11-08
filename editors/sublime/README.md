@@ -1,8 +1,8 @@
 # Zacess for Sublime Text
 
-Eight colour schemes, `Zacess Light`, `Zacess Dark`, `Zacess Yellow on Black`, `Zacess Cream`,
-`Zacess High Contrast Dark`, `Zacess High Contrast Light`, `Zacess Deep Contrast Dark` and
-`Zacess Deep Contrast Light`, in the `.sublime-color-scheme` format. Each names every palette colour once as a variable, sets the
+Ten colour schemes, `Zacess Light`, `Zacess Dark`, `Zacess Yellow on Black`, `Zacess Cream`,
+`Zacess High Contrast Dark`, `Zacess High Contrast Light`, `Zacess Deep Contrast Dark`,
+`Zacess Deep Contrast Light`, `Zacess Warm Dark` and `Zacess Warm Light`, in the `.sublime-color-scheme` format. Each names every palette colour once as a variable, sets the
 editor colours and maps the same TextMate scopes as the VS Code themes, plus the region colours that
 packages such as LSP use for their marks.
 

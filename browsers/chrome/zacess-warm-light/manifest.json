@@ -1,0 +1,79 @@
+{
+  "manifest_version": 3,
+  "name": "Zacess Warm Light",
+  "version": "1.0.0",
+  "description": "Dark brown on warm paper with earthy amber, rust, olive and teal, a gentler theme for anyone who finds high contrast too intense.",
+  "homepage_url": "https://github.com/zacesshq/themes",
+  "icons": {
+    "128": "icon-128.png"
+  },
+  "theme": {
+    "colors": {
+      "frame": [
+        228,
+        216,
+        190
+      ],
+      "frame_inactive": [
+        228,
+        216,
+        190
+      ],
+      "toolbar": [
+        244,
+        234,
+        213
+      ],
+      "tab_text": [
+        52,
+        36,
+        16
+      ],
+      "tab_background_text": [
+        52,
+        36,
+        16
+      ],
+      "tab_background_text_inactive": [
+        52,
+        36,
+        16
+      ],
+      "bookmark_text": [
+        52,
+        36,
+        16
+      ],
+      "toolbar_button_icon": [
+        52,
+        36,
+        16
+      ],
+      "omnibox_background": [
+        228,
+        216,
+        190
+      ],
+      "omnibox_text": [
+        52,
+        36,
+        16
+      ],
+      "ntp_background": [
+        244,
+        234,
+        213
+      ],
+      "ntp_text": [
+        52,
+        36,
+        16
+      ],
+      "ntp_link": [
+        109,
+        59,
+        2
+      ]
+    }
+  }
+}

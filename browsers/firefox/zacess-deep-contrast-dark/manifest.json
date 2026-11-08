@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zacess Deep Contrast Dark",
-  "version": "0.12.1",
+  "version": "1.0.0",
   "description": "White on black with deep, fully saturated colours, yellow focus outlines and cyan frames, for low vision.",
   "homepage_url": "https://github.com/zacesshq/themes",
   "browser_specific_settings": {

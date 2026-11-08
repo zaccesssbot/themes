@@ -1,12 +1,15 @@
 # Zacess Themes
 
-Eight high contrast code themes. Four match the [Zacess](https://zacess.com) reader, so a student sees
+Ten accessible code themes. Four match the [Zacess](https://zacess.com) reader, so a student sees
 the same page in the reader and in the editor. Four more give the highest contrast a screen can show.
 Every text and syntax colour keeps at least 7:1 contrast (WCAG AAA) on the background, comments
-included. The current line is a visible band with plain text at 7:1 and every syntax colour at
+included. Zacess Warm Dark and Zacess Warm Light are the gentler pair for anyone who finds high
+contrast too intense: warm, earthy colours held to 4.5:1 (WCAG AA) instead, with every other check
+unchanged. The current line is a visible band with plain text at the text floor and every syntax colour at
 4.5:1 or more over it. In the five high contrast themes and in the terminal a selection is a bold
-block with every selected character in one colour at 7:1 or more. In Zacess Light, Dark and Cream
-the editor keeps each token's colour inside a selection, at 4.5:1 or more. The current find match
+block with every selected character in one colour at 7:1 or more (4.5:1 or more in the Warm
+pair). In Zacess Light, Dark, Cream,
+Warm Dark and Warm Light the editor keeps each token's colour inside a selection, at 4.5:1 or more. The current find match
 is filled and outlined while the other matches, the word under the cursor and a matched bracket
 are outlined only. Changed lines carry a gutter mark as well as their fill.
 
@@ -20,6 +23,8 @@ are outlined only. Changed lines carry a gutter mark as well as their fill.
 | Zacess High Contrast Light | The highest contrast on a light screen | `#000000` on `#ffffff` |
 | Zacess Deep Contrast Dark | Low vision: deep, fully saturated colours on black | `#ffffff` on `#000000` |
 | Zacess Deep Contrast Light | Low vision: vivid deep colours on white | `#000000` on `#ffffff` |
+| Zacess Warm Dark | A gentler dark theme: cream and earthy colours on warm brown, 4.5:1 floor | `#e5d5b6` on `#211b17` |
+| Zacess Warm Light | A gentler light theme: dark brown and earthy colours on warm paper, 4.5:1 floor | `#342410` on `#f4ead5` |
 
 ![Zacess Light: TypeScript, Python, Rust and HTML lines in dark colours on white, with keywords in bold and comments in italics](https://raw.githubusercontent.com/zacesshq/themes/main/previews/zacess-light.png)
 
@@ -36,6 +41,10 @@ are outlined only. Changed lines carry a gutter mark as well as their fill.
 ![Zacess Deep Contrast Dark: the same code in white and saturated blue, magenta, gold, teal and orange on black](https://raw.githubusercontent.com/zacesshq/themes/main/previews/zacess-deep-contrast-dark.png)
 
 ![Zacess Deep Contrast Light: the same code in black and vivid blue, magenta, brown, teal and red on white](https://raw.githubusercontent.com/zacesshq/themes/main/previews/zacess-deep-contrast-light.png)
+
+![Zacess Warm Dark: the same code in cream and soft amber, rust, olive, teal and rose on warm dark brown](https://raw.githubusercontent.com/zacesshq/themes/main/previews/zacess-warm-dark.png)
+
+![Zacess Warm Light: the same code in dark brown and deep rust, olive, teal and plum on warm paper](https://raw.githubusercontent.com/zacesshq/themes/main/previews/zacess-warm-light.png)
 
 ## Colour is never the only signal
 

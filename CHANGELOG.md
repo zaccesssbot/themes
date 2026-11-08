@@ -6,13 +6,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+## [1.0.0] - 2026-11-08
+
 ### Added
 
 - The Zacess Themes mark in `assets/` in light, dark, automatic and single colour versions, with a light and a dark lockup at the head of the README. A dark and a light banner and a 1280 by 640 social preview image sit beside them.
 - The VS Code and JetBrains icons use the Zacess Themes mark. The stores show it from the next release.
-- All eight themes for Chrome and Firefox in `browsers/`, written by `npm run build` from the palette. Each colours the tab strip, toolbar, address bar and new tab page. The build refuses one whose text falls below 7:1 on any of them. The high and deep contrast themes draw the tab strip in their border colour. They are submitted to the Chrome Web Store and Firefox Add-ons. Microsoft Edge Add-ons does not accept themes, so Edge installs the Chrome versions.
+- Every theme for Chrome and Firefox in `browsers/`, written by `npm run build` from the palette. Each colours the tab strip, toolbar, address bar and new tab page. The build refuses one whose text falls below its theme's text floor (7:1 or 4.5:1 in the Warm pair) on any of them. The high and deep contrast themes draw the tab strip in their border colour. The first eight are submitted to the Chrome Web Store and Firefox Add-ons. All ten are listed in the Chrome Web Store and on Firefox Add-ons. Microsoft Edge Add-ons does not accept themes, so Edge installs the Chrome versions.
 - `npm run preview` draws a 1280 by 800 store image of each browser theme in `previews/browsers/`. `assets/` has the 128 pixel store icon and a 440 by 280 promotional tile.
 - Each release attaches a Chrome zip and a Firefox zip of every browser theme.
+- Zacess Warm Dark and Zacess Warm Light, a gentler pair for anyone who finds high contrast too intense, taking the family from eight themes to ten. Warm Dark is cream (`#e5d5b6`) on warm dark brown (`#211b17`) and Warm Light is dark brown (`#342410`) on warm paper (`#f4ead5`), each with earthy amber, rust, olive, teal, muted blue and rose. Both are generated for every target: VS Code, JetBrains, Obsidian (as the new Zacess Warm theme), Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse, Xcode, every terminal, btop and the Chrome and Firefox browser themes, with matching previews and store images.
+- A theme can set its own text floor with `textContrast` in the palette. The Warm pair sets 4.5:1 (WCAG AA) while the other eight keep the 7:1 in `rules.textContrast`. Every other check, from the colour vision pairs to the selection, cursor, current line, find match and diff floors, applies to the Warm pair unchanged. The contrast tables name the Warm floor beside the 7:1 one.
+- Zacess Warm, a fifth Obsidian theme pairing Warm Light and Warm Dark, with its own folder in `editors/obsidian/zacess-warm/` and a read-only copy, `zacesshq/obsidian-theme-warm`, for `scripts/release.mjs` to update. The release workflow zips all five Obsidian themes.
+- ACCESSIBILITY.md has a section on the gentler Warm pair and adds Warm Dark and Warm Light to every measured table.
+
+### Changed
+
+- The README and the Eclipse guide list the themes as live on the Eclipse Marketplace, with the update site as an alternative.
+- The store descriptions in the VS Code manifest, the JetBrains plugin, the Zed extension and the Eclipse feature and update site describe ten themes, with the Warm pair at 4.5:1. The VS Code keywords include "warm".
+- The README, CONTRIBUTING, `docs/`, the README in each editor folder, `install.sh` and `install.ps1` count ten themes and five Obsidian themes. The README says the iTerm2 Color Schemes collection carries the first eight.
+- The pull request template asks that every text and syntax colour keeps its theme's floor, 7:1 or 4.5:1 in the Warm pair.
+- The bug report form lists Terminal.app, WezTerm, Warp, btop, Chrome and Firefox, both Warm themes and a version placeholder of Zacess Themes 0.12.1. The readability form lists both Warm themes and Chrome or Firefox.
+- SUPPORT.md links the store listings in the README in place of the old note that they were not live yet. It gives support@zacess.com for help with a theme or an install and for private readability reports, as does the readability form, with contact@zacess.com kept for anything else.
 
 ## [0.12.1] - 2026-11-05
 

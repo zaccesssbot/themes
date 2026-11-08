@@ -8,8 +8,8 @@ night, with a yellow accent in the dark.
 Obsidian's own **Base color scheme** setting switches between the two, so no plugin is needed.
 
 The colours match the [Zacess](https://zacess.com) reader's contrast themes, so a page looks the
-same in the reader and in your vault. The other three pairs are their own themes: Zacess,
-Zacess Cream and Zacess Deep Contrast.
+same in the reader and in your vault. The other four pairs are their own themes: Zacess,
+Zacess Cream, Zacess Deep Contrast and the gentler Zacess Warm.
 
 ## Install
 

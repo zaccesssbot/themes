@@ -27,6 +27,12 @@
     <theme id="com.zacess.themes.eclipse.light.deep-contrast-light" label="Zacess Deep Contrast Light" os="macosx" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4_default_mac.css"/>
     <theme id="com.zacess.themes.eclipse.light.deep-contrast-light" label="Zacess Deep Contrast Light" os="win32" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4_default_win.css"/>
     <theme id="com.zacess.themes.eclipse.light.deep-contrast-light" label="Zacess Deep Contrast Light" os="linux" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4_default_gtk.css"/>
+    <theme id="com.zacess.themes.eclipse.dark.warm-dark" label="Zacess Warm Dark" os="macosx" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4-dark_mac.css"/>
+    <theme id="com.zacess.themes.eclipse.dark.warm-dark" label="Zacess Warm Dark" os="win32" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4-dark_win.css"/>
+    <theme id="com.zacess.themes.eclipse.dark.warm-dark" label="Zacess Warm Dark" os="linux" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4-dark_linux.css"/>
+    <theme id="com.zacess.themes.eclipse.light.warm-light" label="Zacess Warm Light" os="macosx" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4_default_mac.css"/>
+    <theme id="com.zacess.themes.eclipse.light.warm-light" label="Zacess Warm Light" os="win32" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4_default_win.css"/>
+    <theme id="com.zacess.themes.eclipse.light.warm-light" label="Zacess Warm Light" os="linux" basestylesheeturi="platform:/plugin/org.eclipse.ui.themes/css/e4_default_gtk.css"/>
     <stylesheet uri="css/zacess-light.css">
       <themeid refid="com.zacess.themes.eclipse.light.light"/>
     </stylesheet>
@@ -50,6 +56,12 @@
     </stylesheet>
     <stylesheet uri="css/zacess-deep-contrast-light.css">
       <themeid refid="com.zacess.themes.eclipse.light.deep-contrast-light"/>
+    </stylesheet>
+    <stylesheet uri="css/zacess-warm-dark.css">
+      <themeid refid="com.zacess.themes.eclipse.dark.warm-dark"/>
+    </stylesheet>
+    <stylesheet uri="css/zacess-warm-light.css">
+      <themeid refid="com.zacess.themes.eclipse.light.warm-light"/>
     </stylesheet>
   </extension>
 </plugin>

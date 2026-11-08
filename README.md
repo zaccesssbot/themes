@@ -5,11 +5,13 @@
   </picture>
 </h1>
 
-High contrast code themes that match the four contrast themes in the [Zacess](https://zacess.com)
-reader, so a student sees the same page in the reader and in the editor, plus four maximum contrast
-themes for anyone who needs the strongest contrast a screen can give. One palette is the source of
-every colour. A small generator writes the files for each editor and the checks refuse any text or
-syntax colour below 7:1 contrast (WCAG AAA) on the background.
+High contrast code themes that match the ten reading themes in the [Zacess](https://zacess.com)
+reader, so a student sees the same page in the reader and in the editor. Four of them are maximum
+contrast themes for anyone who needs the strongest contrast a screen can give. Zacess Warm Dark and Zacess
+Warm Light are the gentler pair for anyone who finds high contrast too intense: warm, earthy colours
+that still keep every text and syntax colour at 4.5:1 (WCAG AA). One palette is the source of every
+colour. A small generator writes the files for each editor and the checks refuse any text or syntax
+colour below 7:1 contrast (WCAG AAA) on the background. The Warm pair is held to 4.5:1 instead.
 
 Built for VS Code, JetBrains IDEs, Obsidian, Neovim, Zed, Sublime Text, Helix, Emacs, Eclipse,
 Xcode, Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and Windows Terminal, plus the
@@ -18,15 +20,15 @@ btop system monitor and the Chrome and Firefox browsers.
 > [!NOTE]
 > Zacess Themes is on the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=zacess.zacess-themes),
 > [Open VSX](https://open-vsx.org/extension/zacess/zacess-themes), the [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/35082-zacess-themes)
-> and the [Eclipse Marketplace](https://marketplace.eclipse.org/content/zacess-themes-0) (in review there, installable now from the [update site](https://zacesshq.github.io/themes/eclipse/)).
+> and the [Eclipse Marketplace](https://marketplace.eclipse.org/content/zacess-themes-0), with the [update site](https://zacesshq.github.io/themes/eclipse/) as an alternative).
 > Zed lists it in the [Zed extension store](https://zed.dev/extensions?query=zacess). For Obsidian,
 > Zacess is in the [community directory](https://community.obsidian.md/themes/zacess) and
-> [Zacess Cream, High Contrast and Deep Contrast](editors/obsidian/README.md) have their own
+> [Zacess Cream, High Contrast, Deep Contrast and Warm](editors/obsidian/README.md) have their own
 > themes. The Neovim schemes install from [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim).
 > Every editor can also be installed from the
 > [latest release](https://github.com/zacesshq/themes/releases/latest) as described below.
 
-## The eight themes
+## The ten themes
 
 | Theme | Reader theme | For | Text on background |
 | --- | --- | --- | --- |
@@ -38,6 +40,8 @@ btop system monitor and the Chrome and Firefox browsers.
 | Zacess High Contrast Light | Dark on light | The highest contrast on a light screen | `#000000` on `#ffffff` |
 | Zacess Deep Contrast Dark | Light on dark | Low vision: deep, fully saturated colours on black | `#ffffff` on `#000000` |
 | Zacess Deep Contrast Light | Dark on light | Low vision: vivid deep colours on white | `#000000` on `#ffffff` |
+| Zacess Warm Dark | Light on dark | A gentler dark theme: cream and earthy colours on warm brown, 4.5:1 floor | `#e5d5b6` on `#211b17` |
+| Zacess Warm Light | Dark on light | A gentler light theme: dark brown and earthy colours on warm paper, 4.5:1 floor | `#342410` on `#f4ead5` |
 
 ![Zacess Light: TypeScript, Python, Rust and HTML lines in dark colours on white, keywords in bold and comments in italics](previews/zacess-light.svg)
 
@@ -55,10 +59,14 @@ btop system monitor and the Chrome and Firefox browsers.
 
 ![Zacess Deep Contrast Light: the same code in black and vivid blue, magenta, brown, teal and red on white](previews/zacess-deep-contrast-light.svg)
 
+![Zacess Warm Dark: the same code in cream and soft amber, rust, olive, teal and rose on warm dark brown](previews/zacess-warm-dark.svg)
+
+![Zacess Warm Light: the same code in dark brown and deep rust, olive, teal and plum on warm paper](previews/zacess-warm-light.svg)
+
 ## Colour is never the only signal
 
 - Keywords, control flow and markup tags are **bold**.
-- Comments and parameters are *italic*. Comments are never dimmed below 7:1.
+- Comments and parameters are *italic*. Comments are never dimmed below the theme's floor.
 - Invalid code is underlined.
 - Tokens that often sit side by side, such as strings and numbers or added and removed lines, differ
   in lightness or font style and not only in hue. Each pair is checked under simulated protanopia,
@@ -67,12 +75,14 @@ btop system monitor and the Chrome and Firefox browsers.
 ## Accessibility
 
 - **Selection:** selected text is a bold block in a colour from each theme's own palette, with every
-  selected character at 7:1 or more wherever an editor or terminal lets a theme set it.
+  selected character at 7:1 or more (4.5:1 in the Warm pair) wherever an editor or terminal lets a
+  theme set it.
 - **Where you are:** the cursor, the current line, find matches, the word under the cursor, a matched
   bracket and changed lines each have their own colour. The current find match is filled while the
   other marks are outlined, so none of them hides a character.
-- **Contrast:** every text and syntax colour is 7:1 or more on the background. The full summary and
-  the floors CI enforces are in [docs/contrast.md](docs/contrast.md).
+- **Contrast:** every text and syntax colour is 7:1 or more on the background. Zacess Warm Dark and
+  Zacess Warm Light are the gentler pair with a 4.5:1 floor instead. Every other check applies to
+  them unchanged. The full summary and the floors CI enforces are in [docs/contrast.md](docs/contrast.md).
 
 [ACCESSIBILITY.md](ACCESSIBILITY.md) lists every token, every measurement and what each editor can draw.
 Every colour of every theme is in [docs/palette.md](docs/palette.md).
@@ -83,7 +93,7 @@ Every colour of every theme is in [docs/palette.md](docs/palette.md).
 | --- | --- | --- |
 | VS Code | Search **Zacess Themes** in Extensions or run `code --install-extension zacess.zacess-themes`. Editors built on VS Code use [Open VSX](https://open-vsx.org/extension/zacess/zacess-themes) | [editors/vscode](editors/vscode/README.md) |
 | JetBrains IDEs | **Settings**, **Plugins**, **Marketplace**, search **Zacess Themes** (IntelliJ Platform 2025.3 or later) | [editors/jetbrains](editors/jetbrains/README.md) |
-| Obsidian | **Settings**, **Appearance**, **Themes**, **Manage**, search **Zacess**. Four themes, one per pair of looks, each following light and dark mode | [editors/obsidian](editors/obsidian/README.md) |
+| Obsidian | **Settings**, **Appearance**, **Themes**, **Manage**, search **Zacess**. Five themes, one per pair of looks, each following light and dark mode | [editors/obsidian](editors/obsidian/README.md) |
 | Neovim | `{ "zacesshq/zacess.nvim", lazy = false, priority = 1000 }` with lazy.nvim | [editors/neovim](editors/neovim/README.md) |
 | Zed | **zed: extensions**, search **Zacess Themes** | [editors/zed](editors/zed/README.md) |
 | Sublime Text | Copy the `.sublime-color-scheme` files into `Packages/User` | [editors/sublime](editors/sublime/README.md) |
@@ -99,7 +109,7 @@ offline install. [docs/recommended-settings.md](docs/recommended-settings.md) ha
 switch with the system light and dark setting and keep terminal text readable.
 
 The terminal installer works out which terminal it runs in (Terminal.app, iTerm2, Ghostty, kitty,
-WezTerm, Warp, Alacritty or Windows Terminal), copies all eight themes to the folder that terminal
+WezTerm, Warp, Alacritty or Windows Terminal), copies all ten themes to the folder that terminal
 reads and prints the one step that turns one on. It never edits a configuration file. For btop, add
 `-s -- btop` after `bash`.
 
@@ -113,7 +123,7 @@ In Windows Terminal, run this in PowerShell instead. For btop4win, run `$env:ZAC
 irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 | iex
 ```
 
-All eight themes are also in the [iTerm2 Color Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
+The first eight themes are also in the [iTerm2 Color Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes)
 collection, which Ghostty, WezTerm and Windows Terminal theme lists draw from. To make shell syntax
 highlighting follow the active theme, see [docs/shell-colours.md](docs/shell-colours.md).
 

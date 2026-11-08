@@ -16,7 +16,7 @@
       "required": ["textContrast", "findMatchContrast", "selectionContrast", "nonTextContrast", "ansiFloor", "toneStep", "deficiencyDistance", "selectionDistance", "signalContrast", "signalTextContrast"],
       "additionalProperties": false,
       "properties": {
-        "textContrast": { "type": "number", "minimum": 7, "description": "WCAG contrast for every text and syntax colour on every surface text sits on." },
+        "textContrast": { "type": "number", "minimum": 7, "description": "WCAG contrast for every text and syntax colour on every surface text sits on, unless a theme sets its own textContrast." },
         "findMatchContrast": { "type": "number", "minimum": 4.5, "description": "WCAG contrast for syntax colours over a find match, which also carries a border." },
         "selectionContrast": { "type": "number", "minimum": 4.5, "description": "WCAG contrast for syntax colours, muted text and links over ui.selection, the selection an editor draws under text that keeps its own colours. The plain text colour keeps textContrast over it." },
         "nonTextContrast": { "type": "number", "minimum": 3, "description": "WCAG contrast for borders, indent guides and whitespace markers." },
@@ -73,8 +73,9 @@
         "name": { "type": "string" },
         "appearance": { "enum": ["light", "dark"] },
         "vscodeUiTheme": { "enum": ["vs", "vs-dark", "hc-black", "hc-light"] },
-        "readerProfile": { "enum": ["dark_on_light", "light_on_dark", "yellow_on_black", "black_on_cream"] },
+        "readerProfile": { "enum": ["dark_on_light", "light_on_dark", "yellow_on_black", "black_on_cream", "warm_dark", "warm_light"] },
         "description": { "type": "string" },
+        "textContrast": { "type": "number", "minimum": 4.5, "description": "Optional. This theme's own floor for every text and syntax colour, in place of rules.textContrast, for a gentler theme that keeps WCAG AA (4.5:1) instead of AAA. Every check that holds a colour to the text floor uses it for this theme; every other floor stays as the rules set it. Defaults to rules.textContrast." },
         "wordOutline": { "enum": ["solid", "dashed"], "description": "Optional. How the word under the cursor is marked where the editor offers a line style: dashed draws a dashed underline in Neovim and a dotted one in the JetBrains IDEs, so it never relies on colour alone to stand apart from the outlined find matches. Defaults to solid." },
         "ui": {
           "type": "object",

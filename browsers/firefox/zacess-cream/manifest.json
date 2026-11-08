@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Zacess Cream",
-  "version": "0.12.1",
+  "version": "1.0.0",
   "description": "Black on cream for dyslexia.",
   "homepage_url": "https://github.com/zacesshq/themes",
   "browser_specific_settings": {

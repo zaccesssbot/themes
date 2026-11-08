@@ -1,8 +1,8 @@
 {
   "name": "zacess-themes",
   "displayName": "Zacess Themes",
-  "description": "Eight high contrast code themes matching the Zacess reader: Light, Dark, Yellow on Black for low vision, Cream for dyslexia and four maximum contrast themes, High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light. Every text and syntax colour keeps 7:1 contrast on the background and selections stand out in a colour of their own.",
-  "version": "0.12.1",
+  "description": "Ten accessible code themes: four matching the Zacess reader (Light, Dark, Yellow on Black for low vision and Cream for dyslexia), four maximum contrast themes (High Contrast Dark, High Contrast Light, Deep Contrast Dark and Deep Contrast Light) and the gentler Warm Dark and Warm Light. Every text and syntax colour keeps 7:1 contrast on the background (4.5:1 in the Warm pair) and selections stand out in a colour of their own.",
+  "version": "1.0.0",
   "publisher": "zacess",
   "license": "MIT",
   "icon": "icon.png",
@@ -35,7 +35,8 @@
     "AAA",
     "colour blind",
     "yellow on black",
-    "cream"
+    "cream",
+    "warm"
   ],
   "contributes": {
     "themes": [
@@ -78,6 +79,16 @@
         "label": "Zacess Deep Contrast Light",
         "uiTheme": "hc-light",
         "path": "./themes/zacess-deep-contrast-light-color-theme.json"
+      },
+      {
+        "label": "Zacess Warm Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zacess-warm-dark-color-theme.json"
+      },
+      {
+        "label": "Zacess Warm Light",
+        "uiTheme": "vs",
+        "path": "./themes/zacess-warm-light-color-theme.json"
       }
     ]
   }

@@ -57,7 +57,7 @@ terminal also goes into `install.sh`.
 ## Project conventions
 
 - **Contrast is a requirement.** Every text and syntax colour keeps 7:1 on every surface it is drawn
-  on, apart from the floors the README lists for find matches, the current line and the background
+  on (4.5:1 in Zacess Warm Dark and Zacess Warm Light, which set their own `textContrast`), apart from the floors the README lists for find matches, the current line and the background
   only selection. A change that lowers a ratio below a floor cannot merge.
 - **Where you are stays visible.** The cursor, the current line, find matches, word and bracket
   outlines and diff marks each have their own floor. `npm run check` reads every one back out of
@@ -84,7 +84,7 @@ GitHub release and updates the read-only copies, so every tag and release is sig
 
 1. Bump `version` in `palette/zacess.json`, `package.json` and
    `editors/jetbrains/gradle.properties`, then run `npm run build` and `npm run preview` so every
-   generated manifest follows. If an Obsidian colour changed, redraw the four Obsidian screenshots
+   generated manifest follows. If an Obsidian colour changed, redraw the five Obsidian screenshots
    with `npm ci` and `node render.mjs` in `scripts/screenshot` (Playwright, pinned there). Move the changelog's `Unreleased` entries into a section for the
    version, add a matching section to `editors/vscode/CHANGELOG.md` and merge that through a pull
    request.
@@ -112,10 +112,10 @@ GitHub release and updates the read-only copies, so every tag and release is sig
 
    The script downloads the artifact and creates the GitHub release with this version's changelog
    section as the notes. It then updates the read-only copies with a signed commit, a signed
-   annotated tag and a release in each: the four Obsidian copies, one per folder under
+   annotated tag and a release in each: the five Obsidian copies, one per folder under
    `editors/obsidian/` ([zacesshq/obsidian-theme](https://github.com/zacesshq/obsidian-theme) for
-   Zacess, then `obsidian-theme-cream`, `obsidian-theme-high-contrast` and
-   `obsidian-theme-deep-contrast`) plus [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim).
+   Zacess, then `obsidian-theme-cream`, `obsidian-theme-high-contrast`,
+   `obsidian-theme-deep-contrast` and `obsidian-theme-warm`) plus [zacesshq/zacess.nvim](https://github.com/zacesshq/zacess.nvim).
    An Obsidian copy takes its `manifest.json`, `theme.css`, `README.md`, `screenshot.png` and the
    licence from the tag, so each is edited here and never in the copy. The Obsidian tag is the bare
    version, such as `0.2.1`. Its release carries `manifest.json` and `theme.css` because

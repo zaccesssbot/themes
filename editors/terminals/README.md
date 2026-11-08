@@ -1,23 +1,24 @@
 # Zacess for terminals
 
-The eight Zacess themes for Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and
+The ten Zacess themes for Terminal.app, iTerm2, Ghostty, kitty, WezTerm, Warp, Alacritty and
 Windows Terminal. In the dark
 themes every one of the 16 terminal colours keeps at least 7:1 contrast on the background, ANSI
 black included: in Zacess Dark, Zacess Yellow on Black and Zacess High Contrast Dark it is a mid
 grey, so text a program prints in black stays readable. Zacess Deep Contrast Dark keeps ANSI black true black for use as a
 background. The light themes keep their coloured slots vivid at the 4.5:1 terminal allowance, since
 at 7:1 they would read as black, while their black, white and grey slots keep 7:1.
-[ACCESSIBILITY.md](../../ACCESSIBILITY.md#terminal-colours) explains both.
+Zacess Warm Dark and Zacess Warm Light are the gentler pair: every one of their 16 colours keeps
+4.5:1, the floor the Warm pair is held to.
+[ACCESSIBILITY.md](../../ACCESSIBILITY.md#terminal-colours) explains all three.
 
 > [!NOTE]
-> Zacess Light, Zacess Dark, Zacess Yellow on Black and Zacess Cream are also in the
+> The Zacess themes are also in the
 > [iTerm2 Color Schemes](https://github.com/mbadolato/iTerm2-Color-Schemes) collection, which ships
-> ports for dozens more terminals. The two high contrast themes have been submitted to it. The two Deep Contrast
-> themes are not in it yet.
+> ports for dozens more terminals.
 > Terminals that bundle that collection, such as Ghostty and WezTerm, list them by name from their
 > next update.
 
-The quickest route is the installer, run in the terminal you want to theme. It copies all eight
+The quickest route is the installer, run in the terminal you want to theme. It copies all ten
 themes to the folder that terminal reads and prints the step that turns one on, without editing any
 configuration file:
 
@@ -35,7 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/zacesshq/themes/main/install.sh | b
 | Warp | [`warp/`](warp/) | Copy the files to `~/.warp/themes/` on macOS or `~/.local/share/warp-terminal/themes/` on Linux, then choose one under **Settings**, **Appearance**, **Themes** |
 | Ghostty | [`ghostty/`](ghostty/) | Copy the files to `~/.config/ghostty/themes/` and add `theme = light:zacess-light,dark:zacess-dark` to the config to follow the system appearance |
 | btop | [`btop/`](btop/) | Run the installer with `bash -s -- btop`, which copies the files to `~/.config/btop/themes/`. Then open btop, press `Esc`, choose **Options** and set **Color theme**. On Windows, run `$env:ZACESS_THEMES_APP = 'btop'; irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 \| iex` in PowerShell, which copies them to the `themes` folder btop4win reads beside its exe |
-| Windows Terminal | [`windows-terminal/zacess.json`](windows-terminal/zacess.json) | Run `irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 \| iex` in PowerShell, which copies the file to the `Fragments\Zacess` folder Windows Terminal reads. You can also add the eight objects to the `schemes` list in the settings file yourself. Then choose **Color scheme** under a profile's **Appearance** |
+| Windows Terminal | [`windows-terminal/zacess.json`](windows-terminal/zacess.json) | Run `irm https://raw.githubusercontent.com/zacesshq/themes/main/install.ps1 \| iex` in PowerShell, which copies the file to the `Fragments\Zacess` folder Windows Terminal reads. You can also add the ten objects to the `schemes` list in the settings file yourself. Then choose **Color scheme** under a profile's **Appearance** |
 
 btop is a system monitor, not a terminal, but it draws in the terminal and takes the same
 colours. Every btop text colour is the terminal text, the muted text or one of the 16 terminal
@@ -44,7 +45,7 @@ own colour as well as their title, so they are told apart by more than colour.
 
 Every port sets the cursor and, where the terminal allows it, the character under the cursor and
 the selected text colour from the palette. Terminal.app has no selected text colour, so its
-selection is the background only selection with the terminal text at 7:1 over it. Warp's themes
+selection is the background only selection with the terminal text at the text floor over it. Warp's themes
 set no cursor or selection colour, so Warp draws its own.
 
 The full colour table with every measured ratio is in

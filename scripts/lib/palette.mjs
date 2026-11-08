@@ -85,6 +85,11 @@ export const ANSI_NAMES = [
 
 export const styleOf = (palette, token) => palette.tokens[token]?.style ?? [];
 
+// the floors a theme is held to: the palette's rules, with the text floor replaced by the theme's
+// own textContrast when it sets one, so a gentler theme keeps WCAG AA without lowering the AAA
+// floor the others are held to
+export const rulesFor = (palette, theme) => ({ ...palette.rules, textContrast: theme.textContrast ?? palette.rules.textContrast });
+
 // a theme may give its terminal a default text colour and cursor of its own, so program output
 // in the ANSI colours stays distinct from normal text; otherwise the interface colours are used
 export const terminalText = (theme) => ({
@@ -238,13 +243,14 @@ export const XCODE_KEYS = [
   "DVTSourceTextSelectionColor", "DVTSourceTextSyntaxColors", "DVTSourceTextSyntaxFonts",
 ];
 
-// the four Obsidian themes: a community theme carries one light and one dark look, so the eight
-// looks ship as four pairs, each published to its own read-only copy for the theme directory
+// the five Obsidian themes: a community theme carries one light and one dark look, so the ten
+// looks ship as five pairs, each published to its own read-only copy for the theme directory
 export const OBSIDIAN_THEMES = [
   { id: "zacess", name: "Zacess", repo: "obsidian-theme", light: "light", dark: "dark" },
   { id: "zacess-cream", name: "Zacess Cream", repo: "obsidian-theme-cream", light: "cream", dark: "yellow-on-black" },
   { id: "zacess-high-contrast", name: "Zacess High Contrast", repo: "obsidian-theme-high-contrast", light: "high-contrast-light", dark: "high-contrast-dark" },
   { id: "zacess-deep-contrast", name: "Zacess Deep Contrast", repo: "obsidian-theme-deep-contrast", light: "deep-contrast-light", dark: "deep-contrast-dark" },
+  { id: "zacess-warm", name: "Zacess Warm", repo: "obsidian-theme-warm", light: "warm-light", dark: "warm-dark" },
 ];
 export const obsidianThemeOf = (themeId) => OBSIDIAN_THEMES.find((t) => t.light === themeId || t.dark === themeId);
 
