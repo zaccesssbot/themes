@@ -3,7 +3,9 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
+      interval: cron
+      cronjob: "0 18 1,15 * *"
+      timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
     commit-message:
@@ -16,26 +18,46 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: weekly
+      interval: cron
+      cronjob: "0 18 1,15 * *"
+      timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
     commit-message:
       prefix: chore
+    groups:
+      npm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
 
   # the Obsidian screenshot tool pins Playwright
   - package-ecosystem: npm
     directory: /scripts/screenshot
     schedule:
-      interval: weekly
+      interval: cron
+      cronjob: "0 18 1,15 * *"
+      timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
     commit-message:
       prefix: chore
+    groups:
+      npm-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
 
   - package-ecosystem: gradle
     directory: /editors/jetbrains
     schedule:
-      interval: weekly
+      interval: cron
+      cronjob: "0 18 1,15 * *"
+      timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
     commit-message:
