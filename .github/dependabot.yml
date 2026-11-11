@@ -3,8 +3,9 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: cron
-      cronjob: "0 18 1,15 * *"
+      interval: weekly
+      day: sunday
+      time: "18:00"
       timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
@@ -18,8 +19,9 @@ updates:
   - package-ecosystem: npm
     directory: /
     schedule:
-      interval: cron
-      cronjob: "0 18 1,15 * *"
+      interval: weekly
+      day: sunday
+      time: "18:00"
       timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
@@ -37,8 +39,9 @@ updates:
   - package-ecosystem: npm
     directory: /scripts/screenshot
     schedule:
-      interval: cron
-      cronjob: "0 18 1,15 * *"
+      interval: weekly
+      day: sunday
+      time: "18:00"
       timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
@@ -55,8 +58,9 @@ updates:
   - package-ecosystem: gradle
     directory: /editors/jetbrains
     schedule:
-      interval: cron
-      cronjob: "0 18 1,15 * *"
+      interval: weekly
+      day: sunday
+      time: "18:00"
       timezone: Europe/London
     open-pull-requests-limit: 3
     labels: ["dependencies"]
